@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.vivt.TodoREST.domain.User;
 import ru.vivt.TodoREST.service.UserService;
 
@@ -28,20 +29,12 @@ public class HelloController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public @ResponseBody User addUser(User user) {
 
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }
-        if (!userService.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
+        if (!userService.saveUser(user)){
+            throw new IllegalStateException("Can't not save user");
         }
 
-        return "redirect:/";
+        return user;
     }
 }

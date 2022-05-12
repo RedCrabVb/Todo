@@ -12,3 +12,4 @@ web-build/
 ./*/.git
 # macOS
 .DS_Store
+.idea/
