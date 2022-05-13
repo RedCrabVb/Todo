@@ -1,7 +1,8 @@
-export const homeName = "Главная"
-export const noteName = "Заметки"
-export const taskName = "Задачи"
-export const logInName = "Войти"
-export const registrationName = "Регестрация"
-export const mailResetName = "Сброс почты"
-export const tabsName = "Tabs"
+export const homeName = "Главная",
+    noteName = "Заметки",
+    taskName = "Задачи",
+    logInName = "Войти",
+    registrationName = "Регестрация",
+    mailResetName = "Сброс почты",
+    creatorTestName = "Создать тест",
+    tabsName = "Tabs"

@@ -58,13 +58,12 @@ export default function Registration(props) {
                 console.log(data);
                 if (typeof data !== 'undefiend' && !('error' in data)) {
                     AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
-                    // AsyncStorage.setItem(USER, JSON.stringify(data))
+                    props.navigation.popToTop(homeName)
                 } else {
                     Alert.alert("Ошибки при подключение к серверу " + data.status)
                 }
             })
             .catch((error) => alert(error))
-            .finally(() => props.navigation.popToTop(homeName))
     }
 
     return (

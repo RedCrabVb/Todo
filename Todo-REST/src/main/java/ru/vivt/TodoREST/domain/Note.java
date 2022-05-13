@@ -10,6 +10,7 @@ public class Note {
     private Long id;
     private String head;
     private String body;
+    private Long idUser;
 
     public Note() {}
 
@@ -41,5 +42,13 @@ public class Note {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

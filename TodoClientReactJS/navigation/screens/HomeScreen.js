@@ -26,16 +26,6 @@ export default function HomeScreen({navigation}) {
                         }
                     });
                 }
-                // else {
-                //     AsyncStorage.getItem(USER).then(data => {
-                //         if (data != null || ('token' in data)) {
-                //             isAuthorized(true)
-                //             setUser(JSON.parse(data))
-                //         } else {
-                //             isAuthorized(false)
-                //         }
-                //     });
-                // }
             });
             return unsubscribe;
         }
