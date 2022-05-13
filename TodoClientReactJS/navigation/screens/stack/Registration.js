@@ -5,8 +5,9 @@ import {CustomInput} from "../../../src/component/CustomInput"
 import {CustomButton} from "../../../src/component/CutomButton"
 import {useState} from "react"
 import {USER} from "../../../src/utils/Storage";
-import {homeName, registrationName} from "../../../src/utils/ScreenNames";
+import {homeName, logInName, registrationName} from "../../../src/utils/ScreenNames";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {registration} from "../../../src/utils/Api";
 
 export default function Registration(props) {
 
@@ -46,18 +47,17 @@ export default function Registration(props) {
     }
 
     const handlerAut = () => {
-        const apiReg = `${registrationName}?login=${login}&email=${mail}&password=${password}`
+        let base64 = require('base-64')
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({token: user.token})
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `login=${login}&email=${mail}&password=${password}`
         };
-        fetch(apiReg, requestOptions)
-            .then((response) => { console.log(response); response.json() })
+        fetch(registration, requestOptions)
             .then((data) => {
                 console.log(data);
-                if (!('error' in data)) {
-                    AsyncStorage.setItem(USER, `${mail}:${password}`)
+                if (typeof data !== 'undefiend' && !('error' in data)) {
+                    AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
                     // AsyncStorage.setItem(USER, JSON.stringify(data))
                 } else {
                     Alert.alert("Ошибки при подключение к серверу " + data.status)
@@ -68,43 +68,43 @@ export default function Registration(props) {
     }
 
     return (
-        <View style={styles.container}>
-            <CustomInput
-                label={'Логин'}
-                value={login}
-                onChangeText={setLogin}
-                iconName={'people'}
-                error={errors.login}
-                placeholder="Ваш логин"/>
+            <View style={styles.container}>
+                <CustomInput
+                    label={'Логин'}
+                    value={login}
+                    onChangeText={setLogin}
+                    iconName={'people'}
+                    error={errors.login}
+                    placeholder="Ваш логин"/>
 
-            <CustomInput
-                label={'Почта'}
-                value={mail}
-                onChangeText={setMail}
-                iconName={'mail'}
-                error={errors.email}
-                placeholder="Ваш почта"/>
-            <CustomInput
-                label={'Пароль'}
-                value={password}
-                onChangeText={setPassword}
-                iconName={'lock-closed'}
-                password={true}
-                error={errors.password}
-                placeholder="Ваш пароль"/>
+                <CustomInput
+                    label={'Почта'}
+                    value={mail}
+                    onChangeText={setMail}
+                    iconName={'mail'}
+                    error={errors.email}
+                    placeholder="Ваш почта"/>
+                <CustomInput
+                    label={'Пароль'}
+                    value={password}
+                    onChangeText={setPassword}
+                    iconName={'lock-closed'}
+                    password={true}
+                    error={errors.password}
+                    placeholder="Ваш пароль"/>
 
-            <CustomInput
-                value={password2}
-                onChangeText={setPassword2}
-                iconName={'lock-closed'}
-                password={true}
-                error={errors.password2}
-                placeholder="Повторите пароль ещё раз"/>
+                <CustomInput
+                    value={password2}
+                    onChangeText={setPassword2}
+                    iconName={'lock-closed'}
+                    password={true}
+                    error={errors.password2}
+                    placeholder="Повторите пароль ещё раз"/>
 
-            <View style={{paddingTop: 20}}>
-                <CustomButton onPress={validate} text="Регистрация"></CustomButton>
+                <View style={{paddingTop: 20}}>
+                    <CustomButton onPress={validate} text="Регистрация"></CustomButton>
+                </View>
             </View>
-        </View>
     );
 }
 

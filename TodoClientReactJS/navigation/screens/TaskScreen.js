@@ -21,8 +21,8 @@ export default function TaskScreen({navigation}) {
                 AsyncStorage.getItem(USER).then(data => {
                     if (data != null) {
                         const user = (JSON.parse(data))
-                        if (user.username != "") {
-                            setLogin(user.username);
+                        if (user.login != "") {
+                            setLogin(user.login);
                             setMail2(user.email);
                         } else {
                             setLogin("Нет данных")

@@ -8,6 +8,7 @@ import ru.vivt.TodoREST.repository.NoteRepository;
 
 @RestController
 @RequestMapping(path = "note")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class NoteController {
     @Autowired
     private NoteRepository noteRepository;

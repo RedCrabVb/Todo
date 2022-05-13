@@ -10,7 +10,7 @@ import {authentication} from "../../../src/utils/Api";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function LogIn(props) {
-    const [mail, setMail] = useState("")
+    const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = React.useState({})
 
@@ -19,8 +19,8 @@ export default function LogIn(props) {
 
         Keyboard.dismiss()
         let isValid = true
-        if (mail.length < 4) {
-            handleError('Почта должна быть длиннее 4 символов', 'email')
+        if (login.length < 4) {
+            handleError('Логин должен быть длиннее 4 символов', 'email')
             isValid = false
         } else {
             handleError(null, 'email')
@@ -41,25 +41,27 @@ export default function LogIn(props) {
     }
 
     const handlerAut = () => {
-        console.log("handler aut")
-        const apiAut = `${authentication}?email=${mail}&password=${password}`;
+        let base64 = require('base-64')
+        let loginAndPassword = 'Basic ' + base64.encode(login + ":" + password)
+
         const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-        };
-        fetch(apiAut, requestOptions)
-            .then((response) => { console.log("api auth"); response.json()})
+            method: 'GET',
+            headers: {
+                'Authorization': loginAndPassword
+            }
+        }
+        fetch(authentication, requestOptions)
             .then((data) => {
                 console.log(data)
                 if ('error' in data) {
                     Alert.alert("Ошибка", "Ошибка при авторизации, попробуте:\n1) изменить данные \n2) сбросить кэш \n3) подключиться позже \n4) обратиться к администратору ")
                     Vibration.vibrate()
                 } else {
-                    AsyncStorage.setItem(USER, `${mail}:${password}`)
+                    AsyncStorage.setItem(USER, loginAndPassword)
                     props.navigation.popToTop(homeName)
                 }
             })
-            .catch((error) => Alert.alert(error.status))
+            .catch((error) => {console.log(error); console.log(error.code); Alert.alert("Ошибка", error.toString())})
     }
 
 
@@ -67,8 +69,8 @@ export default function LogIn(props) {
         <View style={styles.container}>
             <CustomInput
                 label={'Почта'}
-                value={mail}
-                onChangeText={setMail}
+                value={login}
+                onChangeText={setLogin}
                 iconName={'mail'}
                 error={errors.email}
                 placeholder="Ваш почта"/>
