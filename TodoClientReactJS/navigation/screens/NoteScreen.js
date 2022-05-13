@@ -5,7 +5,7 @@ import {allNote} from '../../src/utils/Api'
 import {Note} from '../../src/component/Note'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {USER} from "../../src/utils/Storage";
-import {creatorTestName} from "../../src/utils/ScreenNames";
+import {creatorNoteName} from "../../src/utils/ScreenNames";
 import {CustomButton} from "../../src/component/CutomButton";
 
 export default function NoteScreen({navigation}) {
@@ -37,10 +37,10 @@ export default function NoteScreen({navigation}) {
     )
 
     return (
-        <View>
-            <CustomButton text="Создать заметку" onPress={() => navigation.navigate(creatorTestName)}/>
+        <View style={{flex: 1}}>
+            <CustomButton text="Создать заметку" onPress={() => navigation.navigate(creatorNoteName)}/>
             <Text>Заметки</Text>
-            <ScrollView style={{padding: '0%'}}>
+            <ScrollView style={{padding: '5%'}}>
                 {noteAll.map(note => <Note note={note} key={note.id} navigation={navigation} />)}
             </ScrollView>
         </View>

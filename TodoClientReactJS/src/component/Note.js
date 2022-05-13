@@ -1,15 +1,13 @@
 import React from 'react'
 import {Text, View, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
+import {editNoteName} from "../utils/ScreenNames";
 
-export const Note = ({onPress = () => {}, note, navigation, disabled = false}) => {
+export const Note = ({note, navigation, disabled = false}) => {
 
     return (
-        <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={onPress} style={disabled ? styles.containerDisabled : styles.container}>
+        <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={() => navigation.navigate(editNoteName, {note: note})} style={disabled ? styles.containerDisabled : styles.container} >
             <Text style={styles.text}>
                 {note.head}
-            </Text>
-            <Text style={styles.text}>
-                {note.body}
             </Text>
         </TouchableOpacity>
     );

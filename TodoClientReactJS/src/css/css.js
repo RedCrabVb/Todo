@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 40,
         maxWidth: 600,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     textBig: {
         fontSize: 26,

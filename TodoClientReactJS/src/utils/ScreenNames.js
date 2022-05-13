@@ -4,5 +4,6 @@ export const homeName = "Главная",
     logInName = "Войти",
     registrationName = "Регестрация",
     mailResetName = "Сброс почты",
-    creatorTestName = "Создать тест",
+    creatorNoteName = "Создать заметку",
+    editNoteName = "Редактировать заметку",
     tabsName = "Tabs"

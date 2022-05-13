@@ -2,20 +2,19 @@ import React, {useState} from 'react'
 import {TextInput, View, Text, StyleSheet} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-export const CustomInput = ({
-                   label,
-                   iconName = 'home',
-                   error,
-                   password = false,
-                   onFocus = () => {},
-                   ...props
-               }) => {
-    const [hidePassword, setHidePassword] = useState(password)
+export const CustomTextArea = ({
+                                label,
+                                error,
+                                onChangeTextEvent,
+                                multiline = false,
+                                onFocus = () => {},
+                                ...props
+                            }) => {
     const [isFocused, setIsFocused] = useState(false)
-
+    const [text, setText] = useState({text: '', height: 0})
     return (
-        <View >
-            <Text style={style.label}>{label}</Text>
+        <View style={[{height: Math.max(60, text.height + 10), margin: 20}]}>
+            <Text style={[style.label]}>{label}</Text>
             <View
                 style={[
                     style.inputContainer,
@@ -27,29 +26,23 @@ export const CustomInput = ({
                                 : 'white',
                         alignItems: 'center',
                     },
+                    {margin: 20, height: Math.max(60, text.height + 10)}
                 ]}>
-                <Icon
-                    name={iconName}
-                    style={{color: '#7978B5', fontSize: 22, marginRight: 10}}
-                />
                 <TextInput
                     autoCorrect={false}
                     onFocus={() => {
                         onFocus();
                         setIsFocused(true);
                     }}
+                    multiline={multiline}
                     onBlur={() => setIsFocused(false)}
-                    secureTextEntry={hidePassword}
-                    style={{color: '#7978B5', flex: 1}}
+                    onContentSizeChange={(event) => {
+                        setText({text: '', height: event.nativeEvent.contentSize.height })
+                    }}
+                    style={[{color: '#7978B5', flex: 1}, {margin: 10, height: Math.max(30, text.height)}]}
+                    onChange={onChangeTextEvent}
                     {...props}
                 />
-                {password && (
-                    <Icon
-                        onPress={() => setHidePassword(!hidePassword)}
-                        name={hidePassword ? 'eye-outline' : 'eye-off-outline'}
-                        style={{color: '#7978B5', fontSize: 22}}
-                    />
-                )}
             </View>
             {error && (
                 <Text style={{marginTop: 7, color: 'red', fontSize: 12}}>
