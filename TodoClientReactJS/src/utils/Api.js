@@ -1,4 +1,4 @@
-const server = "http://localhost:8080/"
+export const server = "http://localhost:8080/"
 
 export const addNote = `${server}note/add`
 export const registration = `${server}registration`;//post

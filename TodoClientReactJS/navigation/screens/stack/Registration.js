@@ -50,7 +50,9 @@ export default function Registration(props) {
         let base64 = require('base-64')
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             body: `login=${login}&email=${mail}&password=${password}`
         };
         fetch(registration, requestOptions)
@@ -67,43 +69,43 @@ export default function Registration(props) {
     }
 
     return (
-            <View style={styles.container}>
-                <CustomInput
-                    label={'Логин'}
-                    value={login}
-                    onChangeText={setLogin}
-                    iconName={'people'}
-                    error={errors.login}
-                    placeholder="Ваш логин"/>
+        <View style={styles.container}>
+            <CustomInput
+                label={'Логин'}
+                value={login}
+                onChangeText={setLogin}
+                iconName={'people'}
+                error={errors.login}
+                placeholder="Ваш логин"/>
 
-                <CustomInput
-                    label={'Почта'}
-                    value={mail}
-                    onChangeText={setMail}
-                    iconName={'mail'}
-                    error={errors.email}
-                    placeholder="Ваш почта"/>
-                <CustomInput
-                    label={'Пароль'}
-                    value={password}
-                    onChangeText={setPassword}
-                    iconName={'lock-closed'}
-                    password={true}
-                    error={errors.password}
-                    placeholder="Ваш пароль"/>
+            <CustomInput
+                label={'Почта'}
+                value={mail}
+                onChangeText={setMail}
+                iconName={'mail'}
+                error={errors.email}
+                placeholder="Ваш почта"/>
+            <CustomInput
+                label={'Пароль'}
+                value={password}
+                onChangeText={setPassword}
+                iconName={'lock-closed'}
+                password={true}
+                error={errors.password}
+                placeholder="Ваш пароль"/>
 
-                <CustomInput
-                    value={password2}
-                    onChangeText={setPassword2}
-                    iconName={'lock-closed'}
-                    password={true}
-                    error={errors.password2}
-                    placeholder="Повторите пароль ещё раз"/>
+            <CustomInput
+                value={password2}
+                onChangeText={setPassword2}
+                iconName={'lock-closed'}
+                password={true}
+                error={errors.password2}
+                placeholder="Повторите пароль ещё раз"/>
 
-                <View style={{paddingTop: 20}}>
-                    <CustomButton onPress={validate} text="Регистрация"></CustomButton>
-                </View>
+            <View style={{paddingTop: 20}}>
+                <CustomButton onPress={validate} text="Регистрация"></CustomButton>
             </View>
+        </View>
     );
 }
 

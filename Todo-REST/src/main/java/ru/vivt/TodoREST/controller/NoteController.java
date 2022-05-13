@@ -31,8 +31,9 @@ public class NoteController {
         return noteRepository.findByIdUser(user.getId());
     }
 
-    @DeleteMapping
-    public Note deleteNote(Note note, Authentication authentication) {
+    @DeleteMapping("{id}")
+    public Note deleteNote(@PathVariable Long id, Authentication authentication) {
+        Note note = noteRepository.findById(id).orElseThrow();
         if (note.getIdUser().equals(userRepository.findByLogin(authentication.getName()).getId())) {
             noteRepository.delete(note);
         }

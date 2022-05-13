@@ -39,10 +39,10 @@ function MyBottomMenu() {
                     iconName = focused ? 'home' : 'home-outline';
 
                 } else if (rn === noteName) {
-                    iconName = focused ? 'game-controller' : 'game-controller-outline';
+                    iconName = focused ? 'md-book' : 'md-book-outline';
 
                 } else if (rn === taskName) {
-                    iconName = focused ? 'settings' : 'settings-outline';
+                    iconName = focused ? 'briefcase-sharp' : 'briefcase-outline';
                 }
 
                 // You can return any component that you like here!
