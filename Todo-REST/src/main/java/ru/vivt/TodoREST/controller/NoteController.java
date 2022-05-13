@@ -31,6 +31,14 @@ public class NoteController {
         return noteRepository.findByIdUser(user.getId());
     }
 
+    @DeleteMapping
+    public Note deleteNote(Note note, Authentication authentication) {
+        if (note.getIdUser().equals(userRepository.findByLogin(authentication.getName()).getId())) {
+            noteRepository.delete(note);
+        }
+        return note;
+    }
+
     @GetMapping("version")
     public String version() {
         return "1.1";

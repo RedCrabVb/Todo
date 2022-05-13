@@ -5,3 +5,4 @@ export const registration = `${server}registration`;//post
 export const authentication = `${server}hello`;//get
 export const version = `${server}note/version`
 export const allNote = `${server}note` //get
+export const deleteNote = `${server}note` //delete

@@ -16,7 +16,7 @@ import NoteScreen from './screens/NoteScreen';
 import LogIn from './screens/stack/LogIn';
 import Registration from './screens/stack/Registration';
 import TaskScreen from './screens/TaskScreen';
-import CreatorTest from "./screens/stack/CreatorTest";
+import CreatorTodo from "./screens/stack/CreatorTodo";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -64,8 +64,8 @@ function MainContainer() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Tabs">
                 <Tab.Screen name={logInName} component={LogIn}/>
-                <Tab.Screen name={creatorNoteName} component={CreatorTest}/>
-                <Tab.Screen name={editNoteName} component={CreatorTest}/>
+                <Tab.Screen name={creatorNoteName} component={CreatorTodo}/>
+                <Tab.Screen name={editNoteName} component={CreatorTodo}/>
                 <Tab.Screen name={registrationName} component={Registration}/>
                 <Stack.Screen name={tabsName} component={MyBottomMenu} options={{headerShown: false}} />
             </Stack.Navigator>
