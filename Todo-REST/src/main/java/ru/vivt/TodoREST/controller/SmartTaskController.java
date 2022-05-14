@@ -32,4 +32,13 @@ public class SmartTaskController {
         var user = userRepository.findByLogin(authentication.getName());
         return smartTaskRepository.findByIdUser(user.getId());
     }
+
+    @DeleteMapping("{id}")
+    public SmartTask deleteTask(@PathVariable Long id, Authentication authentication) {
+        SmartTask task = smartTaskRepository.findById(id).orElseThrow();
+        if (task.getIdUser().equals(userRepository.findByLogin(authentication.getName()).getId())) {
+            smartTaskRepository.delete(task);
+        }
+        return task;
+    }
 }

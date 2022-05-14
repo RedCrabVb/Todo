@@ -15,6 +15,10 @@ public class SmartTask {
     private String timeBound; //ограничения
     private Long idUser;
 
+    public SmartTask() {
+
+    }
+
     public SmartTask(Long id, String specific, String measurable, String achievable, String relevant, String timeBound, Long idUser) {
         this.id = id;
         this.specific = specific;

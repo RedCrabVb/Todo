@@ -9,12 +9,7 @@ import {USER} from "../../../src/utils/Storage";
 import {addNote, allNote, deleteNote as deleteNoteApi} from "../../../src/utils/Api";
 
 export default function CreatorTodo(params) {
-    // if ('note' in params) {
-    //     console.log('load note ' + JSON.stringify(params.note))
-    // }
-    console.log('load params ' + JSON.stringify(params.route.params))
     const note = (params.route.params || {note: undefined}).note || {id: -1, head: '', body: ''}
-    console.log("load note " + note)
 
     const [head, setHead] = useState(note.head)
     const [body, setBody] = useState(note.body)

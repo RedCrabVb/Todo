@@ -6,4 +6,6 @@ export const homeName = "Главная",
     mailResetName = "Сброс почты",
     creatorNoteName = "Создать заметку",
     editNoteName = "Редактировать заметку",
+    createSmartTaskName = "Создать SMART задачу",
+    editSmartTaskName = "Редактировать SMART задачу",
     tabsName = "Tabs"

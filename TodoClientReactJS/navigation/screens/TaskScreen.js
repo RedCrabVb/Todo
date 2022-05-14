@@ -1,42 +1,77 @@
 import * as React from 'react'
-import {View, Text, Vibration} from 'react-native'
+import {View, Text, Vibration, ScrollView} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {styles} from "../../src/css/css"
 import {useEffect, useState} from "react"
 import {USER} from "../../src/utils/Storage"
+import {createSmartTaskName, creatorNoteName} from "../../src/utils/ScreenNames";
+import {CustomButton} from "../../src/component/CutomButton";
+import {allNote, allSmartTask} from "../../src/utils/Api";
+import {Note} from "../../src/component/Note";
+import {SmartTask} from "../../src/component/SmartTask";
 
 export default function TaskScreen({navigation}) {
     const [login, setLogin] = useState("")
     const [mail2, setMail2] = useState("")
+    const [taskAll, setAllTask] = useState([])
 
-    React.useEffect(() => {
+    // React.useEffect(() => {
+    //         const unsubscribe = navigation.addListener('focus', () => {
+    //             AsyncStorage.getItem(USER).then(data => {
+    //                 if (data != null) {
+    //                     const user = (JSON.parse(data))
+    //                     if (user.login != "") {
+    //                         setLogin(user.login);
+    //                         setMail2(user.email);
+    //                     } else {
+    //                         setLogin("Нет данных")
+    //                         setMail2("Нет данных")
+    //                     }
+    //                 } else {
+    //                     setLogin("Нет данных")
+    //                     setMail2("Нет данных")
+    //                 }
+    //             });
+    //             console.log("userEffect TaskScreen")
+    //         });
+    //         return unsubscribe
+    //     }
+    // )
+
+
+    useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
                 AsyncStorage.getItem(USER).then(data => {
-                    if (data != null) {
-                        const user = (JSON.parse(data))
-                        if (user.login != "") {
-                            setLogin(user.login);
-                            setMail2(user.email);
-                        } else {
-                            setLogin("Нет данных")
-                            setMail2("Нет данных")
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': data
                         }
-                    } else {
-                        setLogin("Нет данных")
-                        setMail2("Нет данных")
                     }
-                });
-                console.log("userEffect TaskScreen")
-            });
+                    fetch(allSmartTask, requestOptions)
+                        .then((response) => {console.log(response.body); if (response.body != null) { return response.json() } else {return JSON.parse("[]")}})
+                        .then((data) => {
+                            console.log("tasks: " + JSON.stringify(data))
+                            if (!('error' in data)) {
+                                setAllTask(data)
+                            }
+                        })
+                })
+
+            })
             return unsubscribe
         }
-    );
+    )
 
     return (
         <View style={styles.container}>
             <Text style={styles.textBig}>Логин: {login}</Text>
             <Text style={styles.textBig}>Почта: {mail2}</Text>
-            <View style={{paddingBottom: '50%'}}/>
+            <CustomButton text="Создать задачу" onPress={() => navigation.navigate(createSmartTaskName)}/>
+            <ScrollView style={{padding: '5%'}}>
+                {taskAll.map(task => <SmartTask smartTask={task} key={task.id} navigation={navigation} />)}
+            </ScrollView>
         </View>
     );
 }

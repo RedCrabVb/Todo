@@ -1,14 +1,14 @@
 import React from 'react'
 import {Text, View, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
-import {editNoteName} from "../utils/ScreenNames";
+import {editNoteName, editSmartTaskName} from "../utils/ScreenNames";
 
-export const Note = ({note, navigation, disabled = false}) => {
+export const SmartTask = ({smartTask, navigation, disabled = false}) => {
 
     return (
-        <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={() => navigation.navigate(editNoteName, {note: note})}
+        <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={() => navigation.navigate(editSmartTaskName, {task: smartTask})}
                           style={disabled ? styles.containerDisabled : styles.container} >
             <Text style={styles.text}>
-                {note.head}
+                {smartTask.specific}
             </Text>
         </TouchableOpacity>
     );

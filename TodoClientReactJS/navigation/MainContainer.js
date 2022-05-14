@@ -8,7 +8,7 @@ import {
     noteName,
     homeName,
     logInName,
-    registrationName, tabsName, creatorNoteName, editNoteName
+    registrationName, tabsName, creatorNoteName, editNoteName, createSmartTaskName, editSmartTaskName
 } from '../src/utils/ScreenNames'
 
 import HomeScreen from './screens/HomeScreen';
@@ -17,6 +17,7 @@ import LogIn from './screens/stack/LogIn';
 import Registration from './screens/stack/Registration';
 import TaskScreen from './screens/TaskScreen';
 import CreatorTodo from "./screens/stack/CreatorTodo";
+import CreatorSmartTask from "./screens/stack/CreatorSmartTask";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,6 +67,8 @@ function MainContainer() {
                 <Tab.Screen name={logInName} component={LogIn}/>
                 <Tab.Screen name={creatorNoteName} component={CreatorTodo}/>
                 <Tab.Screen name={editNoteName} component={CreatorTodo}/>
+                <Tab.Screen name={createSmartTaskName} component={CreatorSmartTask}/>
+                <Tab.Screen name={editSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={registrationName} component={Registration}/>
                 <Stack.Screen name={tabsName} component={MyBottomMenu} options={{headerShown: false}} />
             </Stack.Navigator>
