@@ -2,10 +2,10 @@ import * as React from 'react';
 import {Button, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from "react";
-import {homeName, logInName} from "../../src/utils/ScreenNames";
-import {USER} from "../../src/utils/Storage";
-import {version} from '../../src/utils/Api'
-import {CustomButton} from "../../src/component/CutomButton";
+import {homeName, logInName} from "../../utils/ScreenNames";
+import {USER} from "../../utils/Storage";
+import {version} from '../../utils/Api'
+import {CustomButton} from "../../component/CutomButton";
 
 export default function HomeScreen({navigation}) {
     const [authorized, isAuthorized] = useState(false)

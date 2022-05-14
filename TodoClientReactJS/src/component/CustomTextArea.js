@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {TextInput, View, Text, StyleSheet} from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 export const CustomTextArea = ({
                                 label,

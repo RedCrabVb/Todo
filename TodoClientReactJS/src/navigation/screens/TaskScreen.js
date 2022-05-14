@@ -1,14 +1,13 @@
 import * as React from 'react'
 import {View, Text, Vibration, ScrollView} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {styles} from "../../src/css/css"
+import {styles} from "../../css/css"
 import {useEffect, useState} from "react"
-import {USER} from "../../src/utils/Storage"
-import {createSmartTaskName, creatorNoteName} from "../../src/utils/ScreenNames";
-import {CustomButton} from "../../src/component/CutomButton";
-import {allNote, allSmartTask} from "../../src/utils/Api";
-import {Note} from "../../src/component/Note";
-import {SmartTask} from "../../src/component/SmartTask";
+import {USER} from "../../utils/Storage"
+import {createSmartTaskName, creatorNoteName} from "../../utils/ScreenNames";
+import {CustomButton} from "../../component/CutomButton";
+import {allNote, allSmartTask} from "../../utils/Api";
+import {SmartTask} from "../../component/SmartTask";
 
 export default function TaskScreen({navigation}) {
     const [login, setLogin] = useState("")

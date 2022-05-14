@@ -1,12 +1,12 @@
 import * as React from 'react'
 import {View, Text, ScrollView, Alert, TouchableOpacity} from 'react-native'
 import {useState} from "react"
-import {CustomInput} from "../../../src/component/CustomInput";
-import {CustomButton} from "../../../src/component/CutomButton";
-import {CustomTextArea} from "../../../src/component/CustomTextArea";
+import {CustomInput} from "../../../component/CustomInput";
+import {CustomButton} from "../../../component/CutomButton";
+import {CustomTextArea} from "../../../component/CustomTextArea";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {USER} from "../../../src/utils/Storage";
-import {addNote, allNote, deleteNote as deleteNoteApi} from "../../../src/utils/Api";
+import {USER} from "../../../utils/Storage";
+import {addNote, allNote, deleteNote as deleteNoteApi} from "../../../utils/Api";
 
 export default function CreatorTodo(params) {
     const note = (params.route.params || {note: undefined}).note || {id: -1, head: '', body: ''}

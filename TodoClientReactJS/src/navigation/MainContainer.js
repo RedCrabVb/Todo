@@ -9,7 +9,7 @@ import {
     homeName,
     logInName,
     registrationName, tabsName, creatorNoteName, editNoteName, createSmartTaskName, editSmartTaskName
-} from '../src/utils/ScreenNames'
+} from '../utils/ScreenNames'
 
 import HomeScreen from './screens/HomeScreen';
 import NoteScreen from './screens/NoteScreen';

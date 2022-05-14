@@ -1,12 +1,12 @@
 import * as React from 'react'
 import {View, Text, ScrollView, Alert} from 'react-native'
 import {useEffect, useState} from "react"
-import {allNote, server} from '../../src/utils/Api'
-import {Note} from '../../src/component/Note'
+import {allNote, server} from '../../utils/Api'
+import {Note} from '../../component/Note'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {USER} from "../../src/utils/Storage";
-import {creatorNoteName} from "../../src/utils/ScreenNames";
-import {CustomButton} from "../../src/component/CutomButton";
+import {USER} from "../../utils/Storage";
+import {creatorNoteName} from "../../utils/ScreenNames";
+import {CustomButton} from "../../component/CutomButton";
 
 export default function NoteScreen({navigation}) {
     const [noteAll, setNoteAll] = useState([])

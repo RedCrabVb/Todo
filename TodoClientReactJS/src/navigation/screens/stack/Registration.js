@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {View, Text, Alert, Vibration, Keyboard} from 'react-native'
-import {styles} from "../../../src/css/css"
-import {CustomInput} from "../../../src/component/CustomInput"
-import {CustomButton} from "../../../src/component/CutomButton"
+import {styles} from "../../../css/css"
+import {CustomInput} from "../../..//component/CustomInput"
+import {CustomButton} from "../../../component/CutomButton"
 import {useState} from "react"
-import {USER} from "../../../src/utils/Storage";
-import {homeName, logInName, registrationName} from "../../../src/utils/ScreenNames";
+import {USER} from "../../../utils/Storage";
+import {homeName, logInName, registrationName} from "../../../utils/ScreenNames";
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {registration} from "../../../src/utils/Api";
+import {registration} from "../../../utils/Api";
 
 export default function Registration(props) {
 
