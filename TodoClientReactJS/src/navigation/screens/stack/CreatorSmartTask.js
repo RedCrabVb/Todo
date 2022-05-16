@@ -1,13 +1,19 @@
 import * as React from 'react'
-import {View, Text, ScrollView, Alert, TouchableOpacity} from 'react-native'
+import {View, ScrollView} from 'react-native'
 import {useState} from "react"
-import {CustomButton} from "../../../component/CutomButton";
-import {CustomTextArea} from "../../../component/CustomTextArea";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {USER} from "../../../utils/Storage";
-import {addNote, addSmartTask, allNote, deleteTask as deleteTaskApi} from "../../../utils/Api";
-import DatePicker from 'react-native-datepicker';
-import {StyleSheet} from "react-native";
+import {CustomButton} from "../../../component/CutomButton"
+import {CustomTextArea} from "../../../component/CustomTextArea"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import {USER} from "../../../utils/Storage"
+import {saveSmartTask, smartTask as smartTaskApi} from "../../../utils/Api"
+import DatePicker from 'react-native-datepicker'
+import {editSmartTaskName, taskName} from "../../../utils/ScreenNames"
+import {styles} from '../../../css/css'
+
+function getDate() {
+    const date = new Date()
+    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay()
+}
 
 export default function CreatorSmartTask(params) {
     // private String specific; //конкретный
@@ -22,7 +28,7 @@ export default function CreatorSmartTask(params) {
         measurable: '',
         achievable: '',
         relevant: '',
-        timeBound: '09-10-2021'
+        timeBound: getDate()
     }
 
     const [specific, setSpecific] = useState(task.specific)
@@ -62,9 +68,9 @@ export default function CreatorSmartTask(params) {
                 },
                 body: taskNow.toString()
             }
-            fetch(addSmartTask, requestOptions)
+            fetch(saveSmartTask, requestOptions)
                 .then((data) => {
-                    console.log(data)
+                    // console.log(data)
                 })
                 .catch((error) => alert(error))
         })
@@ -80,69 +86,68 @@ export default function CreatorSmartTask(params) {
                         'Authorization': data
                     }
                 }
-                fetch(deleteTaskApi + `/${task.id}`, requestOptions)
+                fetch(smartTaskApi + `/${task.id}`, requestOptions)
                     .then((data) => {
-                        console.log('delete task: ' + data)
-                        params.navigation.popToTop(allNote)
+                        params.navigation.popToTop()
                     })
                     .catch((error) => alert(error))
             } else {
-                params.navigation.popToTop(allNote)
+                params.navigation.popToTop(taskName)
             }
         })
     }
 
     return (
-        <View>
-            <CustomTextArea
-                label={'S'}
-                value={specific}
-                onChangeText={setSpecific}
-                iconName={'lock-closed'}
-                error={errors.body}
-                multiline={true}
-                placeholder="Ваш текст ..."/>
-            <CustomTextArea
-                label={'M'}
-                value={measurable}
-                onChangeText={setMeasurable}
-                iconName={'lock-closed'}
-                error={errors.body}
-                multiline={true}
-                placeholder="Ваш текст ..."/>
-            <CustomTextArea
-                label={'A'}
-                value={achievable}
-                onChangeText={setAchievable}
-                iconName={'lock-closed'}
-                error={errors.body}
-                multiline={true}
-                placeholder="Ваш текст ..."/>
-            <CustomTextArea
-                label={'R'}
-                value={relevant}
-                onChangeText={setRelevant}
-                iconName={'lock-closed'}
-                error={errors.body}
-                multiline={true}
-                placeholder="Ваш текст ..."/>
-            <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
-                <DatePicker
-                    date={timeBound}
-                    mode="date"
-                    placeholder="select date"
-                    format="YYYY-MM-DD"
-                    minDate="2016-05-01"
-                    maxDate="2016-06-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    onDateChange={(date) => {
-                        setTimeBound(date)
-                    }}
-                />
+        <View style={[{flex: 1}, styles.container]}>
+            <ScrollView>
+                <CustomTextArea
+                    label={'S'}
+                    value={specific}
+                    onChangeText={setSpecific}
+                    iconName={'lock-closed'}
+                    error={errors.body}
+                    multiline={true}
+                    placeholder="Ваш текст ..."/>
+                <CustomTextArea
+                    label={'M'}
+                    value={measurable}
+                    onChangeText={setMeasurable}
+                    iconName={'lock-closed'}
+                    error={errors.body}
+                    multiline={true}
+                    placeholder="Ваш текст ..."/>
+                <CustomTextArea
+                    label={'A'}
+                    value={achievable}
+                    onChangeText={setAchievable}
+                    iconName={'lock-closed'}
+                    error={errors.body}
+                    multiline={true}
+                    placeholder="Ваш текст ..."/>
+                <CustomTextArea
+                    label={'R'}
+                    value={relevant}
+                    onChangeText={setRelevant}
+                    iconName={'lock-closed'}
+                    error={errors.body}
+                    multiline={true}
+                    placeholder="Ваш текст ..."/>
+                <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
+                    <DatePicker
+                        date={timeBound}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        onDateChange={(date) => {
+                            setTimeBound(date)
+                        }}
+                    />
 
-            </View>
-            <View style={{paddingTop: 20, justifyContent: 'flex-end'}}>
+                </View>
+            </ScrollView>
+            <View style={{paddingTop: 20}}>
                 <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
                 <CustomButton onPress={deleteTask} text="Удалить"/>
             </View>
@@ -150,26 +155,3 @@ export default function CreatorSmartTask(params) {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#A8E9CA'
-    },
-    title: {
-        textAlign: 'left',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    datePickerStyle: {
-        width: 230,
-    },
-    text: {
-        textAlign: 'left',
-        width: 230,
-        fontSize: 16,
-        color: "#000"
-    }
-});

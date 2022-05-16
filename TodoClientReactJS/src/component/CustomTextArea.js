@@ -12,7 +12,7 @@ export const CustomTextArea = ({
     const [isFocused, setIsFocused] = useState(false)
     const [text, setText] = useState({text: '', height: 0})
     return (
-        <View style={[{height: Math.max(60, text.height + 10), margin: 20}]}>
+        <View style={[{height: Math.max(60, text.height + 10)}]}>
             <Text style={[style.label]}>{label}</Text>
             <View
                 style={[
@@ -25,7 +25,7 @@ export const CustomTextArea = ({
                                 : 'white',
                         alignItems: 'center',
                     },
-                    {margin: 20, height: Math.max(60, text.height + 10)}
+                    {height: Math.max(60, text.height + 10)}
                 ]}>
                 <TextInput
                     autoCorrect={false}
@@ -38,7 +38,7 @@ export const CustomTextArea = ({
                     onContentSizeChange={(event) => {
                         setText({text: '', height: event.nativeEvent.contentSize.height })
                     }}
-                    style={[{color: '#7978B5', flex: 1}, {margin: 10, height: Math.max(30, text.height)}]}
+                    style={[{color: '#7978B5', flex: 1}, {height: Math.max(30, text.height)}]}
                     onChange={onChangeTextEvent}
                     {...props}
                 />

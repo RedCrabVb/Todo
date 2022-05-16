@@ -15,9 +15,7 @@ public class AccountController {
 
 
     @GetMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
+    public @ResponseBody String hello() { return "hello"; }
 
     @PostMapping("/hello")
     public @ResponseBody  String hello2() {
@@ -32,5 +30,10 @@ public class AccountController {
         }
 
         return user;
+    }
+
+    @GetMapping("version")
+    public @ResponseBody String version() {
+        return "1.2";
     }
 }

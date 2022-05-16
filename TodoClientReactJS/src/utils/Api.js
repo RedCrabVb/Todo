@@ -1,11 +1,9 @@
-export const server = "http://localhost:8080/"
+export const server = "http://10.0.2.2:8080/"
 
-export const addNote = `${server}note/add`
-export const registration = `${server}registration`;//post
-export const authentication = `${server}hello`;//get
-export const version = `${server}note/version`
-export const allNote = `${server}note` //get
-export const deleteNote = `${server}note` //delete
-export const addSmartTask = `${server}smarttask/add`//get
-export const allSmartTask = `${server}smarttask`//get
-export const deleteTask = `${server}smarttask`//get
+export const registration = `${server}registration`
+export const authentication = `${server}hello`
+export const version = `${server}version`
+export const note = `${server}note`
+export const saveNote = `${server}note/save`
+export const saveSmartTask = `${server}smarttask/save`
+export const smartTask = `${server}smarttask`

@@ -20,7 +20,7 @@ public class SmartTaskController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("add")
+    @PostMapping("save")
     public SmartTask addSmartTask(@RequestBody SmartTask smartTask, Authentication authentication) {
         smartTask.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
         smartTaskRepository.save(smartTask);

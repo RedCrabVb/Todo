@@ -1,15 +1,18 @@
 import * as React from 'react'
 import {View, Text, ScrollView, Alert} from 'react-native'
 import {useEffect, useState} from "react"
-import {allNote, server} from '../../utils/Api'
+import {note, server} from '../../utils/Api'
 import {Note} from '../../component/Note'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {USER} from "../../utils/Storage";
-import {creatorNoteName} from "../../utils/ScreenNames";
-import {CustomButton} from "../../component/CutomButton";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import {USER} from "../../utils/Storage"
+import {creatorNoteName} from "../../utils/ScreenNames"
+import {CustomButton} from "../../component/CutomButton"
+import {styles} from "../../css/css"
+import {ErrorView} from "../../component/ErrorView";
 
 export default function NoteScreen({navigation}) {
     const [noteAll, setNoteAll] = useState([])
+    const [error, setError] = useState({enable: false, text: ''})
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
@@ -21,13 +24,18 @@ export default function NoteScreen({navigation}) {
                             'Authorization': data
                         }
                     }
-                    fetch(allNote, requestOptions)
-                        .then((response) => {console.log(response.body); if (response.body != null) { return response.json() } else {return JSON.parse("[]")}})
+                    fetch(note, requestOptions)
+                        .then((response) => response.json())
                         .then((data) => {
                             console.log("notes: " + JSON.stringify(data))
                             if (!('error' in data)) {
                                 setNoteAll(data)
+                            } else {
+                                setError({enable: true, text: data.error})
                             }
+                        }).catch(e => {
+                            console.log(e)
+                            setError({enable: true, text: e.message})
                         })
                 })
 
@@ -37,11 +45,12 @@ export default function NoteScreen({navigation}) {
     )
 
     return (
-        <View style={{flex: 1}}>
+        <View style={[{flex: 1}, styles.container]}>
+            <ErrorView text={error.text} enable={error.enable}/>
             <CustomButton text="Создать заметку" onPress={() => navigation.navigate(creatorNoteName)}/>
             <Text>Заметки</Text>
             <ScrollView style={{padding: '5%'}}>
-                {noteAll.map(note => <Note note={note} key={note.id} navigation={navigation} />)}
+                {noteAll.map(note => <Note note={note} key={note.id} navigation={navigation}/>)}
             </ScrollView>
         </View>
     );

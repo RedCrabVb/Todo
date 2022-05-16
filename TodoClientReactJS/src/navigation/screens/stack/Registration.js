@@ -8,6 +8,7 @@ import {USER} from "../../../utils/Storage";
 import {homeName, logInName, registrationName} from "../../../utils/ScreenNames";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {registration} from "../../../utils/Api";
+import {ErrorView} from "../../../component/ErrorView";
 
 export default function Registration(props) {
 
@@ -17,6 +18,7 @@ export default function Registration(props) {
     const [login, setLogin] = useState("")
 
     const [errors, setErrors] = React.useState({})
+    const [error, setError] = React.useState({enable: false, text: ''})
 
     const validate = async () => {
         let isValid = true
@@ -56,20 +58,24 @@ export default function Registration(props) {
             body: `login=${login}&email=${mail}&password=${password}`
         };
         fetch(registration, requestOptions)
-            .then((data) => {
-                console.log(data);
-                if (typeof data !== 'undefiend' && !('error' in data)) {
-                    AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
-                    props.navigation.popToTop(homeName)
-                } else {
-                    Alert.alert("Ошибки при подключение к серверу " + data.status)
-                }
+            .then((response) => {
+                if (!response.ok) throw new Error(response.status);
+                else return response;
             })
-            .catch((error) => alert(error))
+            .then((data) => {
+                console.log(data)
+                AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
+                props.navigation.popToTop(homeName)
+            })
+            .catch((error) => {
+                console.log(error + " in registration")
+                setError({enable: true, text: 'Попробуйте ввести другой логин или повторить попытку регистрации позднее'})
+            })
     }
 
     return (
         <View style={styles.container}>
+            <ErrorView text={error.text} enable={error.enable}/>
             <CustomInput
                 label={'Логин'}
                 value={login}

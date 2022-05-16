@@ -16,7 +16,7 @@ import NoteScreen from './screens/NoteScreen';
 import LogIn from './screens/stack/LogIn';
 import Registration from './screens/stack/Registration';
 import TaskScreen from './screens/TaskScreen';
-import CreatorTodo from "./screens/stack/CreatorTodo";
+import CreatorNote from "./screens/stack/CreatorNote";
 import CreatorSmartTask from "./screens/stack/CreatorSmartTask";
 
 const Tab = createBottomTabNavigator();
@@ -65,8 +65,8 @@ function MainContainer() {
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Tabs">
                 <Tab.Screen name={logInName} component={LogIn}/>
-                <Tab.Screen name={creatorNoteName} component={CreatorTodo}/>
-                <Tab.Screen name={editNoteName} component={CreatorTodo}/>
+                <Tab.Screen name={creatorNoteName} component={CreatorNote}/>
+                <Tab.Screen name={editNoteName} component={CreatorNote}/>
                 <Tab.Screen name={createSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={editSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={registrationName} component={Registration}/>

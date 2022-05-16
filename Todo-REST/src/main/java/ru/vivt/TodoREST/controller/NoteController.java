@@ -18,7 +18,7 @@ public class NoteController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("add")
+    @PostMapping("save")
     public Note addNote(@RequestBody Note note, Authentication authentication) {
         note.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
         noteRepository.save(note);
@@ -40,8 +40,5 @@ public class NoteController {
         return note;
     }
 
-    @GetMapping("version")
-    public String version() {
-        return "1.1";
-    }
+
 }
