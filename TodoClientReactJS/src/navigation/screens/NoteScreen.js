@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import {note, server} from '../../utils/Api'
 import {Note} from '../../component/Note'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import {USER} from "../../utils/Storage"
+import {USER, SMART_TASK, NOTE} from "../../utils/Storage"
 import {creatorNoteName} from "../../utils/ScreenNames"
 import {CustomButton} from "../../component/CutomButton"
 import {styles} from "../../css/css"
@@ -30,6 +30,7 @@ export default function NoteScreen({navigation}) {
                             console.log("notes: " + JSON.stringify(data))
                             if (!('error' in data)) {
                                 setNoteAll(data)
+                                AsyncStorage.setItem(NOTE, JSON.stringify(data)).then(r => console.log("Okey, save note"))
                             } else {
                                 setError({enable: true, text: data.error})
                             }

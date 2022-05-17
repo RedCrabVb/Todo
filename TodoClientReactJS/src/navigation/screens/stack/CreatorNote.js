@@ -49,7 +49,7 @@ export default function CreatorNote(params) {
 
     function deleteNote() {
         AsyncStorage.getItem(USER).then(data => {
-            if (note.id != -1) {
+            if (id != -1) {
 
                 const requestOptions = {
                     method: 'DELETE',

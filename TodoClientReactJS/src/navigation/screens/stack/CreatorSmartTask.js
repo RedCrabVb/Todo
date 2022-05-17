@@ -87,7 +87,7 @@ export default function CreatorSmartTask(params) {
 
     function deleteTask() {
         AsyncStorage.getItem(USER).then(data => {
-            if (task.id != -1) {
+            if (id != -1) {
                 const requestOptions = {
                     method: 'DELETE',
                     headers: {

@@ -3,14 +3,14 @@ import {View, Text, Vibration, ScrollView} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {styles} from "../../css/css"
 import {useEffect, useState} from "react"
-import {SMART_TASK, USER} from "../../utils/Storage"
-import {createSmartTaskName, creatorNoteName} from "../../utils/ScreenNames";
+import {SMART_TASK, TIMER_TRACKER, USER} from "../../utils/Storage"
+import {createSmartTaskName, createTimerTrackerName, creatorNoteName} from "../../utils/ScreenNames";
 import {CustomButton} from "../../component/CutomButton";
-import {smartTask} from "../../utils/Api";
-import {SmartTask} from "../../component/SmartTask";
+import {smartTask, timerTracker} from "../../utils/Api";
+import {TimeTracker} from "../../component/TimeTracker";
 
-export default function TaskScreen({navigation}) {
-    const [taskAll, setAllTask] = useState([])
+export default function TimeScreen({navigation}) {
+    const [timeAll, setTimeTracker] = useState([])
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
@@ -22,7 +22,7 @@ export default function TaskScreen({navigation}) {
                             'Authorization': data
                         }
                     }
-                    fetch(smartTask, requestOptions)
+                    fetch(timerTracker, requestOptions)
                         .then((response) => {
                             if (!response.ok) JSON.parse("[]")
                             else return response.json()
@@ -30,8 +30,8 @@ export default function TaskScreen({navigation}) {
                         .then((data) => {
                             console.log("tasks: " + JSON.stringify(data))
                             if (!('error' in data)) {
-                                setAllTask(data)
-                                AsyncStorage.setItem(SMART_TASK, JSON.stringify(data)).then(r => console.log("Okey, save smart task"))
+                                setTimeTracker(data)
+                                AsyncStorage.setItem(TIMER_TRACKER, JSON.stringify(data)).then(r => console.log("Okey, save time tracker"))
                             }
                         })
                 })
@@ -43,9 +43,9 @@ export default function TaskScreen({navigation}) {
 
     return (
         <View style={styles.container}>
-            <CustomButton text="Создать задачу" onPress={() => navigation.navigate(createSmartTaskName)}/>
+            <CustomButton text="Добавить время" onPress={() => navigation.navigate(createTimerTrackerName)}/>
             <ScrollView style={{padding: '5%'}}>
-                {taskAll.map(task => <SmartTask smartTask={task} key={task.id} navigation={navigation} />)}
+                {timeAll.map(time => <TimeTracker timeTracker={time} key={time.id} navigation={navigation} />)}
             </ScrollView>
         </View>
     );

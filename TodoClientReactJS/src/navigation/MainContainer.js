@@ -8,7 +8,13 @@ import {
     noteName,
     homeName,
     logInName,
-    registrationName, tabsName, creatorNoteName, editNoteName, createSmartTaskName, editSmartTaskName
+    registrationName,
+    tabsName,
+    creatorNoteName,
+    editNoteName,
+    createSmartTaskName,
+    editSmartTaskName,
+    createTimerTrackerName, timerTrackerName, editTimerTrackerName
 } from '../utils/ScreenNames'
 
 import HomeScreen from './screens/HomeScreen';
@@ -18,6 +24,8 @@ import Registration from './screens/stack/Registration';
 import TaskScreen from './screens/TaskScreen';
 import CreatorNote from "./screens/stack/CreatorNote";
 import CreatorSmartTask from "./screens/stack/CreatorSmartTask";
+import TimeScreen from "./screens/TimeScreen";
+import CreatorTimeTracker from "./screens/stack/CreatorTimeTracker";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,12 +46,12 @@ function MyBottomMenu() {
 
                 if (rn === homeName) {
                     iconName = focused ? 'home' : 'home-outline';
-
                 } else if (rn === noteName) {
                     iconName = focused ? 'md-book' : 'md-book-outline';
-
                 } else if (rn === taskName) {
                     iconName = focused ? 'briefcase-sharp' : 'briefcase-outline';
+                } else if (rn === timerTrackerName) {
+                    iconName = focused ? 'time' : 'time-outline';
                 }
 
                 // You can return any component that you like here!
@@ -54,6 +62,7 @@ function MyBottomMenu() {
         <Tab.Screen name={homeName} component={HomeScreen}/>
         <Tab.Screen name={noteName} component={NoteScreen}/>
         <Tab.Screen name={taskName} component={TaskScreen}/>
+        {/*<Tab.Screen name={timerTrackerName} component={TimeScreen}/>*/}
 
 
     </Tab.Navigator>)
@@ -70,6 +79,8 @@ function MainContainer() {
                 <Tab.Screen name={createSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={editSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={registrationName} component={Registration}/>
+                <Tab.Screen name={createTimerTrackerName} component={CreatorTimeTracker}/>
+                <Tab.Screen name={editTimerTrackerName} component={CreatorTimeTracker}/>
                 <Stack.Screen name={tabsName} component={MyBottomMenu} options={{headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
