@@ -12,7 +12,7 @@ export const CustomTextArea = ({
     const [isFocused, setIsFocused] = useState(false)
     const [text, setText] = useState({text: '', height: 0})
     return (
-        <View style={[{height: Math.max(60, text.height + 10)}]}>
+        <View style={[{paddingVertical: '2%'}]}>
             <Text style={[style.label]}>{label}</Text>
             <View
                 style={[
@@ -25,7 +25,7 @@ export const CustomTextArea = ({
                                 : 'white',
                         alignItems: 'center',
                     },
-                    {height: Math.max(60, text.height + 10)}
+                    {height: Math.max(60, text.height + 20)}
                 ]}>
                 <TextInput
                     autoCorrect={false}

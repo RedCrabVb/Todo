@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import {USER} from "../../../utils/Storage"
 import {saveSmartTask, smartTask as smartTaskApi} from "../../../utils/Api"
 import DatePicker from 'react-native-datepicker'
-import {editSmartTaskName, taskName} from "../../../utils/ScreenNames"
+import {taskName} from "../../../utils/ScreenNames"
 import {styles} from '../../../css/css'
 
 function getDate() {
@@ -22,7 +22,7 @@ export default function CreatorSmartTask(params) {
     // private String relevant; //значемый
     // private String timeBound; //ограничения
 
-    const task = (params.route.params || {task: undefined}).task || {
+    let task = (params.route.params || {task: undefined}).task || {
         id: -1,
         specific: '',
         measurable: '',
@@ -31,18 +31,19 @@ export default function CreatorSmartTask(params) {
         timeBound: getDate()
     }
 
+    const [id, setId] = useState(task.id)
     const [specific, setSpecific] = useState(task.specific)
     const [measurable, setMeasurable] = useState(task.measurable)
     const [achievable, setAchievable] = useState(task.achievable)
     const [relevant, setRelevant] = useState(task.relevant)
     const [timeBound, setTimeBound] = useState(task.timeBound)
 
-    const [errors, setErrors] = React.useState({})
+    const [errors, setErrors] = useState({})
 
     function handlerSend() {
         AsyncStorage.getItem(USER).then(data => {
             let taskNow
-            if (task.id == -1) {
+            if (id == -1) {
                 taskNow = JSON.stringify({
                     "specific": specific,
                     "measurable": measurable,
@@ -52,7 +53,7 @@ export default function CreatorSmartTask(params) {
                 })
             } else {
                 taskNow = JSON.stringify({
-                    "id": task.id,
+                    "id": id,
                     "specific": specific,
                     "measurable": measurable,
                     "achievable": achievable,
@@ -68,18 +69,25 @@ export default function CreatorSmartTask(params) {
                 },
                 body: taskNow.toString()
             }
+
             fetch(saveSmartTask, requestOptions)
-                .then((data) => {
-                    // console.log(data)
+                .then((response) => {
+                    if (!response.ok) throw new Error(response.status);
+                    else return response.json();
                 })
-                .catch((error) => alert(error))
+                .then((data) => {
+                    console.log("Save smart task:" + JSON.stringify(data))
+                    setId(data.id)
+                })
+                .catch((error) => {
+                    alert(error)
+                })
         })
     }
 
     function deleteTask() {
         AsyncStorage.getItem(USER).then(data => {
             if (task.id != -1) {
-
                 const requestOptions = {
                     method: 'DELETE',
                     headers: {
@@ -146,11 +154,12 @@ export default function CreatorSmartTask(params) {
                     />
 
                 </View>
+                <View style={{paddingTop: 20}}>
+                    <CustomButton onPress={handlerSend} text="Сохранить"/>
+                    <CustomButton onPress={deleteTask} text="Удалить"/>
+                </View>
             </ScrollView>
-            <View style={{paddingTop: 20}}>
-                <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
-                <CustomButton onPress={deleteTask} text="Удалить"/>
-            </View>
+
         </View>
     );
 }

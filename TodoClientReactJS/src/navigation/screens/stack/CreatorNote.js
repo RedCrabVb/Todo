@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {View, Text, ScrollView, Alert, TouchableOpacity} from 'react-native'
+import {View, ScrollView} from 'react-native'
 import {useState} from "react"
 import {CustomInput} from "../../../component/CustomInput"
 import {CustomButton} from "../../../component/CutomButton"
@@ -11,8 +11,9 @@ import {noteName} from "../../../utils/ScreenNames"
 import {styles} from "../../../css/css"
 
 export default function CreatorNote(params) {
-    const note = (params.route.params || {note: undefined}).note || {id: -1, head: '', body: ''}
+    let note = (params.route.params || {note: undefined}).note || {id: -1, head: '', body: ''}
 
+    const [id, setId] = useState(note.id)
     const [head, setHead] = useState(note.head)
     const [body, setBody] = useState(note.body)
     const [errors, setErrors] = React.useState({})
@@ -20,10 +21,10 @@ export default function CreatorNote(params) {
     function handlerSend() {
         AsyncStorage.getItem(USER).then(data => {
             let noteNew
-            if (note.id == -1) {
+            if (id == -1) {
                 noteNew = JSON.stringify({"head": head, "body": body})
             } else {
-                noteNew = JSON.stringify({id: note.id, "head": head, "body": body})
+                noteNew = JSON.stringify({id: id, "head": head, "body": body})
             }
             const requestOptions = {
                 method: 'POST',
@@ -34,12 +35,13 @@ export default function CreatorNote(params) {
                 body: noteNew.toString()
             }
             fetch(saveNote, requestOptions)
+                .then((response) => {
+                    if (!response.ok) throw new Error(response.status);
+                    else return response.json();
+                })
                 .then((data) => {
-                    if (!('error' in data)) {
-                        console.log("error add note: " + JSON.stringify(data))
-                    } else {
-                        Alert.alert("Ошибки при подключение к серверу " + data.status)
-                    }
+                    console.log("save note: " + JSON.stringify(data))
+                    setId(data.id)
                 })
                 .catch((error) => alert(error))
         })
@@ -56,6 +58,10 @@ export default function CreatorNote(params) {
                     }
                 }
                 fetch(noteApi + `/${note.id}`, requestOptions)
+                    .then((response) => {
+                        if (!response.ok) throw new Error(response.status);
+                        else return response;
+                    })
                     .then((data) => {
                         console.log('delete note: ' + data)
                         params.navigation.popToTop(noteName)
@@ -85,11 +91,12 @@ export default function CreatorNote(params) {
                     error={errors.body}
                     multiline={true}
                     placeholder="Ваш текст ..."/>
+                <View style={{paddingTop: '20%'}}>
+                    <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
+                    <CustomButton onPress={deleteNote} text="Удалить"/>
+                </View>
             </ScrollView>
-            <View style={{paddingTop: '20%'}}>
-                <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
-                <CustomButton onPress={deleteNote} text="Удалить"/>
-            </View>
+
         </View>
     );
 }

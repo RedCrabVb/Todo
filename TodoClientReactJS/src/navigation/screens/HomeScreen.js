@@ -21,7 +21,7 @@ export default function HomeScreen({navigation}) {
                 fetch(version)
                     .then(d => d.json())
                     .then(r => {
-                        console.log(r)
+                        // console.log(r)
                         setVersion(r)
                     })
             }
