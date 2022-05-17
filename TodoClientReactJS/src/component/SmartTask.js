@@ -2,13 +2,16 @@ import React from 'react'
 import {Text, View, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
 import {editNoteName, editSmartTaskName} from "../utils/ScreenNames";
 
-export const SmartTask = ({smartTask, navigation, disabled = false}) => {
+export const SmartTask = ({smartTask, navigation}) => {
 
     return (
-        <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={() => navigation.navigate(editSmartTaskName, {task: smartTask})}
-                          style={disabled ? styles.containerDisabled : styles.container} >
-            <Text style={styles.text}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(editSmartTaskName, {task: smartTask})}
+                          style={styles.container} >
+            <Text style={styles.textHead}>
                 {smartTask.specific}
+            </Text>
+            <Text style={styles.text}>
+                {smartTask.timeBound}
             </Text>
         </TouchableOpacity>
     );
@@ -16,28 +19,19 @@ export const SmartTask = ({smartTask, navigation, disabled = false}) => {
 
 const styles = StyleSheet.create({
     container : {
-        backgroundColor: '#3949ab',
+        borderWidth: 2,
+        borderColor: '#3949ab',
         width: '100%',
-
         padding: 15,
         marginVertical: 5,
-
-        justifyContent: 'flex-start',
-        borderRadius: 5,
-        flexDirection: 'row'
-    },
-    containerDisabled : {
-        backgroundColor: '#b3bdfc',
-        width: '100%',
-
-        padding: 15,
-        marginVertical: 5,
-
-        alignItems: 'center',
         borderRadius: 5
     },
-    text: {
+    textHead: {
         fontWeight: 'bold',
-        color: 'white'
+        color: 'black'
+    },
+    text: {
+        color: 'black',
+        textAlign: 'right'
     }
 });

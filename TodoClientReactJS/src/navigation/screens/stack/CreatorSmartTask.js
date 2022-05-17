@@ -156,7 +156,7 @@ export default function CreatorSmartTask(params) {
                 </View>
                 <View style={{paddingTop: 20}}>
                     <CustomButton onPress={handlerSend} text="Сохранить"/>
-                    <CustomButton onPress={deleteTask} text="Удалить"/>
+                    <CustomButton bcolor={'#d41b1b'} onPress={deleteTask} text="Удалить"/>
                 </View>
             </ScrollView>
 

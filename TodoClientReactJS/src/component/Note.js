@@ -16,7 +16,9 @@ export const Note = ({note, navigation, disabled = false}) => {
 
 const styles = StyleSheet.create({
     container : {
-        backgroundColor: '#3949ab',
+        borderWidth: 2,
+        borderColor: '#3949ab',
+
         width: '100%',
 
         padding: 15,
@@ -38,6 +40,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontWeight: 'bold',
-        color: 'white'
+        color: 'black'
     }
 });

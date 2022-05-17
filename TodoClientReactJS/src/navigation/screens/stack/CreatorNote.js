@@ -93,7 +93,7 @@ export default function CreatorNote(params) {
                     placeholder="Ваш текст ..."/>
                 <View style={{paddingTop: '20%'}}>
                     <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
-                    <CustomButton onPress={deleteNote} text="Удалить"/>
+                    <CustomButton bcolor={'#d41b1b'} onPress={deleteNote} text="Удалить"/>
                 </View>
             </ScrollView>
 
