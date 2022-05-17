@@ -19,20 +19,20 @@ public class NoteController {
     private UserRepository userRepository;
 
     @PostMapping("save")
-    public Note addNote(@RequestBody Note note, Authentication authentication) {
+    public Note save(@RequestBody Note note, Authentication authentication) {
         note.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
         noteRepository.save(note);
         return note;
     }
 
     @GetMapping
-    public List<Note> getAllNote(Authentication authentication) {
+    public List<Note> get(Authentication authentication) {
         var user = userRepository.findByLogin(authentication.getName());
         return noteRepository.findByIdUser(user.getId());
     }
 
     @DeleteMapping("{id}")
-    public Note deleteNote(@PathVariable Long id, Authentication authentication) {
+    public Note delete(@PathVariable Long id, Authentication authentication) {
         Note note = noteRepository.findById(id).orElseThrow();
         if (note.getIdUser().equals(userRepository.findByLogin(authentication.getName()).getId())) {
             noteRepository.delete(note);

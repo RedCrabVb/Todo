@@ -11,6 +11,9 @@ public class TimeTracker {
     private String nameTask;
     private Long idSmartTask;
     private int time;
+    private Long idUser;
+
+    public TimeTracker() {}
 
     public TimeTracker(Long id, String nameTask, Long idSmartTask, int time) {
         this.id = id;
@@ -49,5 +52,13 @@ public class TimeTracker {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }

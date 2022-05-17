@@ -3,41 +3,40 @@ package ru.vivt.TodoREST.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.vivt.TodoREST.domain.Note;
-import ru.vivt.TodoREST.domain.SmartTask;
-import ru.vivt.TodoREST.repository.NoteRepository;
+import ru.vivt.TodoREST.domain.TimeTracker;
 import ru.vivt.TodoREST.repository.SmartTaskRepository;
+import ru.vivt.TodoREST.repository.TimerTrackerRepository;
 import ru.vivt.TodoREST.repository.UserRepository;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "smarttask")
+@RequestMapping(path = "timertracker")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class SmartTaskController {
+public class TimerTrackerController {
     @Autowired
-    private SmartTaskRepository smartTaskRepository;
+    private TimerTrackerRepository timerTrackerRepository;
     @Autowired
     private UserRepository userRepository;
 
     @PostMapping("save")
-    public SmartTask save(@RequestBody SmartTask smartTask, Authentication authentication) {
+    public TimeTracker save(@RequestBody TimeTracker smartTask, Authentication authentication) {
         smartTask.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
-        smartTaskRepository.save(smartTask);
+        timerTrackerRepository.save(smartTask);
         return smartTask;
     }
 
     @GetMapping
-    public List<SmartTask> get(Authentication authentication) {
+    public List<TimeTracker> get(Authentication authentication) {
         var user = userRepository.findByLogin(authentication.getName());
-        return smartTaskRepository.findByIdUser(user.getId());
+        return timerTrackerRepository.findByIdUser(user.getId());
     }
 
     @DeleteMapping("{id}")
-    public SmartTask delete(@PathVariable Long id, Authentication authentication) {
-        SmartTask task = smartTaskRepository.findById(id).orElseThrow();
+    public TimeTracker delete(@PathVariable Long id, Authentication authentication) {
+        TimeTracker task = timerTrackerRepository.findById(id).orElseThrow();
         if (task.getIdUser().equals(userRepository.findByLogin(authentication.getName()).getId())) {
-            smartTaskRepository.delete(task);
+            timerTrackerRepository.delete(task);
         }
         return task;
     }
