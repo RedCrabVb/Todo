@@ -34,6 +34,6 @@ public class AccountController {
 
     @GetMapping("version")
     public @ResponseBody String version() {
-        return "1.2";
+        return "1.3";
     }
 }
