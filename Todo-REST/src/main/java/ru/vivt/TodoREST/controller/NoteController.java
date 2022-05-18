@@ -21,8 +21,8 @@ public class NoteController {
     @PostMapping("save")
     public Note save(@RequestBody Note note, Authentication authentication) {
         note.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
-        noteRepository.save(note);
-        return note;
+        Note newNote = noteRepository.save(note);
+        return newNote;
     }
 
     @GetMapping

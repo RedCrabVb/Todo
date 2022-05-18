@@ -3,12 +3,23 @@ import {View, ScrollView} from 'react-native'
 import {useState} from "react"
 import {CustomButton} from "../../../component/CutomButton"
 import {CustomTextArea} from "../../../component/CustomTextArea"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import {USER} from "../../../utils/Storage"
 import {saveSmartTask, smartTask as smartTaskApi} from "../../../utils/Api"
 import DatePicker from 'react-native-datepicker'
 import {taskName} from "../../../utils/ScreenNames"
 import {styles} from '../../../css/css'
+import {saveItem} from "../../../utils/SaveItem";
+import {deleteItem} from "../../../utils/DeleteItem";
+
+class SmartTask {
+    constructor(timeBound= '', specific = '', measurable = '', achievable = '', relevant = '', id = -1) {
+        this.id = id;
+        this.specific = specific;
+        this.measurable = measurable;
+        this.achievable = achievable;
+        this.relevant = relevant;
+        this.timeBound = timeBound;
+    }
+}
 
 function getDate() {
     const date = new Date()
@@ -22,14 +33,7 @@ export default function CreatorSmartTask(params) {
     // private String relevant; //значемый
     // private String timeBound; //ограничения
 
-    let task = (params.route.params || {task: undefined}).task || {
-        id: -1,
-        specific: '',
-        measurable: '',
-        achievable: '',
-        relevant: '',
-        timeBound: getDate()
-    }
+    let task = (params.route.params || {task: undefined}).task || new SmartTask(getDate())
 
     const [id, setId] = useState(task.id)
     const [specific, setSpecific] = useState(task.specific)
@@ -39,71 +43,6 @@ export default function CreatorSmartTask(params) {
     const [timeBound, setTimeBound] = useState(task.timeBound)
 
     const [errors, setErrors] = useState({})
-
-    function handlerSend() {
-        AsyncStorage.getItem(USER).then(data => {
-            let taskNow
-            if (id == -1) {
-                taskNow = JSON.stringify({
-                    "specific": specific,
-                    "measurable": measurable,
-                    "achievable": achievable,
-                    "relevant": relevant,
-                    "timeBound": timeBound
-                })
-            } else {
-                taskNow = JSON.stringify({
-                    "id": id,
-                    "specific": specific,
-                    "measurable": measurable,
-                    "achievable": achievable,
-                    "relevant": relevant,
-                    "timeBound": timeBound
-                })
-            }
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': data
-                },
-                body: taskNow.toString()
-            }
-
-            fetch(saveSmartTask, requestOptions)
-                .then((response) => {
-                    if (!response.ok) throw new Error(response.status);
-                    else return response.json();
-                })
-                .then((data) => {
-                    console.log("Save smart task:" + JSON.stringify(data))
-                    setId(data.id)
-                })
-                .catch((error) => {
-                    alert(error)
-                })
-        })
-    }
-
-    function deleteTask() {
-        AsyncStorage.getItem(USER).then(data => {
-            if (id != -1) {
-                const requestOptions = {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': data
-                    }
-                }
-                fetch(smartTaskApi + `/${task.id}`, requestOptions)
-                    .then((data) => {
-                        params.navigation.popToTop()
-                    })
-                    .catch((error) => alert(error))
-            } else {
-                params.navigation.popToTop(taskName)
-            }
-        })
-    }
 
     return (
         <View style={[{flex: 1}, styles.container]}>
@@ -155,8 +94,8 @@ export default function CreatorSmartTask(params) {
 
                 </View>
                 <View style={{paddingTop: 20}}>
-                    <CustomButton onPress={handlerSend} text="Сохранить"/>
-                    <CustomButton bcolor={'#d41b1b'} onPress={deleteTask} text="Удалить"/>
+                    <CustomButton onPress={() => saveItem(new SmartTask(timeBound, specific, measurable, relevant, achievable, id), setId, smartTaskApi)} text="Сохранить"/>
+                    <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, smartTaskApi, taskName)} text="Удалить"/>
                 </View>
             </ScrollView>
 

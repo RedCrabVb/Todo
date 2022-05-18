@@ -4,74 +4,28 @@ import {useState} from "react"
 import {CustomInput} from "../../../component/CustomInput"
 import {CustomButton} from "../../../component/CutomButton"
 import {CustomTextArea} from "../../../component/CustomTextArea"
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import {USER} from "../../../utils/Storage"
 import {saveNote, note as noteApi} from "../../../utils/Api"
 import {noteName} from "../../../utils/ScreenNames"
 import {styles} from "../../../css/css"
+import {deleteItem} from "../../../utils/DeleteItem";
+import {saveItem} from "../../../utils/SaveItem";
+
+class Note {
+    constructor(head = '', body = '', id = -1) {
+        this.id = id;
+        this.head = head;
+        this.body = body;
+    }
+}
 
 export default function CreatorNote(params) {
-    let note = (params.route.params || {note: undefined}).note || {id: -1, head: '', body: ''}
+    let note = (params.route.params || {note: undefined}).note || new Note()
 
     const [id, setId] = useState(note.id)
     const [head, setHead] = useState(note.head)
     const [body, setBody] = useState(note.body)
+
     const [errors, setErrors] = React.useState({})
-
-    function handlerSend() {
-        AsyncStorage.getItem(USER).then(data => {
-            let noteNew
-            if (id == -1) {
-                noteNew = JSON.stringify({"head": head, "body": body})
-            } else {
-                noteNew = JSON.stringify({id: id, "head": head, "body": body})
-            }
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': data
-                },
-                body: noteNew.toString()
-            }
-            fetch(saveNote, requestOptions)
-                .then((response) => {
-                    if (!response.ok) throw new Error(response.status);
-                    else return response.json();
-                })
-                .then((data) => {
-                    console.log("save note: " + JSON.stringify(data))
-                    setId(data.id)
-                })
-                .catch((error) => alert(error))
-        })
-    }
-
-    function deleteNote() {
-        AsyncStorage.getItem(USER).then(data => {
-            if (id != -1) {
-
-                const requestOptions = {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': data
-                    }
-                }
-                fetch(noteApi + `/${note.id}`, requestOptions)
-                    .then((response) => {
-                        if (!response.ok) throw new Error(response.status);
-                        else return response;
-                    })
-                    .then((data) => {
-                        console.log('delete note: ' + data)
-                        params.navigation.popToTop(noteName)
-                    })
-                    .catch((error) => alert(error))
-            } else {
-                params.navigation.popToTop(noteName)
-            }
-        })
-    }
 
     return (
         <View style={styles.container}>
@@ -92,8 +46,8 @@ export default function CreatorNote(params) {
                     multiline={true}
                     placeholder="Ваш текст ..."/>
                 <View style={{paddingTop: '20%'}}>
-                    <CustomButton onPress={handlerSend} text="Сохранить"></CustomButton>
-                    <CustomButton bcolor={'#d41b1b'} onPress={deleteNote} text="Удалить"/>
+                    <CustomButton onPress={() => {saveItem(new Note(head, body, id), setId, saveNote)}} text="Сохранить"></CustomButton>
+                    <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, noteName, noteApi)} text="Удалить"/>
                 </View>
             </ScrollView>
 
