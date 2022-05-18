@@ -6,8 +6,9 @@ import {CustomTextArea} from "../../../component/CustomTextArea"
 import {saveTimerTracker, timerTracker as timerTrackerApi} from "../../../utils/Api"
 import {taskName} from "../../../utils/ScreenNames"
 import {styles} from '../../../css/css'
-import DatePicker from "react-native-datepicker";
 import {deleteItem} from "../../../utils/DeleteItem";
+import {saveItem} from "../../../utils/SaveItem";
+import DatePicker from "@react-native-community/datetimepicker";
 
 class TimerTracker {
     constructor(nameTask = '', idSmartTask = '', time = new Date(), id = -1) {
@@ -39,16 +40,9 @@ export default function CreatorTimerTracker(params) {
                     error={errors.body}
                     multiline={true}
                     placeholder="Ваш текст ..."/>
-                <DatePicker
-                    selected={time}
-                    onChange={(date) => setTime(date)}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    timeCaption="Time"
-                    dateFormat="h:mm aa"
-                />
+                <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
 
+                </View>
                 <View style={{paddingTop: 20}}>
                     <CustomButton onPress={() => saveItem(new TimerTracker(nameTask, idSmartTask, time, id), setId, saveTimerTracker)} text="Сохранить"/>
                     <CustomButton bcolor={'#d41b1b'} onPress={

@@ -23,8 +23,7 @@ public class SmartTaskController {
     @PostMapping("save")
     public SmartTask save(@RequestBody SmartTask smartTask, Authentication authentication) {
         smartTask.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
-        smartTaskRepository.save(smartTask);
-        return smartTask;
+        return smartTaskRepository.save(smartTask);
     }
 
     @GetMapping

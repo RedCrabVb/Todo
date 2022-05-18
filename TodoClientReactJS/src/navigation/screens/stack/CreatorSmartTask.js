@@ -1,17 +1,18 @@
 import * as React from 'react'
-import {View, ScrollView} from 'react-native'
+import {View, ScrollView, TouchableOpacity, Text} from 'react-native'
 import {useState} from "react"
 import {CustomButton} from "../../../component/CutomButton"
 import {CustomTextArea} from "../../../component/CustomTextArea"
 import {saveSmartTask, smartTask as smartTaskApi} from "../../../utils/Api"
-import DatePicker from 'react-native-datepicker'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import {taskName} from "../../../utils/ScreenNames"
 import {styles} from '../../../css/css'
 import {saveItem} from "../../../utils/SaveItem";
 import {deleteItem} from "../../../utils/DeleteItem";
+import {CustomInputDate} from "../../../component/CustomInputDate";
 
 class SmartTask {
-    constructor(timeBound= '', specific = '', measurable = '', achievable = '', relevant = '', id = -1) {
+    constructor(timeBound = new Date().toLocaleDateString("en-US"), specific = '', measurable = '', achievable = '', relevant = '', id = -1) {
         this.id = id;
         this.specific = specific;
         this.measurable = measurable;
@@ -21,11 +22,6 @@ class SmartTask {
     }
 }
 
-function getDate() {
-    const date = new Date()
-    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay()
-}
-
 export default function CreatorSmartTask(params) {
     // private String specific; //конкретный
     // private String measurable; //измеримый
@@ -33,7 +29,7 @@ export default function CreatorSmartTask(params) {
     // private String relevant; //значемый
     // private String timeBound; //ограничения
 
-    let task = (params.route.params || {task: undefined}).task || new SmartTask(getDate())
+    let task = (params.route.params || {task: undefined}).task || new SmartTask()
 
     const [id, setId] = useState(task.id)
     const [specific, setSpecific] = useState(task.specific)
@@ -54,7 +50,7 @@ export default function CreatorSmartTask(params) {
                     iconName={'lock-closed'}
                     error={errors.body}
                     multiline={true}
-                    placeholder="Ваш текст ..."/>
+                    placeholder="Ваш текст"/>
                 <CustomTextArea
                     label={'M'}
                     value={measurable}
@@ -62,7 +58,7 @@ export default function CreatorSmartTask(params) {
                     iconName={'lock-closed'}
                     error={errors.body}
                     multiline={true}
-                    placeholder="Ваш текст ..."/>
+                    placeholder="Ваш текст"/>
                 <CustomTextArea
                     label={'A'}
                     value={achievable}
@@ -70,7 +66,7 @@ export default function CreatorSmartTask(params) {
                     iconName={'lock-closed'}
                     error={errors.body}
                     multiline={true}
-                    placeholder="Ваш текст ..."/>
+                    placeholder="Ваш текст"/>
                 <CustomTextArea
                     label={'R'}
                     value={relevant}
@@ -78,24 +74,15 @@ export default function CreatorSmartTask(params) {
                     iconName={'lock-closed'}
                     error={errors.body}
                     multiline={true}
-                    placeholder="Ваш текст ..."/>
-                <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
-                    <DatePicker
-                        date={timeBound}
-                        mode="date"
-                        placeholder="select date"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        onDateChange={(date) => {
-                            setTimeBound(date)
-                        }}
-                    />
+                    placeholder="Ваш текст"/>
+                <CustomInputDate onChange={setTimeBound} value={timeBound}/>
 
-                </View>
                 <View style={{paddingTop: 20}}>
-                    <CustomButton onPress={() => saveItem(new SmartTask(timeBound, specific, measurable, relevant, achievable, id), setId, smartTaskApi)} text="Сохранить"/>
-                    <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, smartTaskApi, taskName)} text="Удалить"/>
+                    <CustomButton onPress={() => {
+                        let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, id)
+                        saveItem(smtask, setId, saveSmartTask)
+                    }} text="Сохранить"/>
+                    <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, taskName, smartTaskApi)} text="Удалить"/>
                 </View>
             </ScrollView>
 

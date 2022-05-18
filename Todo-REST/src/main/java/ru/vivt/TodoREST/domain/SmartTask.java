@@ -9,9 +9,13 @@ public class SmartTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String specific; //конкретный
+    @Column(columnDefinition="TEXT")
     private String measurable; //измеримый
+    @Column(columnDefinition="TEXT")
     private String achievable; //достижимый
+    @Column(columnDefinition="TEXT")
     private String relevant; //значемый
+    @Column(columnDefinition="TEXT")
     private String timeBound; //ограничения
     private Long idUser;
 

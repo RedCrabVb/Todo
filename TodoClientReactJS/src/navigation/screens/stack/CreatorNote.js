@@ -36,7 +36,7 @@ export default function CreatorNote(params) {
                     onChangeText={setHead}
                     iconName={'mail'}
                     error={errors.title}
-                    placeholder="Загаловок ..."/>
+                    placeholder="Загаловок"/>
                 <CustomTextArea
                     label={'Текст'}
                     value={body}
@@ -44,7 +44,7 @@ export default function CreatorNote(params) {
                     iconName={'lock-closed'}
                     error={errors.body}
                     multiline={true}
-                    placeholder="Ваш текст ..."/>
+                    placeholder="Ваш текст"/>
                 <View style={{paddingTop: '20%'}}>
                     <CustomButton onPress={() => {saveItem(new Note(head, body, id), setId, saveNote)}} text="Сохранить"></CustomButton>
                     <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, noteName, noteApi)} text="Удалить"/>

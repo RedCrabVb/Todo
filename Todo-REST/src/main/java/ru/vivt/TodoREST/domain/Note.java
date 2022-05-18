@@ -8,7 +8,9 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition="TEXT")
     private String head;
+    @Column(columnDefinition="TEXT")
     private String body;
     private Long idUser;
 

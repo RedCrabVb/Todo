@@ -49,7 +49,6 @@ export default function NoteScreen({navigation}) {
         <View style={[{flex: 1}, styles.container]}>
             <ErrorView text={error.text} enable={error.enable}/>
             <CustomButton text="Создать заметку" onPress={() => navigation.navigate(creatorNoteName)}/>
-            <Text>Заметки</Text>
             <ScrollView style={{padding: '5%'}}>
                 {noteAll.map(note => <Note note={note} key={note.id} navigation={navigation}/>)}
             </ScrollView>

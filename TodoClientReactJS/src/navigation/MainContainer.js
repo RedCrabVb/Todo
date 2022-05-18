@@ -62,7 +62,7 @@ function MyBottomMenu() {
         <Tab.Screen name={homeName} component={HomeScreen}/>
         <Tab.Screen name={noteName} component={NoteScreen}/>
         <Tab.Screen name={taskName} component={TaskScreen}/>
-        {/*<Tab.Screen name={timerTrackerName} component={TimeScreen}/>*/}
+        <Tab.Screen name={timerTrackerName} component={TimeScreen}/>
 
 
     </Tab.Navigator>)

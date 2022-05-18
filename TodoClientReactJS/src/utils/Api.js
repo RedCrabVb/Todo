@@ -1,4 +1,4 @@
-export const server = "http://localhost:8080/"
+export const server = "http://192.168.1.100:8080/"
 
 export const registration = `${server}registration`
 export const authentication = `${server}hello`
