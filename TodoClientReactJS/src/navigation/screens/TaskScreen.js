@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {View, Text, Vibration, ScrollView} from 'react-native'
+import {View, Text, TouchableHighlight, ScrollView} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {styles} from "../../css/css"
 import {useEffect, useState} from "react"
@@ -8,6 +8,8 @@ import {createSmartTaskName, creatorNoteName} from "../../utils/ScreenNames";
 import {CustomButton} from "../../component/CutomButton";
 import {smartTask} from "../../utils/Api";
 import {SmartTask} from "../../component/SmartTask";
+import Icon from "react-native-vector-icons/Ionicons";
+import {InfoButton} from "../../component/InfoButton";
 
 export default function TaskScreen({navigation}) {
     const [taskAll, setAllTask] = useState([])
@@ -47,6 +49,8 @@ export default function TaskScreen({navigation}) {
             <ScrollView style={{padding: '5%'}}>
                 {taskAll.map(task => <SmartTask smartTask={task} key={task.id} navigation={navigation} />)}
             </ScrollView>
+            <InfoButton text={'Метод SMART — это подход к постановке целей, который помогает выбрать формулировку желаемого результата. \nS - конкретный \nM - измеримый \nA - достижимый \nR - значимый \nT - ограничения'}/>
+
         </View>
     );
 }

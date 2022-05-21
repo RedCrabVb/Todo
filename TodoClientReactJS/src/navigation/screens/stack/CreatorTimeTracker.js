@@ -33,7 +33,6 @@ export default function CreatorTimerTracker(params) {
 
     function maskTime(x) {
         let n = Number(x.slice(-1))
-        console.log(n)
         if (!isNaN(n) && time.length == 0) setTime(x + ':')
         else if(!isNaN(n) && time.length < 4) setTime(x)
         else {

@@ -10,6 +10,7 @@ import {styles} from '../../../css/css'
 import {saveItem} from "../../../utils/SaveItem";
 import {deleteItem} from "../../../utils/DeleteItem";
 import {CustomInputDate} from "../../../component/CustomInputDate";
+import {Button} from "react-native-web";
 
 class SmartTask {
     constructor(timeBound = new Date().toLocaleDateString("en-US"), specific = '', measurable = '', achievable = '', relevant = '', id = -1) {
@@ -23,11 +24,7 @@ class SmartTask {
 }
 
 export default function CreatorSmartTask(params) {
-    // private String specific; //конкретный
-    // private String measurable; //измеримый
-    // private String achievable; //достижимый
-    // private String relevant; //значемый
-    // private String timeBound; //ограничения
+
 
     let task = (params.route.params || {task: undefined}).task || new SmartTask()
 
@@ -85,7 +82,6 @@ export default function CreatorSmartTask(params) {
                     <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, taskName, smartTaskApi)} text="Удалить"/>
                 </View>
             </ScrollView>
-
         </View>
     );
 }
