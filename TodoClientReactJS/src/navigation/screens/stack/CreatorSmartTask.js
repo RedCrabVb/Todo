@@ -13,13 +13,16 @@ import {CustomInputDate} from "../../../component/CustomInputDate";
 import {Button} from "react-native-web";
 
 class SmartTask {
-    constructor(timeBound = new Date().toLocaleDateString("en-US"), specific = '', measurable = '', achievable = '', relevant = '', id = -1) {
+    constructor(timeBound = new Date().toLocaleDateString("en-US"),
+                specific = '', measurable = '',
+                achievable = '', relevant = '', isCompleted = false, id = -1) {
         this.id = id;
         this.specific = specific;
         this.measurable = measurable;
         this.achievable = achievable;
         this.relevant = relevant;
         this.timeBound = timeBound;
+        this.isCompleted = isCompleted;
     }
 }
 
@@ -76,7 +79,7 @@ export default function CreatorSmartTask(params) {
 
                 <View style={{paddingTop: 20}}>
                     <CustomButton onPress={() => {
-                        let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, id)
+                        let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, false, id)
                         saveItem(smtask, setId, saveSmartTask)
                     }} text="Сохранить"/>
                     <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, taskName, smartTaskApi)} text="Удалить"/>

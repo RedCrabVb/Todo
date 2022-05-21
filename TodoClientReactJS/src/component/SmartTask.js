@@ -1,9 +1,12 @@
-import React from 'react'
-import {Text, View, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
+import React, {useState} from 'react'
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import {editNoteName, editSmartTaskName} from "../utils/ScreenNames";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import {saveItem} from "../utils/SaveItem";
+import {saveSmartTask} from "../utils/Api";
 
 export const SmartTask = ({smartTask, navigation}) => {
-
+    const [select, setSelect] = useState(smartTask.isCompleted)
     return (
         <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(editSmartTaskName, {task: smartTask})}
                           style={styles.container} >
@@ -13,6 +16,16 @@ export const SmartTask = ({smartTask, navigation}) => {
             <Text style={styles.text}>
                 {smartTask.timeBound}
             </Text>
+            <BouncyCheckbox
+                fillColor='#5e72d9'
+                value={select}
+                onPress={(isChecked) => {
+                    // let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, isChecked, id)
+                    smartTask.isChecked = isChecked
+                    saveItem(smartTask, (x) => {}, saveSmartTask)
+                    setSelect(isChecked)
+                }
+                } />
         </TouchableOpacity>
     );
 };
@@ -20,7 +33,7 @@ export const SmartTask = ({smartTask, navigation}) => {
 const styles = StyleSheet.create({
     container : {
         borderWidth: 2,
-        borderColor: '#3949ab',
+        borderColor: '#5e72d9',
         width: '100%',
         padding: 15,
         marginVertical: 5,
