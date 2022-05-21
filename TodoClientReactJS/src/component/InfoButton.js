@@ -15,10 +15,10 @@ export const InfoButton = ({text, bcolor = '#8c98ef'}) => {
         alignItems: 'center'
     }
     return (
-        <TouchableHighlight onPress={()=>{Alert.alert('Info', text)}} style={style}>
+        <TouchableHighlight onPress={()=>{Alert.alert('Информация', text)}} style={style}>
             <View>
                 <Icon
-                    name={'Информация'}
+                    name={'information'}
                     style={{color: '#ffffff', fontSize: 22, marginRight: 10}}
                 />
             </View>

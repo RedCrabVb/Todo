@@ -8,33 +8,35 @@ import {createSmartTaskName, createTimerTrackerName, creatorNoteName} from "../.
 import {CustomButton} from "../../component/CutomButton";
 import {smartTask, timerTracker} from "../../utils/Api";
 import {TimeTracker} from "../../component/TimeTracker";
+import {getItem} from "../../utils/GetItem";
 
 export default function TimeScreen({navigation}) {
     const [timeAll, setTimeTracker] = useState([])
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
-                AsyncStorage.getItem(USER).then(data => {
-                    const requestOptions = {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': data
-                        }
-                    }
-                    fetch(timerTracker, requestOptions)
-                        .then((response) => {
-                            if (!response.ok) JSON.parse("[]")
-                            else return response.json()
-                        })
-                        .then((data) => {
-                            console.log("tasks: " + JSON.stringify(data))
-                            if (!('error' in data)) {
-                                setTimeTracker(data)
-                                AsyncStorage.setItem(TIMER_TRACKER, JSON.stringify(data)).then(r => console.log("Okey, save time tracker"))
-                            }
-                        })
-                })
+                getItem(setTimeTracker, (x) => {console.log("error in set item TimeScreen")}, timerTracker)
+                // AsyncStorage.getItem(USER).then(data => {
+                //     const requestOptions = {
+                //         method: 'GET',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             'Authorization': data
+                //         }
+                //     }
+                //     fetch(timerTracker, requestOptions)
+                //         .then((response) => {
+                //             if (!response.ok) JSON.parse("[]")
+                //             else return response.json()
+                //         })
+                //         .then((data) => {
+                //             console.log("tasks: " + JSON.stringify(data))
+                //             if (!('error' in data)) {
+                //                 setTimeTracker(data)
+                //                 AsyncStorage.setItem(TIMER_TRACKER, JSON.stringify(data)).then(r => console.log("Okey, save time tracker"))
+                //             }
+                //         })
+                // })
 
             })
             return unsubscribe

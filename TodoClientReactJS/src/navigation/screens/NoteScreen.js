@@ -9,6 +9,7 @@ import {creatorNoteName} from "../../utils/ScreenNames"
 import {CustomButton} from "../../component/CutomButton"
 import {styles} from "../../css/css"
 import {ErrorView} from "../../component/ErrorView";
+import {getItem} from "../../utils/GetItem";
 
 export default function NoteScreen({navigation}) {
     const [noteAll, setNoteAll] = useState([])
@@ -16,29 +17,8 @@ export default function NoteScreen({navigation}) {
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
-                AsyncStorage.getItem(USER).then(data => {
-                    const requestOptions = {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': data
-                        }
-                    }
-                    fetch(note, requestOptions)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log("notes: " + JSON.stringify(data))
-                            if (!('error' in data)) {
-                                setNoteAll(data)
-                                AsyncStorage.setItem(NOTE, JSON.stringify(data)).then(r => console.log("Okey, save note"))
-                            } else {
-                                setError({enable: true, text: data.error})
-                            }
-                        }).catch(e => {
-                            console.log(e)
-                            setError({enable: true, text: e.message})
-                        })
-                })
+                getItem(setNoteAll, setError, note)
+                console.log(JSON.stringify(noteAll))
 
             })
             return unsubscribe
@@ -50,7 +30,9 @@ export default function NoteScreen({navigation}) {
             <ErrorView text={error.text} enable={error.enable}/>
             <CustomButton text="Создать заметку" onPress={() => navigation.navigate(creatorNoteName)}/>
             <ScrollView style={{padding: '5%'}}>
-                {noteAll.map(note => <Note note={note} key={note.id} navigation={navigation}/>)}
+                {
+                    noteAll.map(note => <Note note={note} key={note.id} navigation={navigation}/>)
+                }
             </ScrollView>
         </View>
     );

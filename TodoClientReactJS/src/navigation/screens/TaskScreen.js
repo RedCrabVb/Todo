@@ -10,33 +10,35 @@ import {smartTask} from "../../utils/Api";
 import {SmartTask} from "../../component/SmartTask";
 import Icon from "react-native-vector-icons/Ionicons";
 import {InfoButton} from "../../component/InfoButton";
+import {getItem} from "../../utils/GetItem";
 
 export default function TaskScreen({navigation}) {
     const [taskAll, setAllTask] = useState([])
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
-                AsyncStorage.getItem(USER).then(data => {
-                    const requestOptions = {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': data
-                        }
-                    }
-                    fetch(smartTask, requestOptions)
-                        .then((response) => {
-                            if (!response.ok) JSON.parse("[]")
-                            else return response.json()
-                        })
-                        .then((data) => {
-                            console.log("tasks: " + JSON.stringify(data))
-                            if (!('error' in data)) {
-                                setAllTask(data)
-                                AsyncStorage.setItem(SMART_TASK, JSON.stringify(data)).then(r => console.log("Okey, save smart task"))
-                            }
-                        })
-                })
+                getItem(setAllTask, (x) => {console.log("error task screen get item")}, smartTask)
+                // AsyncStorage.getItem(USER).then(data => {
+                //     const requestOptions = {
+                //         method: 'GET',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             'Authorization': data
+                //         }
+                //     }
+                //     fetch(smartTask, requestOptions)
+                //         .then((response) => {
+                //             if (!response.ok) JSON.parse("[]")
+                //             else return response.json()
+                //         })
+                //         .then((data) => {
+                //             console.log("tasks: " + JSON.stringify(data))
+                //             if (!('error' in data)) {
+                //                 setAllTask(data)
+                //                 AsyncStorage.setItem(SMART_TASK, JSON.stringify(data)).then(r => console.log("Okey, save smart task"))
+                //             }
+                //         })
+                // })
 
             })
             return unsubscribe
