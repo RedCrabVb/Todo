@@ -5,6 +5,7 @@ import {editNoteName} from "../utils/ScreenNames";
 export const ErrorView = ({text, enable = false}) => {
 
     if (enable) {
+        console.log("ErrorView: is " + enable)
         return (
             <View style={styles.container}>
                 <Text>Error: {text}</Text>

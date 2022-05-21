@@ -19,8 +19,9 @@ export function saveItem(item, changeID, api) {
             })
             .then((data) => {
                 console.log(`save api ${api}: ` + JSON.stringify(data))
+                alert('Сохранено')
                 changeID(data.id)
             })
-            .catch((error) => alert(error))
+            .catch((error) => { alert(error) })
     })
 }

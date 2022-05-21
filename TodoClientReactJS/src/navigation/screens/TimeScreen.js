@@ -9,35 +9,15 @@ import {CustomButton} from "../../component/CutomButton";
 import {smartTask, timerTracker} from "../../utils/Api";
 import {TimeTracker} from "../../component/TimeTracker";
 import {getItem} from "../../utils/GetItem";
+import {ErrorView} from "../../component/ErrorView";
 
 export default function TimeScreen({navigation}) {
     const [timeAll, setTimeTracker] = useState([])
+    const [error, setError] = useState({enable: false, text: ''})
 
     useEffect(() => {
             const unsubscribe = navigation.addListener('focus', () => {
-                getItem(setTimeTracker, (x) => {console.log("error in set item TimeScreen")}, timerTracker)
-                // AsyncStorage.getItem(USER).then(data => {
-                //     const requestOptions = {
-                //         method: 'GET',
-                //         headers: {
-                //             'Content-Type': 'application/json',
-                //             'Authorization': data
-                //         }
-                //     }
-                //     fetch(timerTracker, requestOptions)
-                //         .then((response) => {
-                //             if (!response.ok) JSON.parse("[]")
-                //             else return response.json()
-                //         })
-                //         .then((data) => {
-                //             console.log("tasks: " + JSON.stringify(data))
-                //             if (!('error' in data)) {
-                //                 setTimeTracker(data)
-                //                 AsyncStorage.setItem(TIMER_TRACKER, JSON.stringify(data)).then(r => console.log("Okey, save time tracker"))
-                //             }
-                //         })
-                // })
-
+                getItem(setTimeTracker, setError, timerTracker)
             })
             return unsubscribe
         }
@@ -45,6 +25,7 @@ export default function TimeScreen({navigation}) {
 
     return (
         <View style={styles.container}>
+            <ErrorView text={error.text} enable={error.enable}/>
             <CustomButton text="Добавить время" onPress={() => navigation.navigate(createTimerTrackerName)}/>
             <ScrollView style={{padding: '5%'}}>
                 {timeAll.map(time => <TimeTracker timeTracker={time} key={time.id} navigation={navigation} />)}

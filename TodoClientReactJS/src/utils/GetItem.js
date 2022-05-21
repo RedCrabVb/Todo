@@ -22,8 +22,16 @@ export function getItem(setItem, setError, api) {
                 AsyncStorage.setItem(NOTE, JSON.stringify(data)).then(r => console.log("Okey, load item"))
             }).catch(e => {
                 console.log(e)
-                setError({enable: true, text: e.message}
-            )
+
+                if (error.message === 'Network request failed') {
+                    AsyncStorage.getItem(NOTE).then(data => {
+                        console.log("Okey, load item from memory")
+                        console.log(data)
+                        setItem(JSON.parse(data))
+                    })
+                } else {
+                    setError({enable: true, text: e.message})
+                }
         })
     })
 
