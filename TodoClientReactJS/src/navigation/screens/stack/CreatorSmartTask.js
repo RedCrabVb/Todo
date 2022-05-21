@@ -24,6 +24,10 @@ class SmartTask {
         this.timeBound = timeBound;
         this.isCompleted = isCompleted;
     }
+
+    set setCompleted(value) {
+        this.isCompleted = value
+    }
 }
 
 export default function CreatorSmartTask(params) {

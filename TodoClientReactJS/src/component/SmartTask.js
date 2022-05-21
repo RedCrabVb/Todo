@@ -20,8 +20,7 @@ export const SmartTask = ({smartTask, navigation}) => {
                 fillColor='#5e72d9'
                 value={select}
                 onPress={(isChecked) => {
-                    // let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, isChecked, id)
-                    smartTask.isChecked = isChecked
+                    smartTask.completed = isChecked
                     saveItem(smartTask, (x) => {}, saveSmartTask)
                     setSelect(isChecked)
                 }
