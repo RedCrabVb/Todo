@@ -9,9 +9,10 @@ import {styles} from '../../../css/css'
 import {deleteItem} from "../../../utils/DeleteItem";
 import {saveItem} from "../../../utils/SaveItem";
 import DatePicker from "@react-native-community/datetimepicker";
+import {CustomInput} from "../../../component/CustomInput";
 
 class TimerTracker {
-    constructor(nameTask = '', idSmartTask = '', time = new Date(), id = -1) {
+    constructor(nameTask = '', idSmartTask = '', time = '', date = new Date(), id = -1) {
         this.id = id;
         this.nameTask = nameTask;
         this.idSmartTask = idSmartTask;
@@ -30,6 +31,16 @@ export default function CreatorTimerTracker(params) {
 
     const [errors, setErrors] = useState({})
 
+    function maskTime(x) {
+        let n = Number(x.slice(-1))
+        console.log(n)
+        if (!isNaN(n) && time.length == 0) setTime(x + ':')
+        else if(!isNaN(n) && time.length < 4) setTime(x)
+        else {
+            console.log("invalid input: " + x + " " + typeof x)
+        }
+    }
+
     return (
         <View style={[{flex: 1}, styles.container]}>
             <ScrollView>
@@ -43,8 +54,14 @@ export default function CreatorTimerTracker(params) {
                 <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
 
                 </View>
+                <CustomInput
+                    label={'Затраченное время'}
+                    value={time}
+                    onChangeText={maskTime}
+                    iconName={'time'}
+                    placeholder="Ч:MM"/>
                 <View style={{paddingTop: 20}}>
-                    <CustomButton onPress={() => saveItem(new TimerTracker(nameTask, idSmartTask, time, id), setId, saveTimerTracker)} text="Сохранить"/>
+                    <CustomButton onPress={() => saveItem(new TimerTracker(nameTask, idSmartTask, time, task.date, id), setId, saveTimerTracker)} text="Сохранить"/>
                     <CustomButton bcolor={'#d41b1b'} onPress={
                         () => deleteItem(id, params.navigation, taskName, timerTrackerApi)
                     } text="Удалить"/>

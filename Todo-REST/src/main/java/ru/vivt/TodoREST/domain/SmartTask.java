@@ -17,19 +17,21 @@ public class SmartTask {
     private String relevant; //значемый
     @Column(columnDefinition="TEXT")
     private String timeBound; //ограничения
+    private boolean isCompleted = false;
     private Long idUser;
 
     public SmartTask() {
 
     }
 
-    public SmartTask(Long id, String specific, String measurable, String achievable, String relevant, String timeBound, Long idUser) {
+    public SmartTask(Long id, String specific, String measurable, String achievable, String relevant, String timeBound, boolean isCompleted, Long idUser) {
         this.id = id;
         this.specific = specific;
         this.measurable = measurable;
         this.achievable = achievable;
         this.relevant = relevant;
         this.timeBound = timeBound;
+        this.isCompleted = isCompleted;
         this.idUser = idUser;
     }
 
@@ -87,5 +89,13 @@ public class SmartTask {
 
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }

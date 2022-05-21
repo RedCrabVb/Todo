@@ -10,16 +10,18 @@ public class TimeTracker {
     private Long id;
     private String nameTask;
     private Long idSmartTask;
-    private int time;
+    private String time;
+    private String date;
     private Long idUser;
 
     public TimeTracker() {}
 
-    public TimeTracker(Long id, String nameTask, Long idSmartTask, int time) {
+    public TimeTracker(Long id, String nameTask, Long idSmartTask, String time, String date) {
         this.id = id;
         this.nameTask = nameTask;
         this.idSmartTask = idSmartTask;
         this.time = time;
+        this.date = date;
     }
 
     public Long getId() {
@@ -46,11 +48,11 @@ public class TimeTracker {
         this.idSmartTask = idSmartTask;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -60,5 +62,13 @@ public class TimeTracker {
 
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
