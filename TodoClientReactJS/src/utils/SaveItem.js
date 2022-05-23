@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {USER} from "./Storage";
 import {saveNote} from "./Api";
 
-export function saveItem(item, changeID = () => {}, api) {
+export function saveItem(item, changeID, api) {
     AsyncStorage.getItem(USER).then(data => {
         const requestOptions = {
             method: 'POST',

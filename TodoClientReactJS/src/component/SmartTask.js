@@ -5,8 +5,8 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {saveItem} from "../utils/SaveItem";
 import {saveSmartTask} from "../utils/Api";
 
-export const SmartTask = ({smartTask, navigation}) => {
-    const [select, setSelect] = useState(smartTask.isCompleted)
+export const SmartTask = ({smartTask, navigation, taskAll, setAllTask}) => {
+    const [select, setSelect] = useState(smartTask.completed)
     return (
         <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate(editSmartTaskName, {task: smartTask})}
                           style={styles.container} >
@@ -18,9 +18,13 @@ export const SmartTask = ({smartTask, navigation}) => {
             </Text>
             <BouncyCheckbox
                 fillColor='#5e72d9'
-                value={select}
+                isChecked={select}
                 onPress={(isChecked) => {
                     smartTask.completed = isChecked
+                    let allTaskTmp = taskAll.filter(t => t.id != smartTask.id)
+                    allTaskTmp.push(smartTask)
+                    setAllTask(allTaskTmp)
+
                     saveItem(smartTask, (x) => {}, saveSmartTask)
                     setSelect(isChecked)
                 }

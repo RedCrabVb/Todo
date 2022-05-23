@@ -30,7 +30,15 @@ export default function TaskScreen({navigation}) {
             <ErrorView text={error.text} enable={error.enable}/>
             <CustomButton text="Создать задачу" onPress={() => navigation.navigate(createSmartTaskName)}/>
             <ScrollView style={{padding: '5%'}}>
-                {taskAll.map(task => <SmartTask smartTask={task} key={task.id} navigation={navigation} />)}
+                {taskAll.filter(t => t.completed == false).map(task => <SmartTask taskAll={taskAll} setAllTask={setAllTask} smartTask={task} key={task.id} navigation={navigation} />)}
+                {
+                    taskAll.filter(t => t.completed == true).length != 0 &&
+                    <View>
+                        <Text>Завершенные задания</Text>
+                        {taskAll.filter(t => t.completed == true).map(task => <SmartTask taskAll={taskAll} setAllTask={setAllTask} smartTask={task} key={task.id} navigation={navigation} />)}
+                    </View>
+                }
+
             </ScrollView>
             <InfoButton text={'Метод SMART — это подход к постановке целей, который помогает выбрать формулировку желаемого результата. \nS - конкретный \nM - измеримый \nA - достижимый \nR - значимый \nT - ограничения'}/>
 

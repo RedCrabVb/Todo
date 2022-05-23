@@ -1,5 +1,4 @@
 import {NOTE, USER} from "./Storage";
-import {note} from "./Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function getItem(setItem, setError, api) {

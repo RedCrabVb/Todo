@@ -1,15 +1,16 @@
 import * as React from 'react'
-import {View, ScrollView} from 'react-native'
-import {useState} from "react"
+import {View, ScrollView, Text} from 'react-native'
+import {useEffect, useState} from "react"
 import {CustomButton} from "../../../component/CutomButton"
 import {CustomTextArea} from "../../../component/CustomTextArea"
-import {saveTimerTracker, timerTracker as timerTrackerApi} from "../../../utils/Api"
+import {note, saveTimerTracker, smartTask as smartTaskApi, timerTracker as timerTrackerApi} from "../../../utils/Api"
 import {taskName} from "../../../utils/ScreenNames"
 import {styles} from '../../../css/css'
-import {deleteItem} from "../../../utils/DeleteItem";
-import {saveItem} from "../../../utils/SaveItem";
-import DatePicker from "@react-native-community/datetimepicker";
-import {CustomInput} from "../../../component/CustomInput";
+import {deleteItem} from "../../../utils/DeleteItem"
+import {saveItem} from "../../../utils/SaveItem"
+import {CustomInput} from "../../../component/CustomInput"
+import DropdownMenu from 'react-native-dropdown-menu'
+import {getItem} from "../../../utils/GetItem";
 
 class TimerTracker {
     constructor(nameTask = '', idSmartTask = '', time = '', date = new Date(), id = -1) {
@@ -17,6 +18,7 @@ class TimerTracker {
         this.nameTask = nameTask;
         this.idSmartTask = idSmartTask;
         this.time = time;
+        this.date = date;
     }
 }
 
@@ -28,17 +30,30 @@ export default function CreatorTimerTracker(params) {
     const [nameTask, setNameTask] = useState(task.nameTask)
     const [idSmartTask, setIdSmartTask] = useState(task.idSmartTask)
     const [time, setTime] = useState(task.time)
+    const [smartTask, setSmartTask] = useState([[]])
+    const [dropDownData, setDropDownData] = useState([[]])
+    const [isLoad, setLoad] = useState(false)
 
     const [errors, setErrors] = useState({})
 
-    function maskTime(x) {
-        let n = Number(x.slice(-1))
-        if (!isNaN(n) && time.length == 0) setTime(x + ':')
-        else if(!isNaN(n) && time.length < 4) setTime(x)
-        else {
-            console.log("invalid input: " + x + " " + typeof x)
+    function maskTime(x) {//error
+        let regx = RegExp('([0-9]:[0-9][0-9])')
+        if (regx.test(x)) {
+            setTime(x)
+        } else {
+            console.log("pattern false")
         }
     }
+
+    useEffect(() => {
+        if (!isLoad) {
+            getItem((arr) => {
+                setLoad(true)
+                setSmartTask([arr])
+                setDropDownData([arr.map(a => a.specific)])
+            }, setErrors, smartTaskApi)
+        }
+    })
 
     return (
         <View style={[{flex: 1}, styles.container]}>
@@ -50,21 +65,34 @@ export default function CreatorTimerTracker(params) {
                     error={errors.body}
                     multiline={true}
                     placeholder="Ваш текст ..."/>
-                <View style={{paddingTop: 20, paddingHorizontal: 10, margin: 20}}>
 
-                </View>
-                <CustomInput
-                    label={'Затраченное время'}
-                    value={time}
-                    onChangeText={maskTime}
-                    iconName={'time'}
-                    placeholder="Ч:MM"/>
-                <View style={{paddingTop: 20}}>
-                    <CustomButton onPress={() => saveItem(new TimerTracker(nameTask, idSmartTask, time, task.date, id), setId, saveTimerTracker)} text="Сохранить"/>
-                    <CustomButton bcolor={'#d41b1b'} onPress={
-                        () => deleteItem(id, params.navigation, taskName, timerTrackerApi)
-                    } text="Удалить"/>
-                </View>
+
+                <DropdownMenu //error
+                    style={{flex: 1}}
+                    bgColor={'white'}
+                    tintColor={'#666666'}
+                    activityTintColor={'green'}
+                    handler={(selection, row) => {
+                        console.log("change dropdown: " + JSON.stringify(smartTask))
+                        setIdSmartTask(smartTask[selection][row].id)
+                    }}
+                    data={dropDownData}
+                >
+                    <CustomInput
+                        label={'Затраченное время'}
+                        value={time}
+                        onChangeText={maskTime}
+                        iconName={'time'}
+                        placeholder="Ч:MM"/>
+                    <View style={{paddingTop: 20}}>
+                        <CustomButton onPress={() => saveItem(new TimerTracker(nameTask, idSmartTask, time, task.date, id), setId, saveTimerTracker)} text="Сохранить"/>
+                        <CustomButton bcolor={'#d41b1b'} onPress={
+                            () => deleteItem(id, params.navigation, taskName, timerTrackerApi)
+                        } text="Удалить"/>
+                    </View>
+                </DropdownMenu>
+
+
             </ScrollView>
 
         </View>

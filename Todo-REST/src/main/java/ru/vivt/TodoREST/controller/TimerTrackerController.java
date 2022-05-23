@@ -22,8 +22,7 @@ public class TimerTrackerController {
     @PostMapping("save")
     public TimeTracker save(@RequestBody TimeTracker smartTask, Authentication authentication) {
         smartTask.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
-        timerTrackerRepository.save(smartTask);
-        return smartTask;
+        return timerTrackerRepository.save(smartTask);
     }
 
     @GetMapping
