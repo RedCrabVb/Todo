@@ -10,10 +10,10 @@ import {LogIn} from './pages/Login'
 function App() {
     return (
         <>
-            <header className="App-header">
+            {/* <header className="App-header">
                 <Link to={"/"}>Home</Link>
                 <Link to={"/note"}>Note</Link>
-            </header>
+            </header> */}
             <Routes>
                 <Route path="/" element={<Home/>}></Route>
                 <Route path="/note" element={<Note/>}></Route>
