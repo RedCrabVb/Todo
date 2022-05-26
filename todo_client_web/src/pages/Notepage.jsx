@@ -1,22 +1,42 @@
-class Note {
-    constructor(head = '', body = '', id = -1) {
-        this.id = id;
-        this.head = head;
-        this.body = body;
-    }
-}
+import React, { useEffect, useState } from "react"
+import { note, server } from '../utils/Api'
+import { getItem } from '../utils/OperationItem'
+import { useNavigate, Link } from "react-router-dom"
+import { ErrorView } from '../component/ErrorView'
+import { NoteComponent } from '../component/NoteComponent'
+import { Header } from "./Header"
+import { routeEditNote } from '../utils/ScreenNames'
 
 export const Note = () => {
-    let note = (params.route.params || {note: undefined}).note || new Note()
+    const [noteAll, setNoteAll] = useState([])
+    const [error, setError] = useState({ enable: false, text: '' })
 
-    const [id, setId] = useState(note.id)
-    const [head, setHead] = useState(note.head)
-    const [body, setBody] = useState(note.body)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const [errors, setErrors] = React.useState({})
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsLoading(true)
+            getItem(setNoteAll, setError, note)
+            console.log(JSON.stringify(noteAll))
+        }
+    }
+    )
 
 
     return (
-        <div></div>
+        <div>
+            <Header />
+            <ErrorView text={error.text} enable={error.enable} />
+            <Link className="btn btn-primary mb-3 customButtons" to={`${routeEditNote}/-1`}>Создать заметку</Link>
+            <br></br>
+            <div className="containerItem m-3">
+                <h1>Заметки</h1>
+                {
+                    noteAll.map(note => <NoteComponent note={note} key={note.id} navigation={navigate} />)
+                }
+            </div>
+        </div>
     )
 }
