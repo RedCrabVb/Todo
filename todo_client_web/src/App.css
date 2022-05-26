@@ -18,6 +18,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.customButtons {
+  width: 100%;
+}
+
+.containerError {
+  background: #f1081d;
+  width: 100%;
+
+  padding: 7px;
+  justify-content: flex-start;
+  border-radius: 5px;
+  flex-direction: row;
+  display: inline-block;
+}
+
+.text {
+  font-weight: 'bold';
+  color: 'white';
 }
 
 .App-header {

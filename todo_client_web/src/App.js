@@ -7,13 +7,15 @@ import {Note} from './pages/Notepage'
 import {Notfoundpage} from './pages/Notfoundpage'
 import {LogIn} from './pages/Login'
 
+import {routeHome, routeNote, routeLogin} from "./utils/ScreenNames"
+
 function App() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Home/>}></Route>
-                <Route path="/note" element={<Note/>}></Route>
-                <Route path="/login" element={<LogIn/>}></Route>
+                <Route path={routeHome} element={<Home/>}></Route>
+                <Route path={routeNote} element={<Note/>}></Route>
+                <Route path={routeLogin} element={<LogIn/>}></Route>
                 <Route path="*" element={<Notfoundpage/>}/>
             </Routes>
         </>

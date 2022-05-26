@@ -12,3 +12,8 @@ export const homeName = "Главная",
     editTimerTrackerName = "Редактировать заметку об времени",
     editSmartTaskName = "Редактировать SMART задачу",
     tabsName = "Tabs"
+
+export const routeHome = "/",
+    routeLogin = "/login",
+    routeNote = "/note",
+    routeRegistration = "/registration"
