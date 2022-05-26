@@ -17,5 +17,4 @@ export const routeHome = "/",
     routeLogin = "/login",
     routeNote = "/note",
     routeRegistration = "/registration",
-    routePathTask = "/task",
-    routeEditNote = "/note"
+    routeTask = "/task"

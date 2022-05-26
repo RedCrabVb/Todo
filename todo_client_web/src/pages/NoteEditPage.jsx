@@ -15,9 +15,10 @@ class NoteClass {
     }
 }
 
-function getItemCurrent(id) {
-    const notes = localStorage.getItem(NOTE)
-    return id == '-1' ? new NoteClass() : JSON.parse(notes).filter(n => n.id == id)[0]
+function getItemCurrent(id, stor, defualt) {
+    const item = localStorage.getItem(stor)
+    console.log(`${stor} save ${item}`)
+    return id == '-1' ? defualt : JSON.parse(item).filter(n => n.id == id)[0]
 }
 
 export const NoteEdit = (p) => {
@@ -25,7 +26,7 @@ export const NoteEdit = (p) => {
     const navigate = useNavigate()
 
 
-    let note = getItemCurrent(idNote)
+    let note = getItemCurrent(idNote, NOTE, new NoteClass())
 
     const [id, setId] = useState(note.id)
     const [head, setHead] = useState(note.head)

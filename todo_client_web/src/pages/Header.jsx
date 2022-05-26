@@ -23,7 +23,7 @@ export const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/note/all">Заметки</Nav.Link>
-                        <Nav.Link as={Link} to="/task">Задачи</Nav.Link>
+                        <Nav.Link as={Link} to="/task/all">Задачи</Nav.Link>
                         {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

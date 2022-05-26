@@ -3,7 +3,7 @@ import {saveNote} from "./Api";
 import { useNavigate } from "react-router-dom"
 
 
-export function getItem(setItem, setError, api) {
+export function getItem(setItem, setError, api, local) {
     let data = localStorage.getItem(USER)
     
     const requestOptions = {
@@ -21,7 +21,7 @@ export function getItem(setItem, setError, api) {
         .then((data) => {
             console.log(data)
             setItem(data)
-            localStorage.setItem(NOTE, JSON.stringify(data))
+            localStorage.setItem(local, JSON.stringify(data))
            
         }).catch(error => {
             console.log({error})
@@ -51,12 +51,10 @@ export function deleteItem(id, navigation, returnPageName, api) {
         }
         fetch(api + `/${id}`, requestOptions)
             .then((data) => {
-                // navigation.popToTop(topPageName)
                 navigation(returnPageName)
             })
             .catch((error) => alert(error))
     } else {
-        // navigation.popToTop(topPageName)
         navigation(returnPageName)
     }
 }
