@@ -16,4 +16,5 @@ export const homeName = "Главная",
 export const routeHome = "/",
     routeLogin = "/login",
     routeNote = "/note",
-    routeRegistration = "/registration"
+    routeRegistration = "/registration",
+    routePathTask = "/task"
