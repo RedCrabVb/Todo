@@ -65,7 +65,6 @@ export const LogIn = () => {
                     setError({ enable: true, text: 'Не верный логин или пароль' })
                 } else {
                     console.log(error + " in login")
-                    // Alert.alert("Ошибка", "Ошибка при авторизации, попробуте:\n1) изменить данные \n2) сбросить кэш \n3) подключиться позже \n4) обратиться к администратору ")
                 }
             })
     }
@@ -82,7 +81,7 @@ export const LogIn = () => {
             <div className="col-md-6">
                 <ErrorView text={error.text} enable={error.enable}/>
                 <div className="mb-3">
-                    <label className="form-label">Имя пользователя</label>
+                    <label className="form-label">Почта</label>
                     <ErrorSpan text={errors.email}/>
                     <input type="text" className="form-control" id="username"
                         value={login} onChange={(e) => setLogin(e.target.value)} />
@@ -95,7 +94,7 @@ export const LogIn = () => {
                 </div>
                 <div className="mb-3">
                     <button onClick={validate} className="btn btn-primary mb-3 customButtons">Войти</button>
-                    <button onClick={() => {navigate({routeRegistration}, { replace: true })}} className="btn btn-primary customButtons">Регистрация</button>
+                    <button onClick={() => {navigate(routeRegistration, { replace: true })}} className="btn btn-primary customButtons">Регистрация</button>
                 </div>
             </div>
 

@@ -7,7 +7,8 @@ import {Note} from './pages/Notepage'
 import {Notfoundpage} from './pages/Notfoundpage'
 import {LogIn} from './pages/Login'
 
-import {routeHome, routeNote, routeLogin} from "./utils/ScreenNames"
+import {routeHome, routeNote, routeLogin, routeRegistration} from "./utils/ScreenNames"
+import { Registration } from './pages/RegistrationPage';
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path={routeHome} element={<Home/>}></Route>
                 <Route path={routeNote} element={<Note/>}></Route>
                 <Route path={routeLogin} element={<LogIn/>}></Route>
+                <Route path={routeRegistration} element={<Registration/>}></Route>
                 <Route path="*" element={<Notfoundpage/>}/>
             </Routes>
         </>
