@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { saveSmartTask, smartTask as smartTaskApi } from "../utils/Api"
-import { note } from "../utils/ScreenNames"
 import { deleteItem, saveItem } from "../utils/OperationItem"
 import { SMART_TASK } from "../utils/Storage"
 import { useParams, useNavigate } from 'react-router-dom'
 import { ErrorView } from '../component/ErrorView'
-import { Header } from '../pages/Header'
 
 
 class SmartTask {

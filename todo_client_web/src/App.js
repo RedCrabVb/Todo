@@ -1,16 +1,16 @@
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom'
 
-import { Home } from './pages/HomePage'
+import { Home } from './pages/commons/HomePage'
 import { Note } from './pages/NotePage'
 import { Task } from './pages/TaskPage'
-import { Notfoundpage } from './pages/NotFoundPage'
-import { LogIn } from './pages/Login'
+import { Notfoundpage } from './pages/commons/NotFoundPage'
+import { LogIn } from './pages/commons/Login'
 import { NoteEdit } from './pages/NoteEditPage'
 import { TaskEdit } from './pages/TaskEditPage'
 
 import { routeHome, routeNote, routeLogin, routeRegistration, routeTask } from "./utils/ScreenNames"
-import { Registration } from './pages/RegistrationPage';
+import { Registration } from './pages/commons/RegistrationPage';
 
 function App() {
     return (

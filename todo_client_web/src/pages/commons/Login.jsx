@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { USER } from "../utils/Storage"
-import { FormInput } from "../component/FormInput"
-import { Button } from 'react-bootstrap'
-import { authentication } from '../utils/Api'
+import { USER } from "../../utils/Storage"
+import { authentication } from '../../utils/Api'
 import { useNavigate } from "react-router-dom"
-import { ErrorView } from '../component/ErrorView'
-import { routeHome, routeRegistration, routeLogin } from "../utils/ScreenNames"
+import { ErrorView } from '../../component/ErrorView'
+import { routeHome, routeRegistration, routeLogin } from "../../utils/ScreenNames"
 
 export const LogIn = () => {
     const [login, setLogin] = useState('')

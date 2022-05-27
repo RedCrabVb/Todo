@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
-import {USER} from "../utils/Storage";
+import {USER} from "../../utils/Storage";
 import {useNavigate} from "react-router-dom";
-import {version} from '../utils/Api'
+import {version} from '../../utils/Api'
 import React from 'react'
 import {Header} from './Header'
 

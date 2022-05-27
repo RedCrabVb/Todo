@@ -4,10 +4,11 @@ import { getItem } from '../utils/OperationItem'
 import { useNavigate, Link } from "react-router-dom"
 import { ErrorView } from '../component/ErrorView'
 import { TaskComponent } from '../component/TaskComponent'
-import { Header } from "./Header"
+import { Header } from "./commons/Header"
 import { routeTask } from '../utils/ScreenNames'
 import { SMART_TASK } from "../utils/Storage"
 import { TaskEdit } from './TaskEditPage'
+import { styleBlockItem, styleContainerItem, styleItems} from './commons/css/item'
 
 export const Task = () => {
     const [taskAll, setTaskAll] = useState([])
@@ -28,20 +29,6 @@ export const Task = () => {
         }
     })
 
-    const styleTask = {
-        display: 'inline-grid',
-        // overflow: 'auto',
-        // height: '80vh'
-    }
-
-    const styleBlockTask = {
-        display: 'inline-grid',
-        overflow: 'auto',
-        maxHeight: '80vh'
-    }
-
-    const styleContainer = { height: 'calc(100vh - 135px)', borderColor: 'gray', borderWidth: 2 }
-
 
 
     return (
@@ -49,11 +36,11 @@ export const Task = () => {
             <Header />
             <ErrorView text={error.text} enable={error.enable} />
             <br></br>
-            <div className="container" style={styleContainer}>
+            <div className="container" style={styleContainerItem}>
                 <div className="row" >
-                    <div className="col-2 m-1" style={styleTask}>
+                    <div className="col-2 m-1" style={styleItems}>
                         <button style={{height: '60px'}} className="btn btn-outline-primary mb-3 customButtons" onClick={() => { setCurrentTask(-1) }} >+ cоздать задачу</button>
-                        <div style={styleBlockTask}>
+                        <div style={styleBlockItem}>
                             {
                                 taskAll.reverse()
                                 .map(task => <TaskComponent

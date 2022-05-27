@@ -5,23 +5,30 @@ import {saveSmartTask, saveSmartTask as taskApi } from "../utils/Api"
 import {saveItem} from '../utils/OperationItem'
 
 export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask}) => {
-    function chnageCheckBox(value) {
-        console.log(value)
-        // task.completed = true
+    const style = {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        minHeigth: '75px', 
+        maxHeight: '100px', 
+    }
 
+    
+    function chnageCheckBox(value) {
         task.completed = !task.completed
         let allTaskTmp = taskAll.filter(t => t.id != task.id)
         allTaskTmp.push(task)
 
         saveItem(task, (id) => {}, taskApi, () => {
-            console.log("save item check box click")
             setAllTask(allTaskTmp)
         })
     }
+
+
     return (
         <>
         <div onClick={() => {setCurrentTask(task.id)}} 
-        className="btn btn-outline-secondary" style={{minHeigth: '75px', maxHeight: '100px'}}>
+        className="btn btn-outline-secondary" style={style}>
             {task.specific}
             <br/>
             {task.timeBound}
