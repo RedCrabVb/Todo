@@ -39,7 +39,6 @@
   min-width: 50%;
   margin-right: 25%;
   padding-left: 25%;
-  display: flex;
   justify-content: flex-start;
   border-radius: 5px;
   flex-direction: row;

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { saveSmartTask, smartTask as smartTaskApi } from "../utils/Api"
 import { note } from "../utils/ScreenNames"
 import { deleteItem, saveItem } from "../utils/OperationItem"
@@ -25,25 +25,20 @@ class SmartTask {
 
 function getItemCurrent(id, stor, defualt) {
     const item = localStorage.getItem(stor)
-    console.log(`${stor} save ${item}`)
     return id == '-1' ? defualt : JSON.parse(item).filter(n => n.id == id)[0]
 }
 
-export const TaskEdit = (p) => {
-    const idTask = useParams()['*']
+export const TaskEdit = ({ idItem, funcLoadItem }) => {
     const navigate = useNavigate()
 
-
-    let task = getItemCurrent(idTask, SMART_TASK, new SmartTask())
-
-    const [id, setId] = useState(task.id)
-    const [specific, setSpecific] = useState(task.specific)
-    const [measurable, setMeasurable] = useState(task.measurable)
-    const [achievable, setAchievable] = useState(task.achievable)
-    const [relevant, setRelevant] = useState(task.relevant)
-    const [timeBound, setTimeBound] = useState(task.timeBound)
+    const [task, setTask] = useState(getItemCurrent(idItem, SMART_TASK, new SmartTask()))
 
     const [errors, setErrors] = React.useState({})
+
+    useEffect(() => {
+        if (idItem != task.id) setTask(getItemCurrent(idItem, SMART_TASK, new SmartTask()))
+    })
+
 
     function elementInput(value, setValue, name) {
         return (
@@ -57,23 +52,21 @@ export const TaskEdit = (p) => {
 
     return (
         <>
-            <Header />
-            <h1>Task edit {id}</h1>
-
             <div className="m-3">
                 <ErrorView text={errors.text} enable={errors.enable} />
-                {elementInput(specific, setSpecific, 'S')}
-                {elementInput(measurable, setMeasurable, 'S')}
-                {elementInput(achievable, setAchievable, 'S')}
-                {elementInput(relevant, setRelevant, 'S')}
-                {elementInput(timeBound, setTimeBound, 'S')}
+                {elementInput(task.specific, (specific) => { setTask({ ...task, specific }) }, 'S')}
+                {elementInput(task.measurable, (measurable) => setTask({...task, measurable}), 'S')}
+                {elementInput(task.achievable, (achievable) => setTask({...task, achievable}), 'S')}
+                {elementInput(task.relevant, (relevant) => setTask({...task, relevant}), 'S')}
+                {elementInput(task.timeBound, (timeBound) => setTask({...task, timeBound}), 'S')}
             </div>
 
-            <button onClick={() => {
-                let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, false, id)
-                saveItem(smtask, setId, saveSmartTask)
+            <button className="btn btn-secondary mb-3 customButtons" onClick={() => {
+                saveItem(task, (id) => setTask({ ...task, id }), saveSmartTask, funcLoadItem)
             }}>Сохранить</button>
-            <button bcolor={'#d41b1b'} onClick={() => deleteItem(id, navigate, task, smartTaskApi)}>Удалить</button>
+            <button className="btn btn-danger mb-3 customButtons" onClick={() => {
+                deleteItem(task.id, smartTaskApi, funcLoadItem)
+            }}>Удалить</button>
         </>
     )
 }

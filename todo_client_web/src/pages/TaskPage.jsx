@@ -7,34 +7,48 @@ import { TaskComponent } from '../component/TaskComponent'
 import { Header } from "./Header"
 import { routeTask } from '../utils/ScreenNames'
 import { SMART_TASK } from "../utils/Storage"
+import {TaskEdit} from './TaskEditPage'
 
 export const Task = () => {
     const [taskAll, setTaskAll] = useState([])
+    const [currentTask, setCurrentTask] = useState(undefined)
     const [error, setError] = useState({ enable: false, text: '' })
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingItem, setIsLoading] = useState(false)
+
+
+    function funcLoadItem() {
+        getItem(setTaskAll, setError, smartTask, SMART_TASK)
+    }
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoadingItem) {
             setIsLoading(true)
-            getItem(setTaskAll, setError, smartTask, SMART_TASK)
-            console.log(JSON.stringify(taskAll))
-
-            console.log("task: " + localStorage.getItem(SMART_TASK))
+            funcLoadItem()
         }
     })
+
+    const style = {
+        display: 'inline-grid'
+    }
 
     return (
         <>
             <Header />
             <ErrorView text={error.text} enable={error.enable} />
-            <Link className="btn btn-primary mb-3 customButtons" to={`${routeTask}/-1`}>Создать задачу</Link>
             <br></br>
-            <div className="containerItem m-3">
-                <h1>Задачи</h1>
-                {
-                    taskAll.map(task => <TaskComponent task={task} key={task.id} />)
-                }
+            <div className="container">
+                <div className="row">
+                <div className="col-2 m-3" style={style}>
+                    <button className="btn btn-outline-primary mb-3 customButtons" onClick={() => {setCurrentTask(-1)}}>+ cоздать задачу</button>
+                    {
+                        taskAll.reverse().map(task => <TaskComponent setCurrentTask={setCurrentTask} task={task} key={task.id} />)
+                    }
+                </div>
+                <div className="col-6 m-3">
+                 { currentTask != undefined ? <TaskEdit idItem={currentTask} funcLoadItem={funcLoadItem}/> : <></> }
+                </div>
+                </div>
             </div>
         </>
     )

@@ -42,20 +42,20 @@ export const NoteEdit = (p) => {
             <div className="col-md-6">
                 <ErrorView text={errors.text} enable={errors.enable} />
                 <div className="mb-3">
-                    <label className="form-label">Почта</label>
+                    <label className="form-label">Загаловок</label>
                     <input type="text" className="form-control" id="username"
                         value={head} onChange={(e) => setHead(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Пароль</label>
+                    <label className="form-label">Текст</label>
                     <textarea type="text" className="form-control" id="password"
                         value={body} onChange={(e) => setBody(e.target.value)} />
                 </div>
 
             </div>
 
-            <button onClick={() => { saveItem(new NoteClass(head, body, id), setId, saveNote) }}>Сохранить</button>
-            <button bcolor={'#d41b1b'} onClick={() => deleteItem(id, navigate, note, noteApi)}>Удалить</button>
+            <button className="btn btn-secondary mb-3 customButtons" onClick={() => { saveItem(new NoteClass(head, body, id), setId, saveNote) }}>Сохранить</button>
+            <button className="btn btn-danger mb-3 customButtons" bcolor={'#d41b1b'} onClick={() => deleteItem(id, navigate, note, noteApi)}>Удалить</button>
         </div>
     )
 }

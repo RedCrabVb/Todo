@@ -39,7 +39,7 @@ export function getItem(setItem, setError, api, local) {
 
 }
 
-export function deleteItem(id, navigation, returnPageName, api) {
+export function deleteItem(id, navigation, returnPageName, api, afterDelete = () => {}) {
     const data = localStorage.getItem(USER)
     
     if (id != -1) {
@@ -51,16 +51,16 @@ export function deleteItem(id, navigation, returnPageName, api) {
         }
         fetch(api + `/${id}`, requestOptions)
             .then((data) => {
-                navigation(returnPageName)
+                afterDelete()
             })
             .catch((error) => alert(error))
     } else {
-        navigation(returnPageName)
+        afterDelete()
     }
 }
 
 
-export function saveItem(item, changeID, api) {
+export function saveItem(item, changeID, api, afterUpdate = () => {}) {
     const data = localStorage.getItem(USER)
     
     const requestOptions = {
@@ -77,8 +77,8 @@ export function saveItem(item, changeID, api) {
             else return response.json()
         })
         .then((data) => {
-            console.log(`save api ${api}: ` + JSON.stringify(data))
             changeID(data.id)
+            afterUpdate()
         })
         .catch((error) => { alert(error) })
 }

@@ -1,12 +1,17 @@
 import React from 'react'
-import {routeTask} from "../utils/ScreenNames"
-import {Link} from 'react-router-dom'
+import { routeTask } from "../utils/ScreenNames"
+import { Link, useNavigate } from 'react-router-dom'
 
-export const TaskComponent = ({task}) => {
+export const TaskComponent = ({ task, setCurrentTask }) => {
 
     return (
         <>
-            <Link className="btn btn-primary mb-3 customButtons" to={`${routeTask}/${task.id}`}>{task.specific}</Link>
+        <div onClick={() => {setCurrentTask(task.id)}} className="btn btn-outline-secondary" style={{display: 'inline-grid'}}>
+            {task.specific}
+            <br/>
+            {task.timeBound}
+            <input type="checkbox"></input>
+        </div>
         </>
     )
 };
