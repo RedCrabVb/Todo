@@ -39,7 +39,8 @@ export function getItem(setItem, setError, api, local) {
 
 }
 
-export function deleteItem(id, navigation, returnPageName, api, afterDelete = () => {}) {
+export function deleteItem(id, api, afterDelete = () => {}) {
+    console.log(`ip = ${id} api = ${api}`)
     const data = localStorage.getItem(USER)
     
     if (id != -1) {

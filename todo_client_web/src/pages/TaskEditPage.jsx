@@ -28,7 +28,7 @@ function getItemCurrent(id, stor, defualt) {
     return id == '-1' ? defualt : JSON.parse(item).filter(n => n.id == id)[0]
 }
 
-export const TaskEdit = ({ idItem, funcLoadItem }) => {
+export const TaskEdit = ({ idItem, funcLoadItem, setCurrentTask = () => {} }) => {
     const navigate = useNavigate()
 
     const [task, setTask] = useState(getItemCurrent(idItem, SMART_TASK, new SmartTask()))
@@ -65,7 +65,11 @@ export const TaskEdit = ({ idItem, funcLoadItem }) => {
                 saveItem(task, (id) => setTask({ ...task, id }), saveSmartTask, funcLoadItem)
             }}>Сохранить</button>
             <button className="btn btn-danger mb-3 customButtons" onClick={() => {
-                deleteItem(task.id, smartTaskApi, funcLoadItem)
+                deleteItem(task.id, smartTaskApi, () => {
+                    console.log(setCurrentTask)
+                    setCurrentTask(undefined) 
+                    funcLoadItem() 
+                })
             }}>Удалить</button>
         </>
     )

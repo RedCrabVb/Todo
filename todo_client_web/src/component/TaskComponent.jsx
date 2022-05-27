@@ -6,7 +6,7 @@ export const TaskComponent = ({ task, setCurrentTask }) => {
 
     return (
         <>
-        <div onClick={() => {setCurrentTask(task.id)}} className="btn btn-outline-secondary" style={{display: 'inline-grid'}}>
+        <div onClick={() => {setCurrentTask(task.id)}} className="btn btn-outline-secondary" style={{minHeigth: '75px', maxHeight: '100px', display: 'inline-grid'}}>
             {task.specific}
             <br/>
             {task.timeBound}
