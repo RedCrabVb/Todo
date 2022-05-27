@@ -56,12 +56,15 @@ export const Task = () => {
                         <div style={styleBlockTask}>
                             {
                                 taskAll.reverse()
-                                .map(task => <TaskComponent setCurrentTask={setCurrentTask} task={task} key={task.id} />)
+                                .map(task => <TaskComponent
+                                     setAllTask={setTaskAll}
+                                     taskAll={taskAll}
+                                     setCurrentTask={setCurrentTask} task={task} key={task.id} />)
                             }
                         </div>
 
                     </div>
-                    <div className="col-6 m-1">
+                    <div className="col-6 m-1" style={{width: '70%'}}>
                         {currentTask != undefined ? <TaskEdit idItem={currentTask} funcLoadItem={funcLoadItem} setCurrentTask={setCurrentTask} /> : <></>}
                     </div>
                 </div>

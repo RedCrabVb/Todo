@@ -55,10 +55,10 @@ export const TaskEdit = ({ idItem, funcLoadItem, setCurrentTask = () => {} }) =>
             <div className="m-3">
                 <ErrorView text={errors.text} enable={errors.enable} />
                 {elementInput(task.specific, (specific) => { setTask({ ...task, specific }) }, 'S')}
-                {elementInput(task.measurable, (measurable) => setTask({...task, measurable}), 'S')}
-                {elementInput(task.achievable, (achievable) => setTask({...task, achievable}), 'S')}
-                {elementInput(task.relevant, (relevant) => setTask({...task, relevant}), 'S')}
-                {elementInput(task.timeBound, (timeBound) => setTask({...task, timeBound}), 'S')}
+                {elementInput(task.measurable, (measurable) => setTask({...task, measurable}), 'M')}
+                {elementInput(task.achievable, (achievable) => setTask({...task, achievable}), 'A')}
+                {elementInput(task.relevant, (relevant) => setTask({...task, relevant}), 'R')}
+                {elementInput(task.timeBound, (timeBound) => setTask({...task, timeBound}), 'T')}
             </div>
 
             <button className="btn btn-secondary mb-3 customButtons" onClick={() => {
