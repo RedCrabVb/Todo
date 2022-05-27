@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import { registration } from '../utils/Api'
 import { useNavigate } from "react-router-dom"
 import { ErrorView } from '../component/ErrorView'
-import {routeHome, routeRegistration, routeLogin} from "../utils/ScreenNames"
+import { routeHome, routeRegistration, routeLogin } from "../utils/ScreenNames"
 
 export const Registration = () => {
     const [password, setPassword] = useState("")
@@ -14,7 +14,7 @@ export const Registration = () => {
     const [login, setLogin] = useState("")
 
     const [errors, setErrors] = React.useState({})
-    const [error, setError] = React.useState({enable: false, text: ''})
+    const [error, setError] = React.useState({ enable: false, text: '' })
 
     const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ export const Registration = () => {
     }
 
     const handleError = (error, input) => {
-        setErrors(prevState => ({...prevState, [input]: error}));
+        setErrors(prevState => ({ ...prevState, [input]: error }));
     }
 
     const handlerAut = () => {
@@ -64,13 +64,27 @@ export const Registration = () => {
             })
             .catch((error) => {
                 console.log(error + " in registration")
-                setError({enable: true, text: 'Попробуйте ввести другой логин или повторить попытку регистрации позднее'})
+                setError({ enable: true, text: 'Попробуйте ввести другой логин или повторить попытку регистрации позднее' })
             })
     }
 
-    function ErrorSpan({text}) {
+    function ErrorSpan({ text }) {
         return (
             text != null ? <span className="containerError mb-3">{text}</span> : <br></br>
+        )
+    }
+
+
+    function elementInput(value, setValue, name, error_text) {
+        return (
+            <>
+                <div className="mb-2">
+                    <ErrorSpan text={error_text} />
+                    <label className="form-label">{name}</label>
+                    <input type="text" className="form-control"
+                        value={value} onChange={(e) => setValue(e.target.value)} />
+                </div>
+            </>
         )
     }
 
@@ -80,30 +94,11 @@ export const Registration = () => {
 
             <div className="col-md-6">
                 <ErrorView text={error.text} enable={error.enable}/>
-                <div className="mb-2">
-                    <label className="form-label">Имя пользователя</label>
-                    <ErrorSpan text={errors.login}/>
-                    <input type="text" className="form-control" id="username"
-                        value={login} onChange={(e) => setLogin(e.target.value)} />
-                </div>
-                <div className="mb-2">
-                    <label className="form-label">Почта</label>
-                    <ErrorSpan text={errors.mail}/>
-                    <input type="text" className="form-control" id="username"
-                        value={mail} onChange={(e) => setMail(e.target.value)} />
-                </div>
-                <div className="mb-2">
-                    <ErrorSpan text={errors.password}/>
-                    <label className="form-label">Пароль</label>
-                    <input type="password" className="form-control" id="password"
-                        value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <div className="mb-2">
-                    <ErrorSpan text={errors.password2}/>
-                    <label className="form-label">Пароль ещё раз</label>
-                    <input type="password" className="form-control" id="password"
-                        value={password2} onChange={(e) => setPassword2(e.target.value)} />
-                </div>
+                {elementInput(login, setLogin, 'Имя пользователя', errors.login)}
+                {elementInput(mail, setMail, 'Почта', errors.mail)}
+                {elementInput(password, setPassword, 'Пароль', errors.password)}
+                {elementInput(password2, setPassword2, 'Пароль ещё раз', errors.password2)}
+
                 <div className="mb-2">
                     <button onClick={validate} className="btn btn-primary mb-3 customButtons">Регистрация</button>
                 </div>
@@ -111,5 +106,5 @@ export const Registration = () => {
 
         </div>
     )
-    
+
 }

@@ -21,7 +21,6 @@ export const Home = () => {
             fetch(version)
                 .then(d => d.json())
                 .then(r => {
-                    // console.log(r)
                     setVersion(r)
                 })
         }

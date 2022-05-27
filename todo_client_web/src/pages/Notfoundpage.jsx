@@ -3,7 +3,7 @@ import {Routes, Route, Link} from 'react-router-dom'
 export const Notfoundpage = () => {
     return (
         <div>
-            This page doesn't exist. Go <Link to="/">home</Link>
+            Страница не найдена. Вернуться <Link to="/">домой</Link>
         </div>
     )
 }

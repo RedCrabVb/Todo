@@ -19,11 +19,13 @@ export const Task = () => {
             setIsLoading(true)
             getItem(setTaskAll, setError, smartTask, SMART_TASK)
             console.log(JSON.stringify(taskAll))
+
+            console.log("task: " + localStorage.getItem(SMART_TASK))
         }
     })
 
     return (
-        <div>
+        <>
             <Header />
             <ErrorView text={error.text} enable={error.enable} />
             <Link className="btn btn-primary mb-3 customButtons" to={`${routeTask}/-1`}>Создать задачу</Link>
@@ -34,6 +36,6 @@ export const Task = () => {
                     taskAll.map(task => <TaskComponent task={task} key={task.id} />)
                 }
             </div>
-        </div>
+        </>
     )
 }

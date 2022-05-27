@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import { authentication } from '../utils/Api'
 import { useNavigate } from "react-router-dom"
 import { ErrorView } from '../component/ErrorView'
-import {routeHome, routeRegistration, routeLogin} from "../utils/ScreenNames"
+import { routeHome, routeRegistration, routeLogin } from "../utils/ScreenNames"
 
 export const LogIn = () => {
     const [login, setLogin] = useState('')
@@ -69,9 +69,20 @@ export const LogIn = () => {
             })
     }
 
-    function ErrorSpan({text}) {
+    function ErrorSpan({ text }) {
         return (
             text != null ? <span className="containerError mb-3">{text}</span> : <br></br>
+        )
+    }
+
+    function elementInput(value, setValue, name, error_text) {
+        return (
+            <div className="mb-3">
+                <label className="form-label">{name}</label>
+                <ErrorSpan text={error_text} />
+                <input type="text" className="form-control" id="username"
+                    value={value} onChange={(e) => setValue(e.target.value)} />
+            </div>
         )
     }
 
@@ -79,22 +90,13 @@ export const LogIn = () => {
         <div className="containerForm col-md-6">
 
             <div className="col-md-6">
-                <ErrorView text={error.text} enable={error.enable}/>
-                <div className="mb-3">
-                    <label className="form-label">Почта</label>
-                    <ErrorSpan text={errors.email}/>
-                    <input type="text" className="form-control" id="username"
-                        value={login} onChange={(e) => setLogin(e.target.value)} />
-                </div>
-                <div className="mb-3">
-                    <ErrorSpan text={errors.password}/>
-                    <label className="form-label">Пароль</label>
-                    <input type="password" className="form-control" id="password"
-                        value={password} onChange={(e) => setPasswordn(e.target.value)} />
-                </div>
+                <ErrorView text={error.text} enable={error.enable} />
+                {elementInput(login, setLogin, 'Логин', errors.email)}
+                {elementInput(password, setPasswordn, 'Почта', errors.password)}
+
                 <div className="mb-3">
                     <button onClick={validate} className="btn btn-primary mb-3 customButtons">Войти</button>
-                    <button onClick={() => {navigate(routeRegistration, { replace: true })}} className="btn btn-primary customButtons">Регистрация</button>
+                    <button onClick={() => { navigate(routeRegistration, { replace: true }) }} className="btn btn-primary customButtons">Регистрация</button>
                 </div>
             </div>
 

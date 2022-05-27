@@ -34,7 +34,6 @@ export const NoteEdit = (p) => {
 
     const [errors, setErrors] = React.useState({})
 
-
     return (
         <div>
             <Header />
@@ -44,12 +43,10 @@ export const NoteEdit = (p) => {
                 <ErrorView text={errors.text} enable={errors.enable} />
                 <div className="mb-3">
                     <label className="form-label">Почта</label>
-                    {/* <ErrorSpan text={errors.email}/> */}
                     <input type="text" className="form-control" id="username"
                         value={head} onChange={(e) => setHead(e.target.value)} />
                 </div>
                 <div className="mb-3">
-                    {/* <ErrorSpan text={errors.password}/> */}
                     <label className="form-label">Пароль</label>
                     <textarea type="text" className="form-control" id="password"
                         value={body} onChange={(e) => setBody(e.target.value)} />

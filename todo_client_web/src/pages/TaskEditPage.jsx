@@ -56,7 +56,7 @@ export const TaskEdit = (p) => {
     }
 
     return (
-        <div>
+        <>
             <Header />
             <h1>Task edit {id}</h1>
 
@@ -74,6 +74,6 @@ export const TaskEdit = (p) => {
                 saveItem(smtask, setId, saveSmartTask)
             }}>Сохранить</button>
             <button bcolor={'#d41b1b'} onClick={() => deleteItem(id, navigate, task, smartTaskApi)}>Удалить</button>
-        </div>
+        </>
     )
 }

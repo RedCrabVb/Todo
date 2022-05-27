@@ -24,7 +24,7 @@ export const Note = () => {
 
 
     return (
-        <div>
+        <>
             <Header />
             <ErrorView text={error.text} enable={error.enable} />
             <Link className="btn btn-primary mb-3 customButtons" to={`${routeNote}/-1`}>Создать заметку</Link>
@@ -35,6 +35,6 @@ export const Note = () => {
                     noteAll.map(note => <NoteComponent note={note} key={note.id} />)
                 }
             </div>
-        </div>
+        </>
     )
 }
