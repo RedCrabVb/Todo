@@ -11,7 +11,7 @@ export const Registration = () => {
     const [mail, setMail] = useState("")
     const [login, setLogin] = useState("")
 
-    const [errors, setErrors] = React.useState({})
+    const [errors, setErrors] = React.useState({login: undefined, mail: undefined, password: undefined, password2: undefined})
     const [error, setError] = React.useState({ enable: false, text: '' })
 
     const navigate = useNavigate()
@@ -19,12 +19,12 @@ export const Registration = () => {
     const validate = async () => {
         let isValid = true
 
-        function check(check, text, field) {
+        function check(check: boolean, text: string, field: string) {
             if (check) {
                 handleError(text, field)
                 isValid = false
             } else {
-                handleError(null, field)
+                handleError(undefined, field)
             }
         }
 
@@ -38,7 +38,7 @@ export const Registration = () => {
         }
     }
 
-    const handleError = (error, input) => {
+    const handleError = (error: string | undefined, input: string) => {
         setErrors(prevState => ({ ...prevState, [input]: error }));
     }
 
@@ -52,7 +52,7 @@ export const Registration = () => {
         };
         fetch(registration, requestOptions)
             .then((response) => {
-                if (!response.ok) throw new Error(response.status);
+                if (!response.ok) throw new Error(response.status.toString());
                 else return response;
             })
             .then((data) => {
@@ -66,14 +66,14 @@ export const Registration = () => {
             })
     }
 
-    function ErrorSpan({ text }) {
+    function ErrorSpan({ text }: {text: string | undefined }) {
         return (
-            text != null ? <span className="containerError mb-3">{text}</span> : <br></br>
+            text != undefined ? <span className="containerError mb-3">{text}</span> : <br></br>
         )
     }
 
 
-    function elementInput(value, setValue, name, error_text) {
+    function elementInput(value: string, setValue: (f: string) => void, name: string, error_text: string | undefined) {
         return (
             <>
                 <div className="mb-2">

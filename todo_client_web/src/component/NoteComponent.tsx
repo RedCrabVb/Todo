@@ -1,14 +1,13 @@
-import React from 'react'
-import { routeNote } from "../utils/ScreenNames"
-import { Link } from 'react-router-dom'
+import CSS from 'csstype'
+import { Note } from './class/Note';
 
-export const NoteComponent = ({ note, setCurrentNote, noteAll = '', setAllNote = ''}) => {
+export const NoteComponent = ({ note, setCurrentNote}: {note: Note, setCurrentNote: (f: any) => void}) => {
 
-    const style = {
+    const style: CSS.Properties = {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
-        minHeigth: '40px', 
+        minHeight: '40px', 
         maxHeight: '70px', 
     }
 

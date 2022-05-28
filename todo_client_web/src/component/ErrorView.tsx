@@ -1,7 +1,6 @@
 import React from 'react'
-import {editNoteName} from "../utils/ScreenNames";
 
-export const ErrorView = ({text, enable = false}) => {
+export const ErrorView = ({text, enable = false}: {text: string, enable: boolean}) => {
 
     if (enable) {
         console.log("ErrorView: is " + enable)

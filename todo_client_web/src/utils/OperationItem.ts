@@ -1,21 +1,23 @@
 import {NOTE, USER} from "./Storage";
-import {saveNote} from "./Api";
-import { useNavigate } from "react-router-dom"
+import { Item } from "../component/class/Item";
+import { Dispatch, SetStateAction } from "react";
 
 
-export function getItem(setItem, setError, api, local) {
-    let data = localStorage.getItem(USER)
+export function getItem<E extends Item>(setItem: Dispatch<SetStateAction<E[]>>, setError: (f: {enable: boolean, text: string}) => void, api: string, local: string) {
+    const data: string = localStorage.getItem(USER) || 'null'
     
     const requestOptions = {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': data
-        }
+        headers: new Headers(
+            { 
+                'Content-Type': 'application/json', 
+                'Authorization': data.toString()
+            }
+        ),
     }
     fetch(api, requestOptions)
         .then((response) => {
-            if (!response.ok) throw new Error(response.status);
+            if (!response.ok) throw new Error(response.status.toString());
             else return response.json();
         })
         .then((data) => {
@@ -39,16 +41,19 @@ export function getItem(setItem, setError, api, local) {
 
 }
 
-export function deleteItem(id, api, afterDelete = () => {}) {
+export function deleteItem(id: number, api: string, afterDelete = () => {}) {
     console.log(`ip = ${id} api = ${api}`)
-    const data = localStorage.getItem(USER)
+    const data: string = localStorage.getItem(USER) || 'null'
     
     if (id != -1) {
         const requestOptions = {
             method: 'DELETE',
-            headers: {
-                'Authorization': data
-            }
+            headers: new Headers(
+                { 
+                    'Content-Type': 'application/json', 
+                    'Authorization': data.toString()
+                }
+            ),
         }
         fetch(api + `/${id}`, requestOptions)
             .then((data) => {
@@ -61,20 +66,22 @@ export function deleteItem(id, api, afterDelete = () => {}) {
 }
 
 
-export function saveItem(item, changeID, api, afterUpdate = () => {}) {
-    const data = localStorage.getItem(USER)
+export function saveItem(item: any, changeID: (id: number) => void, api: string, afterUpdate = () => {}) {
+    const data: string = localStorage.getItem(USER) || 'null'
     
     const requestOptions = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': data
-        },
+        headers: new Headers(
+            { 
+                'Content-Type': 'application/json', 
+                'Authorization': data.toString()
+            }
+        ),
         body: JSON.stringify(item).toString()
     }
     fetch(api, requestOptions)
         .then((response) => {
-            if (!response.ok) throw new Error(response.status)
+            if (!response.ok) throw new Error(response.status.toString())
             else return response.json()
         })
         .then((data) => {

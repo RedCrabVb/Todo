@@ -10,7 +10,7 @@ export const LogIn = () => {
     const [password, setPasswordn] = useState('')
 
     const [error, setError] = React.useState({ enable: false, text: '' })
-    const [errors, setErrors] = React.useState({})
+    const [errors, setErrors] = React.useState({email: undefined, password: undefined})
 
     const navigate = useNavigate()
 
@@ -22,20 +22,20 @@ export const LogIn = () => {
             handleError('Логин должен быть длиннее 4 символов', 'email')
             isValid = false
         } else {
-            handleError(null, 'email')
+            handleError(undefined, 'email')
         }
         if (password.length < 4) {
             handleError('Пароль должен быть длиннее 4 символов', 'password')
             isValid = false
         } else {
-            handleError(null, 'password')
+            handleError(undefined, 'password')
         }
         if (isValid) {
             handlerAut()
         }
     }
 
-    const handleError = (error, input) => {
+    const handleError = (error: string | undefined, input: string) => {
         setErrors(prevState => ({ ...prevState, [input]: error }));
     }
 
@@ -50,7 +50,7 @@ export const LogIn = () => {
         }
         fetch(authentication, requestOptions)
             .then((response) => {
-                if (!response.ok) throw new Error(response.status);
+                if (!response.ok) throw new Error(response.status.toString());
                 else return response;
             })
             .then((data) => {
@@ -67,13 +67,13 @@ export const LogIn = () => {
             })
     }
 
-    function ErrorSpan({ text }) {
+    function ErrorSpan({ text }: {text: string | undefined}) {
         return (
             text != null ? <span className="containerError mb-3">{text}</span> : <br></br>
         )
     }
 
-    function elementInput(value, setValue, name, error_text) {
+    function elementInput(value: string, setValue: (f: string) => void, name: string, error_text: string | undefined) {
         return (
             <div className="mb-3">
                 <label className="form-label">{name}</label>

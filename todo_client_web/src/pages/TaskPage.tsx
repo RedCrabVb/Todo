@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { smartTask } from '../utils/Api'
 import { getItem } from '../utils/OperationItem'
-import { useNavigate, Link } from "react-router-dom"
 import { ErrorView } from '../component/ErrorView'
 import { TaskComponent } from '../component/TaskComponent'
 import { Header } from "./commons/Header"
-import { routeTask } from '../utils/ScreenNames'
 import { SMART_TASK } from "../utils/Storage"
 import { TaskEdit } from './TaskEditPage'
 import { styleBlockItem, styleContainerItem, styleItems} from './commons/css/item'
+import { SmartTask } from "../component/class/SmartTask"
 
 export const Task = () => {
-    const [taskAll, setTaskAll] = useState([])
-    const [currentTask, setCurrentTask] = useState(undefined)
+    const [taskAll, setTaskAll] = useState<Array<SmartTask>>([])
+    const [currentTask, setCurrentTask] = useState<number | undefined>(undefined)
     const [error, setError] = useState({ enable: false, text: '' })
 
     const [isLoadingItem, setIsLoading] = useState(false)

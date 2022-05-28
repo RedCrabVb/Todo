@@ -7,10 +7,11 @@ import { Header } from "./commons/Header"
 import { NOTE } from "../utils/Storage"
 import {NoteEdit} from './NoteEditPage'
 import { styleBlockItem, styleContainerItem, styleItems} from './commons/css/item'
+import { Note } from '../component/class/Note'
 
-export const Note = () => {
-    const [noteAll, setNoteAll] = useState([])
-    const [currentNote, setCurrentNote] = useState(undefined)
+export const NotePage = () => {
+    const [noteAll, setNoteAll] = useState<Array<Note>>([])
+    const [currentNote, setCurrentNote] = useState<number | undefined>(undefined)
     const [error, setError] = useState({ enable: false, text: '' })
 
     const [isLoading, setIsLoading] = useState(false)

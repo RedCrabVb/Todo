@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { React } from 'react'
 import { Button, Navbar, NavDropdown, Nav, Container } from 'react-bootstrap'
 import { USER } from '../../utils/Storage'
 

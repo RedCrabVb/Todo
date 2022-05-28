@@ -2,12 +2,10 @@ import './App.css';
 import { Routes, Route, Link } from 'react-router-dom'
 
 import { Home } from './pages/commons/HomePage'
-import { Note } from './pages/NotePage'
+import { NotePage } from './pages/NotePage'
 import { Task } from './pages/TaskPage'
 import { Notfoundpage } from './pages/commons/NotFoundPage'
 import { LogIn } from './pages/commons/Login'
-import { NoteEdit } from './pages/NoteEditPage'
-import { TaskEdit } from './pages/TaskEditPage'
 
 import { routeHome, routeNote, routeLogin, routeRegistration, routeTask } from "./utils/ScreenNames"
 import { Registration } from './pages/commons/RegistrationPage';
@@ -21,12 +19,10 @@ function App() {
                 <Route path={routeRegistration} element={<Registration />}></Route>
 
                 <Route path={routeNote}>
-                    <Route path={'*'} element={<NoteEdit />}></Route>
-                    <Route path={'all'} element={<Note />}></Route>
+                    <Route path={'all'} element={<NotePage />}></Route>
                 </Route>
 
                 <Route path={routeTask}>
-                    <Route path={'*'} element={<TaskEdit />}></Route>
                     <Route path={'all'} element={<Task />}></Route>
                 </Route>
 
