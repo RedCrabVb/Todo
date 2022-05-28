@@ -37,9 +37,9 @@ export const Task = () => {
             <br></br>
             <div className="container" style={styleContainerItem}>
                 <div className="row" >
-                    <div className="col-2 m-1" style={styleItems}>
+                    <div className="col-2 m-1" style={styleBlockItem}>
                         <button style={{height: '60px'}} className="btn btn-outline-primary mb-3 customButtons" onClick={() => { setCurrentTask(-1) }} >+ cоздать задачу</button>
-                        <div style={styleBlockItem}>
+                        <div style={styleItems}>
                             {
                                 taskAll.reverse()
                                 .map(task => <TaskComponent

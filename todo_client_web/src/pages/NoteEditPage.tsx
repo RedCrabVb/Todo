@@ -30,7 +30,6 @@ export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number
     }
 
     useEffect(() => {
-        // console.log(convertToRaw(editorState.getCurrentContent()))
         if (idItem != note.id) { 
             const item = getItemCurrent(idItem, NOTE, new Note())
             setNote(item)
@@ -56,11 +55,9 @@ export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number
         <div>
             <h1>Note edit {idItem}</h1>
 
-            <div className="col-md-6">
+            <div className="col-md">
                 {/* <ErrorView text={errors.text} enable={errors.enable} /> */}
                 {elementInput(note.head, (head) => { setNote({ ...note, head }) }, 'Загаловок')}
-                {/* {elementInput(note.body, (body) => { setNote({ ...note, body }) }, 'Текст')} */}
-
                 <Editor
                     editorState={editorState}
                     toolbarClassName="toolbarClassName"

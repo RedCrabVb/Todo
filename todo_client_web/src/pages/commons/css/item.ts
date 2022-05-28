@@ -7,7 +7,8 @@ export const styleItems: CSS.Properties = {
 export const styleBlockItem: CSS.Properties = {
     display: 'inline-grid',
     overflow: 'auto',
-    maxHeight: '80vh'
+    maxHeight: '80vh',
+    height: '75%'
 }
 
 export const styleContainerItem: CSS.Properties = { 
