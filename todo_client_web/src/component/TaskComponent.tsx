@@ -33,6 +33,7 @@ export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask }:
                 {task.specific}
                 <br />
                 {task.timeBound}
+                <br/>
                 <input type="checkbox" checked={task.completed} onChange={chnageCheckBox}></input>
             </div>
         </>
