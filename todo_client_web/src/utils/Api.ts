@@ -10,3 +10,4 @@ export const saveSmartTask = `${server}smarttask/save`
 export const smartTask = `${server}smarttask`
 export const timerTracker = `${server}timertracker`
 export const saveTimerTracker = `${server}timertracker/save`
+export const userInfo = `${server}user_info`
