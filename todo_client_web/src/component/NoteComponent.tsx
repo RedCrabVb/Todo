@@ -8,7 +8,6 @@ export const NoteComponent = ({ note, setCurrentNote}: {note: Note, setCurrentNo
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         minHeight: '40px', 
-        maxHeight: '70px', 
     }
 
     return (

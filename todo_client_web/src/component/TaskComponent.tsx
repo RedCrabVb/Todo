@@ -11,8 +11,7 @@ export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask }:
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
-        minHeight: '75px',
-        maxHeight: '100px',
+        minHeight: '75px'
     }
 
 

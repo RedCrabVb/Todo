@@ -4,6 +4,11 @@ import { deleteItem, saveItem } from "../utils/OperationItem"
 import { NOTE } from "../utils/Storage"
 import { Note } from "../component/class/Note"
 import { Item } from '../component/class/Item'
+import { Editor } from "react-draft-wysiwyg"
+import { EditorState, convertToRaw, convertFromRaw, ContentState } from "draft-js"
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs';
 
 
 function getItemCurrent<P extends  Item>(id: number, stor: string, defualt: P) {
@@ -14,10 +19,24 @@ function getItemCurrent<P extends  Item>(id: number, stor: string, defualt: P) {
 export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number, funcLoadItem: () => void, setCurrentNote: Dispatch<SetStateAction<number | undefined>>}) => {
 
     const [note, setNote] = useState(getItemCurrent(idItem, NOTE, new Note()))
+    const [editorState, setEditorState] = useState(() =>
+        EditorState.createEmpty()
+    )
 
+    function functionSetStateEditor(editorStateL: EditorState) {
+        let body: string = draftToHtml(convertToRaw(editorStateL.getCurrentContent()))
+        setNote({ ...note, body })
+        setEditorState(editorStateL)
+    }
 
     useEffect(() => {
-        if (idItem != note.id) setNote(getItemCurrent(idItem, NOTE, new Note()))
+        if (idItem != note.id) { 
+            const item = getItemCurrent(idItem, NOTE, new Note())
+            setNote(item)
+            const { contentBlocks, entityMap } = htmlToDraft(item.body);
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            setEditorState(EditorState.createWithContent(contentState))
+        }
     })
 
 
@@ -25,7 +44,7 @@ export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number
         return (
             <div className="mb-3">
                 <label className="form-label">{name}</label>
-                <textarea className="form-control"
+                <input type="text" className="form-control"
                     value={value} onChange={(e) => setValue(e.target.value)} />
             </div>
         )
@@ -36,10 +55,16 @@ export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number
         <div>
             <h1>Note edit {idItem}</h1>
 
-            <div className="col-md-6">
+            <div className="col-md">
                 {/* <ErrorView text={errors.text} enable={errors.enable} /> */}
                 {elementInput(note.head, (head) => { setNote({ ...note, head }) }, 'Загаловок')}
-                {elementInput(note.body, (body) => { setNote({ ...note, body }) }, 'Текст')}
+                <Editor
+                    editorState={editorState}
+                    toolbarClassName="toolbarClassName"
+                    wrapperClassName="wrapperClassName"
+                    editorClassName="editorClassName"
+                    onEditorStateChange={functionSetStateEditor}
+                />
             </div>
 
             <button className="btn btn-secondary mb-3 customButtons" onClick={() => {
@@ -54,3 +79,4 @@ export const NoteEdit = ({idItem, funcLoadItem, setCurrentNote}: {idItem: number
         </div>
     )
 }
+
