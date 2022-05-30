@@ -6,7 +6,7 @@ import { TaskComponent } from '../component/TaskComponent'
 import { Header } from "./commons/Header"
 import { SMART_TASK } from "../utils/Storage"
 import { TaskEdit } from './TaskEditPage'
-import { styleBlockItem, styleContainerItem, styleItems} from './commons/css/item'
+import { styleBlockItem, styleContainerItem, styleItems } from './commons/css/item'
 import { SmartTask } from "../component/class/SmartTask"
 
 export const Task = () => {
@@ -38,19 +38,28 @@ export const Task = () => {
             <div className="container" style={styleContainerItem}>
                 <div className="row" >
                     <div className="col-2 m-1" style={styleBlockItem}>
-                        <button style={{height: '60px'}} className="btn btn-outline-primary mb-3 customButtons" onClick={() => { setCurrentTask(-1) }} >+ cоздать задачу</button>
+                        <button style={{ height: '60px' }} className="btn btn-outline-primary mb-3 customButtons" onClick={() => { setCurrentTask(-1) }} >+ cоздать задачу</button>
                         <div style={styleItems}>
                             {
                                 taskAll.reverse()
-                                .map(task => <TaskComponent
-                                     setAllTask={setTaskAll}
-                                     taskAll={taskAll}
-                                     setCurrentTask={setCurrentTask} task={task} key={task.id} />)
+                                    .filter(t => t.completed == false)
+                                    .map(task => <TaskComponent
+                                        setAllTask={setTaskAll}
+                                        taskAll={taskAll}
+                                        setCurrentTask={setCurrentTask} task={task} key={task.id} />)
                             }
+                            {
+                                taskAll.filter(t => t.completed == true).length != 0 &&
+                                <>
+                                    <p>Завершенные задания</p>
+                                    {taskAll.filter(t => t.completed == true).map(task => <TaskComponent taskAll={taskAll} setAllTask={setTaskAll} setCurrentTask={setCurrentTask} task={task} key={task.id} />)}
+                                </>
+                            }
+
                         </div>
 
                     </div>
-                    <div className="col-6 m-1" style={{width: '70%'}}>
+                    <div className="col-6 m-1" style={{ width: '70%' }}>
                         {currentTask != undefined ? <TaskEdit idItem={currentTask} funcLoadItem={funcLoadItem} setCurrentTask={setCurrentTask} /> : <></>}
                     </div>
                 </div>

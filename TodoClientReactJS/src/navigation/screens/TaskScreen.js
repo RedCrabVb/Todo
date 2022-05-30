@@ -34,7 +34,7 @@ export default function TaskScreen({navigation}) {
                 {
                     taskAll.filter(t => t.completed == true).length != 0 &&
                     <View>
-                        <Text>Завершенные задания</Text>
+                        <Text>Завершенные задания {taskAll.filter(t => t.completed == true).length}</Text>
                         {taskAll.filter(t => t.completed == true).map(task => <SmartTask taskAll={taskAll} setAllTask={setAllTask} smartTask={task} key={task.id} navigation={navigation} />)}
                     </View>
                 }

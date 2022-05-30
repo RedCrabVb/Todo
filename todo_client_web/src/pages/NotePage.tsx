@@ -40,8 +40,18 @@ export const NotePage = () => {
                         <button style={{height: '60px'}} className="btn btn-outline-primary mb-3 customButtons" onClick={() => { setCurrentNote(-1) }} >+ cоздать заметку</button>
                         <div style={styleItems}>
                             {
-                                noteAll.map(note => <NoteComponent note={note} setCurrentNote={setCurrentNote} key={note.id} />)
+                                noteAll
+                                .filter(t => t.pined == false)
+                                .map(note => <NoteComponent note={note} setCurrentNote={setCurrentNote} key={note.id} noteAll={noteAll} setAllNote={setNoteAll} />)
                             }
+                                                        {
+                                noteAll.filter(t => t.pined == true).length != 0 &&
+                                <>
+                                    <p>Завершенные задания</p>
+                                    {noteAll.filter(t => t.pined == true).map(note => <NoteComponent noteAll={noteAll} setAllNote={setNoteAll} setCurrentNote={setCurrentNote} note={note} key={note.id} />)}
+                                </>
+                            }
+
                         </div>
 
                     </div>

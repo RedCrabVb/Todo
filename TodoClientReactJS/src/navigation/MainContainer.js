@@ -14,7 +14,7 @@ import {
     editNoteName,
     createSmartTaskName,
     editSmartTaskName,
-    createTimerTrackerName, timerTrackerName, editTimerTrackerName
+    timerTrackerName
 } from '../utils/ScreenNames'
 
 import HomeScreen from './screens/HomeScreen';
@@ -60,8 +60,6 @@ function MyBottomMenu() {
         <Tab.Screen name={homeName} component={HomeScreen}/>
         <Tab.Screen name={noteName} component={NoteScreen}/>
         <Tab.Screen name={taskName} component={TaskScreen}/>
-        {/*<Tab.Screen name={timerTrackerName} component={TimeScreen}/>*/}
-
 
     </Tab.Navigator>)
 }
@@ -77,8 +75,6 @@ function MainContainer() {
                 <Tab.Screen name={createSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={editSmartTaskName} component={CreatorSmartTask}/>
                 <Tab.Screen name={registrationName} component={Registration}/>
-                {/*<Tab.Screen name={createTimerTrackerName} component={CreatorTimeTracker}/>*/}
-                {/*<Tab.Screen name={editTimerTrackerName} component={CreatorTimeTracker}/>*/}
                 <Stack.Screen name={tabsName} component={MyBottomMenu} options={{headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
