@@ -24,8 +24,6 @@ import Registration from './screens/stack/Registration';
 import TaskScreen from './screens/TaskScreen';
 import CreatorNote from "./screens/stack/CreatorNote";
 import CreatorSmartTask from "./screens/stack/CreatorSmartTask";
-import TimeScreen from "./screens/TimeScreen";
-import CreatorTimeTracker from "./screens/stack/CreatorTimeTracker";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
