@@ -17,6 +17,11 @@ public class User implements UserDetails {
     private String login;
     private String email;
     private String password;
+
+    private String chatIdTg; //confirmed, secret
+    private boolean confirmedTg;
+    private String secretTokenTg;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -29,6 +34,31 @@ public class User implements UserDetails {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public String getChatIdTg() {
+        return chatIdTg;
+    }
+
+    public void setChatIdTg(String chatIdTg) {
+        this.chatIdTg = chatIdTg;
+    }
+
+    public boolean isConfirmedTg() {
+        return confirmedTg;
+    }
+
+    public void setConfirmedTg(boolean confirmedTg) {
+        this.confirmedTg = confirmedTg;
+    }
+
+    public String getSecretTokenTg() {
+        return secretTokenTg;
+    }
+
+    public void setSecretTokenTg(String secretTokenTg) {
+        this.secretTokenTg = secretTokenTg;
     }
 
     @Override

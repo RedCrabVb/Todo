@@ -2,6 +2,8 @@ package ru.vivt.TodoREST.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "t_smarttask")
 public class SmartTask {
@@ -15,8 +17,7 @@ public class SmartTask {
     private String achievable; //достижимый
     @Column(columnDefinition="TEXT")
     private String relevant; //значемый
-    @Column(columnDefinition="TEXT")
-    private String timeBound; //ограничения
+    private Date timeBound; //ограничения
     private boolean isCompleted = false;
     private Long idUser;
 
@@ -24,7 +25,7 @@ public class SmartTask {
 
     }
 
-    public SmartTask(Long id, String specific, String measurable, String achievable, String relevant, String timeBound, boolean isCompleted, Long idUser) {
+    public SmartTask(Long id, String specific, String measurable, String achievable, String relevant, Date timeBound, boolean isCompleted, Long idUser) {
         this.id = id;
         this.specific = specific;
         this.measurable = measurable;
@@ -75,11 +76,12 @@ public class SmartTask {
         this.relevant = relevant;
     }
 
-    public String getTimeBound() {
+
+    public Date getTimeBound() {
         return timeBound;
     }
 
-    public void setTimeBound(String timeBound) {
+    public void setTimeBound(Date timeBound) {
         this.timeBound = timeBound;
     }
 
@@ -97,5 +99,20 @@ public class SmartTask {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+
+    @Override
+    public String toString() {
+        return "SmartTask{" +
+                "id=" + id +
+                ", specific='" + specific + '\'' +
+                ", measurable='" + measurable + '\'' +
+                ", achievable='" + achievable + '\'' +
+                ", relevant='" + relevant + '\'' +
+                ", timeBound=" + timeBound +
+                ", isCompleted=" + isCompleted +
+                ", idUser=" + idUser +
+                '}';
     }
 }
