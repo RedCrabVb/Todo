@@ -7,7 +7,7 @@ export class SmartTask {
     timeBound: string
     completed: boolean
 
-    constructor(timeBound = new Date().toLocaleDateString("en-US"),
+    constructor(timeBound = new Date(),
         specific = '', measurable = '',
         achievable = '', relevant = '', completed = false, id = -1) {
         this.id = id
@@ -15,7 +15,7 @@ export class SmartTask {
         this.measurable = measurable
         this.achievable = achievable
         this.relevant = relevant
-        this.timeBound = timeBound
+        this.timeBound = timeBound.toISOString()
         this.completed = completed
     }
 }

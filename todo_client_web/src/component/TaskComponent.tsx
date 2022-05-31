@@ -10,8 +10,8 @@ export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask }:
     const style: CSS.Properties = {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        minHeight: '75px'
+        minHeight: '75px',
+        display: 'inline-grid'
     }
 
 
@@ -33,8 +33,7 @@ export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask }:
                 {task.specific}
                 <br />
                 {task.timeBound}
-                <br/>
-                <input type="checkbox" checked={task.completed} onChange={chnageCheckBox}></input>
+                <input className={"form-check-input"} type="checkbox" checked={task.completed} onChange={chnageCheckBox}></input>
             </div>
         </>
     )
