@@ -12,14 +12,17 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import ru.vivt.TodoREST.domain.SmartTask;
 import ru.vivt.TodoREST.repository.SmartTaskRepository;
 import ru.vivt.TodoREST.repository.UserRepository;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class TelegramBot extends Thread implements InitializingBean {
@@ -60,7 +63,7 @@ public class TelegramBot extends Thread implements InitializingBean {
 
                 var msgHi = createMsg(chatId.toString(), "Привет! Введи свой логин для получения уведомлений, командой /login [login]");
                 var msgError = createMsg(chatId.toString(), "Ошибка!");
-                var msgMail = createMsg(chatId.toString(), "Привязка к логину прошла успешно! Введите код из личного кабинета для активации оповещений");//error: critical vulnerability
+                var msgMail = createMsg(chatId.toString(), "Привязка к логину прошла успешно! Введите код из личного кабинета для активации оповещений /token [token]");//error: critical vulnerability
                 var msgMailCompleted = createMsg(chatId.toString(), "Оповещения подключены");
 
                 String msgUpdate = update.getMessage().getText();
@@ -86,8 +89,7 @@ public class TelegramBot extends Thread implements InitializingBean {
                     if (u != null && u.size() == 1 && u.get(0).getSecretTokenTg().equals(tokenUser)) {
                         u.get(0).setConfirmedTg(true);
                         u.get(0).setChatIdTg(chatId.toString());
-                        u.get(0).setConfirmedTg(false);
-                        u.get(0).setSecretTokenTg("test-token");
+                        u.get(0).setSecretTokenTg(null);
                         userRepository.save(u.get(0));
                         return msgMailCompleted;
                     } else {
@@ -132,21 +134,45 @@ public class TelegramBot extends Thread implements InitializingBean {
             while (true) {
                 try {
                     System.out.println("send tg bot message");
-                    smartTaskRepository.findAll().stream().filter(f -> !f.isCompleted()).forEach(f -> {//todo: add filter date, single msg, verifizieren user
-                        System.out.println(f.toString());
-                        var u = userRepository.findById(f.getIdUser());
+                    var currentDate = new Date(System.currentTimeMillis());
+                    var smartTaskAndUser = smartTaskRepository
+                            .findAll().stream().filter(f -> !f.isCompleted() && f.getTimeBound().before(currentDate))
+                            .collect(Collectors.groupingBy(SmartTask::getIdUser))
+                            .entrySet();
+                    
+                    smartTaskAndUser.stream().forEach(f -> {
+                        var u = userRepository.findById(f.getKey());
                         if (u.isPresent()) {
                             var user = u.get();
-                            user.setConfirmedTg(true);
                             if (user.getChatIdTg() != null && user.isConfirmedTg()) {
+                                var msgSendTg = f.getValue().stream()
+                                        .map(sm -> {
+                                            sm.getAchievable();
+                                            sm.getRelevant();
+                                            sm.getSpecific();
+                                            sm.getTimeBound();
+                                            sm.getMeasurable();
+                                            String stringSmartTask = """
+                                                    ------------
+                                                    (S) Цель: %s
+                                                    (M) : %s
+                                                    (A) : %s
+                                                    (R) : %s
+                                                    (T) : %S
+                                                    -------------
+                                                    """.formatted(sm.getSpecific(), sm.getMeasurable(), sm.getAchievable(), sm.getRelevant(), sm.getTimeBound().toString());
+                                            return stringSmartTask;
+                                        })
+                                        .reduce("", (sm, sm2) -> sm + "\n" + sm2);
                                 try {
-                                    bot.execute(createMsg(user.getChatIdTg(), f.toString()));
+                                    bot.execute(createMsg(user.getChatIdTg(), msgSendTg));
                                 } catch (TelegramApiException | NullPointerException e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
                     });
+
                     Thread.sleep(timeOutTg);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -158,7 +184,7 @@ public class TelegramBot extends Thread implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         start();
     }
 }

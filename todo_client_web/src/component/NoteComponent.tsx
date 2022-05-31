@@ -11,6 +11,7 @@ export const NoteComponent = ({ note, setCurrentNote, noteAll, setAllNote}:
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         minHeight: '40px', 
+        display: 'inline-grid'
     }
 
     function chnageCheckBox(value: any) {
@@ -29,7 +30,7 @@ export const NoteComponent = ({ note, setCurrentNote, noteAll, setAllNote}:
             <div onClick={() => {setCurrentNote(note.id)}} 
                className="btn btn-outline-secondary" style={style}>
                 {note.head}
-                <input type="checkbox" checked={note.pined} onChange={chnageCheckBox}></input>
+                <input className={"form-check-input"} type="checkbox" checked={note.pined} onChange={chnageCheckBox}></input>
             </div>
         </>
     )

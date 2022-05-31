@@ -28,6 +28,16 @@ public class AccountController {
         return user;
     }
 
+    @PostMapping("/disable_tg")
+    public User disableTelegram(Authentication authentication) {
+        var user = userService.getUserRepository().findByLogin(authentication.getName());
+        user.setConfirmedTg(false);
+        user.setChatIdTg(null);
+        user.setSecretTokenTg(null);
+        userService.getUserRepository().save(user);
+        return user;
+    }
+
     @GetMapping("version")
     public String version() {
         return "1.4";
