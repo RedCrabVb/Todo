@@ -11,6 +11,7 @@ import { deleteItem } from "../../../utils/DeleteItem";
 import { saveItem } from "../../../utils/SaveItem";
 import QuillEditor, { QuillToolbar } from 'react-native-cn-quill';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import CryptoJS from "react-native-crypto-js";
 
 class Note {
     constructor(head = '', body = '', encrypted = false, id = -1) {
@@ -39,16 +40,22 @@ export default function CreatorNote(params) {
     const _editor = React.createRef();
 
     function encryptedString(str) {
-        if (note.encrypted) {
-            return str + "ffffffff" + passwordNote;
+        if (encrypted) {
+            let enc = CryptoJS.AES.encrypt(str, passwordNote).toString()
+
+            return enc;
         } else {
             return str;
         }
     }
 
     function decryptString(str) {
-        if (note.encrypted) {
-            return str.replace("ffffffff" + passwordNote, "");
+        if (encrypted) {
+            let bytesDecrypted = CryptoJS.AES.decrypt(str, passwordNote)
+            let decrypted = bytesDecrypted.toString(CryptoJS.enc.Utf8)
+    
+
+            return decrypted;
         } else {
             return str;
         }
@@ -104,7 +111,7 @@ export default function CreatorNote(params) {
                             _editor.current?.getHtml()
                                 .then(bodyHtml => {
                                     let bodySendHtml = encrypted ? encryptedString(bodyHtml) : bodyHtml
-
+                                    console.log({ bodySendHtml: encryptedString(bodyHtml) }, { encrypted })
                                     console.log(bodySendHtml);
                                     setBody(bodySendHtml)
 

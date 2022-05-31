@@ -79,7 +79,8 @@ export default function CreatorSmartTask(params) {
 
                 <View style={{paddingTop: 20}}>
                     <CustomButton onPress={() => {
-                        let smtask = new SmartTask(timeBound, specific, measurable, relevant, achievable, false, id)
+                        let newTimeBound = new Date(timeBound).toISOString()
+                        let smtask = new SmartTask(newTimeBound, specific, measurable, relevant, achievable, false, id)
                         saveItem(smtask, setId, saveSmartTask)
                     }} text="Сохранить"/>
                     <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, params.navigation, taskName, smartTaskApi)} text="Удалить"/>

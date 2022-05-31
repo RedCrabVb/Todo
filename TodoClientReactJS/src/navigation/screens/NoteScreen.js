@@ -36,7 +36,7 @@ export default function NoteScreen({ navigation }) {
                 {
                     noteAll.filter(t => t.pined == true).length != 0 &&
                     <View>
-                        <Text>Завершенные задания {noteAll.filter(t => t.pined == true).length}</Text>
+                        <Text>Закрепленные заметки {noteAll.filter(t => t.pined == true).length}</Text>
                         {noteAll.filter(t => t.pined == true).map(note => <Note note={note} key={note.id} navigation={navigation} noteAll={noteAll} setAllNote={setNoteAll} />)}
                     </View>
                 }
