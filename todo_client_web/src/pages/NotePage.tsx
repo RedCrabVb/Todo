@@ -42,12 +42,16 @@ export const NotePage = () => {
                             {
                                 noteAll
                                 .filter(t => t.pined == false)
+                                .sort(function(n1, n2){
+                                    return new Date(n1.lastEdit).getTime() - new Date(n2.lastEdit).getTime(); 
+                                  })
+                                .reverse()
                                 .map(note => <NoteComponent note={note} setCurrentNote={setCurrentNote} key={note.id} noteAll={noteAll} setAllNote={setNoteAll} />)
                             }
                                                         {
                                 noteAll.filter(t => t.pined == true).length != 0 &&
                                 <>
-                                    <p>Завершенные задания</p>
+                                    <p>Закрепленные заметки</p>
                                     {noteAll.filter(t => t.pined == true).map(note => <NoteComponent noteAll={noteAll} setAllNote={setNoteAll} setCurrentNote={setCurrentNote} note={note} key={note.id} />)}
                                 </>
                             }

@@ -43,6 +43,9 @@ export const Task = () => {
                             {
                                 taskAll.reverse()
                                     .filter(t => t.completed == false)
+                                    .sort(function(n1, n2){
+                                        return new Date(n1.timeBound).getTime() - new Date(n2.timeBound).getTime(); 
+                                      })
                                     .map(task => <TaskComponent
                                         setAllTask={setTaskAll}
                                         taskAll={taskAll}

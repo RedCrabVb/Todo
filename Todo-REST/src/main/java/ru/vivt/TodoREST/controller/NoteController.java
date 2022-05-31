@@ -7,6 +7,7 @@ import ru.vivt.TodoREST.domain.Note;
 import ru.vivt.TodoREST.repository.NoteRepository;
 import ru.vivt.TodoREST.repository.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,7 @@ public class NoteController {
 
     @PostMapping("save")
     public Note save(@RequestBody Note note, Authentication authentication) {
+        note.setLastEdit(new Date(System.currentTimeMillis()));
         note.setIdUser(userRepository.findByLogin(authentication.getName()).getId());
         return noteRepository.save(note);
     }
@@ -38,6 +40,4 @@ public class NoteController {
         }
         return note;
     }
-
-
 }

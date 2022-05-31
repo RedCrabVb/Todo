@@ -32,7 +32,7 @@ export const TaskComponent = ({ task, setCurrentTask, taskAll, setAllTask }:
                 className="btn btn-outline-secondary" style={style}>
                 {task.specific}
                 <br />
-                {task.timeBound}
+                {new Date(task.timeBound).toLocaleDateString()}
                 <input className={"form-check-input"} type="checkbox" checked={task.completed} onChange={chnageCheckBox}></input>
             </div>
         </>

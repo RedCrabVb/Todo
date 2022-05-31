@@ -3,6 +3,8 @@ package ru.vivt.TodoREST.domain;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "t_note")
 public class Note {
@@ -15,17 +17,15 @@ public class Note {
     private String body;
     private boolean pined;
     private boolean encrypted;
+    private Date lastEdit;
     private Long idUser;
-
-    private String passwordEncrypted;
 
     public Note() {}
 
-    public Note(Long id, String head, String body, String passwordEncrypted) {
+    public Note(Long id, String head, String body) {
         this.id = id;
         this.head = head;
         this.body = body;
-        this.passwordEncrypted = passwordEncrypted;
     }
 
     public boolean isPined() {
@@ -36,20 +36,20 @@ public class Note {
         this.pined = pined;
     }
 
+    public Date getLastEdit() {
+        return lastEdit;
+    }
+
+    public void setLastEdit(Date lastEdit) {
+        this.lastEdit = lastEdit;
+    }
+
     public boolean isEncrypted() {
         return encrypted;
     }
 
     public void setEncrypted(boolean encrypted) {
         this.encrypted = encrypted;
-    }
-
-    public String getPasswordEncrypted() {
-        return passwordEncrypted;
-    }
-
-    public void setPasswordEncrypted(String passwordEncrypted) {
-        this.passwordEncrypted = passwordEncrypted;
     }
 
     public Long getId() {
