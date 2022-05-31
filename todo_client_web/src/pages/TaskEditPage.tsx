@@ -5,14 +5,6 @@ import { saveSmartTask, smartTask as smartTaskApi } from "../utils/Api"
 import { deleteItem, saveItem } from "../utils/OperationItem"
 import { SMART_TASK } from "../utils/Storage"
 
-
-
-
-// function getItemCurrent(id: number, stor, defualt) {
-//     const item = localStorage.getItem(stor)
-//     return id == '-1' ? defualt : JSON.parse(item).filter(n => n.id == id)[0]
-// }
-
 function getItemCurrent<P extends  Item>(id: number, stor: string, defualt: P) {
     const item: string = localStorage.getItem(stor) || '{}'
     return id == -1 ? defualt : JSON.parse(item).filter((n: P) => n.id == id)[0]

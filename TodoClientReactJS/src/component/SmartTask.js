@@ -14,7 +14,7 @@ export const SmartTask = ({smartTask, navigation, taskAll, setAllTask}) => {
                 {smartTask.specific}
             </Text>
             <Text style={styles.text}>
-                {smartTask.timeBound}
+                {new Date(smartTask.timeBound).toISOString()}
             </Text>
             <BouncyCheckbox
                 fillColor='#5e72d9'

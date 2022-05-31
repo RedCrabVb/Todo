@@ -6,13 +6,16 @@ import { saveNote } from "../utils/Api";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export const Note = ({ note, navigation, noteAll, setAllNote, disabled = false }) => {
-    const [select, setSelect] = useState(note.pind)
+    const [select, setSelect] = useState(note.pined)
 
     return (
         <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={() => navigation.navigate(editNoteName, { note: note })}
             style={disabled ? styles.containerDisabled : styles.container} >
             <Text style={styles.text}>
                 {note.head}
+            </Text>
+            <Text>
+                {note.encrypted ? "зашифровано" : ""}
             </Text>
             <BouncyCheckbox
                 fillColor='#5e72d9'

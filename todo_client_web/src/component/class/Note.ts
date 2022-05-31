@@ -3,11 +3,15 @@ export class Note {
     head: string
     body: string
     pined: boolean
+    encrypted: Boolean
+    lastEdit: Date
 
-    constructor(head = '', body = '', pined = false, id = -1) {
+    constructor(head = '', body = '', pined = false, encrypted = false, lastEdit = new Date(),  id = -1) {
         this.id = id
         this.head = head
         this.body = body
-        this.pined = false
+        this.pined = pined
+        this.encrypted = encrypted
+        this.lastEdit = lastEdit
     }
 }
