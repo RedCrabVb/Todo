@@ -29,8 +29,7 @@ export const NoteComponent = ({ note, setCurrentNote, noteAll, setAllNote}:
             <div onClick={() => {setCurrentNote(note.id)}} 
                className="btn btn-outline-secondary" style={style}>
                 {note.head}
-                {note.encrypted ? <p>Зашифровано</p> : <></>}
-                <br/>
+                {note.encrypted ? <span>Зашифровано</span> : <></>}
                 {new Date(note.lastEdit).toLocaleDateString()}
                 <input className={"form-check-input"} type="checkbox" checked={note.pined} onChange={chnageCheckBox}></input>
             </div>
