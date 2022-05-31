@@ -9,7 +9,8 @@ import { EditorState, convertToRaw, convertFromRaw, ContentState } from "draft-j
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs';
-
+import AES from "crypto-js/aes";
+import CryptoJS from "crypto-js";
 
 function getItemCurrent<P extends Item>(id: number, stor: string, defualt: P) {
     const item: string = localStorage.getItem(stor) || '{}'
@@ -54,8 +55,13 @@ export const NoteEdit = ({ idItem, funcLoadItem, setCurrentNote }: { idItem: num
     }
 
     function encryptedString(str: string) {
+        // var text = "My Secret text";
+        // var encText = AES.encrypt(text, 'pass').toString()
+        // var decText = AES.decrypt(encText, 'pass').toString(CryptoJS.enc.Utf8)
+        // console.log({encText}, {decText})
+
         if (note.encrypted) {
-            return str + "ffffffff" + passwordNote;
+            return AES.encrypt(str, passwordNote).toString();
         } else {
             return str;
         }
@@ -63,7 +69,7 @@ export const NoteEdit = ({ idItem, funcLoadItem, setCurrentNote }: { idItem: num
 
     function decryptString(str: string) {
         if (note.encrypted) {
-            return str.replace("ffffffff" + passwordNote, "");
+            return  AES.decrypt(str, passwordNote).toString(CryptoJS.enc.Utf8);
         } else {
             return str;
         }
