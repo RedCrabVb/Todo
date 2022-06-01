@@ -1,16 +1,21 @@
 import * as React from 'react'
-import {View, Text, Alert, Vibration, Keyboard} from 'react-native'
-import {styles} from "../../../css/css"
-import {CustomInput} from "../../..//component/CustomInput"
-import {CustomButton} from "../../../component/CutomButton"
-import {useState} from "react"
-import {USER} from "../../../utils/Storage";
-import {homeName, logInName, registrationName} from "../../../utils/ScreenNames";
+import { View, Text, Alert, Vibration, Keyboard } from 'react-native'
+import { styles } from "../../../css/css"
+import { CustomInput } from "../../../component/CustomInput"
+import { CustomButton } from "../../../component/CutomButton"
+import { useState } from "react"
+import { USER } from "../../../utils/Storage";
+import { homeName, logInName, registrationName } from "../../../utils/ScreenNames";
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {registration} from "../../../utils/Api";
-import {ErrorView} from "../../../component/ErrorView";
+import { registration } from "../../../utils/Api";
+import { ErrorView } from "../../../component/ErrorView";
 
-export default function Registration(props) {
+type Props = {
+    navigation: string;
+  };
+
+
+export const Registration: React.FC<Props> = (props) => {
 
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
@@ -18,7 +23,7 @@ export default function Registration(props) {
     const [login, setLogin] = useState("")
 
     const [errors, setErrors] = React.useState({})
-    const [error, setError] = React.useState({enable: false, text: ''})
+    const [error, setError] = React.useState({ enable: false, text: '' })
 
     const validate = async () => {
         let isValid = true
@@ -45,7 +50,7 @@ export default function Registration(props) {
     }
 
     const handleError = (error, input) => {
-        setErrors(prevState => ({...prevState, [input]: error}));
+        setErrors(prevState => ({ ...prevState, [input]: error }));
     }
 
     const handlerAut = () => {
@@ -69,20 +74,20 @@ export default function Registration(props) {
             })
             .catch((error) => {
                 console.log(error + " in registration")
-                setError({enable: true, text: 'Попробуйте ввести другой логин или повторить попытку регистрации позднее'})
+                setError({ enable: true, text: 'Попробуйте ввести другой логин или повторить попытку регистрации позднее' })
             })
     }
 
     return (
         <View style={styles.container}>
-            <ErrorView text={error.text} enable={error.enable}/>
+            <ErrorView text={error.text} enable={error.enable} />
             <CustomInput
                 label={'Логин'}
                 value={login}
                 onChangeText={setLogin}
                 iconName={'people'}
                 error={errors.login}
-                placeholder="Ваш логин"/>
+                placeholder="Ваш логин" />
 
             <CustomInput
                 label={'Почта'}
@@ -90,7 +95,7 @@ export default function Registration(props) {
                 onChangeText={setMail}
                 iconName={'mail'}
                 error={errors.email}
-                placeholder="Ваш почта"/>
+                placeholder="Ваш почта" />
             <CustomInput
                 label={'Пароль'}
                 value={password}
@@ -98,7 +103,7 @@ export default function Registration(props) {
                 iconName={'lock-closed'}
                 password={true}
                 error={errors.password}
-                placeholder="Ваш пароль"/>
+                placeholder="Ваш пароль" />
 
             <CustomInput
                 value={password2}
@@ -106,9 +111,9 @@ export default function Registration(props) {
                 iconName={'lock-closed'}
                 password={true}
                 error={errors.password2}
-                placeholder="Повторите пароль ещё раз"/>
+                placeholder="Повторите пароль ещё раз" />
 
-            <View style={{paddingTop: 20}}>
+            <View style={{ paddingTop: 20 }}>
                 <CustomButton onPress={validate} text="Регистрация"></CustomButton>
             </View>
         </View>

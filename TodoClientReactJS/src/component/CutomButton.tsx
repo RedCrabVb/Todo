@@ -1,7 +1,7 @@
 import React from 'react'
 import {Text, View, StyleSheet, Pressable, TouchableOpacity} from 'react-native'
 
-export const CustomButton = ({onPress, text, bcolor = '#3949ab', disabled = false}) => {//#3949ab #d41b1b
+export const CustomButton = ({onPress = (v: any) => {},  text = '', bcolor = '#3949ab', disabled = false}) => {
 
     return (
         <TouchableOpacity activeOpacity={0.5} disabled={disabled} onPress={onPress} style={disabled ? styles.containerDisabled : [styles.container, {backgroundColor: bcolor}]}>
@@ -9,8 +9,8 @@ export const CustomButton = ({onPress, text, bcolor = '#3949ab', disabled = fals
                 {text}
             </Text>
         </TouchableOpacity>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container : {
