@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { TextInput, StyleSheet, TouchableOpacity } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import { Text, View } from './Themed';
 
 export const CustomInput = ({
-    label = 'f',
+    label = '',
     iconName = 'home',
     error = undefined,
     password = false,
@@ -19,7 +19,7 @@ export const CustomInput = ({
             darkColor="rgba(255,255,255,0.8)"
             style={style.label}>{label}</Text>
         <View
-            lightColor="rgba(0,0,0,0.8)"
+            lightColor="rgba(170,215,,0.8)"
             darkColor="rgba(255,255,255,0.8)"
             style={[
                 style.inputContainer,
@@ -33,7 +33,7 @@ export const CustomInput = ({
                 },
             ]}>
 
-            <MaterialCommunityIcons name={iconName} size={24} color="black" />
+            <AntDesign name={iconName} size={24} color="black" />
             <TextInput
                 autoCorrect={false}
                 onFocus={() => {

@@ -6,6 +6,7 @@ import { api } from '../constants/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CustomInput, CustomButton, ErrorView } from '../components/CustomElement';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import base64 from 'react-native-base64'
 
 export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
     const [login, setLogin] = useState("")
@@ -40,7 +41,7 @@ export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
     }
 
     const handlerAut = () => {
-        let loginAndPassword = 'Basic ' + window.btoa(login + ":" + password)
+        let loginAndPassword = 'Basic ' + base64.encode(login + ":" + password)
 
         const requestOptions = {
             method: 'GET',
@@ -68,7 +69,7 @@ export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
     }
 
     return (
-        <View>
+        <View style={style.container}>
             <ErrorView text={error.text} enable={error.enable} />
             <CustomInput
                 label={'Почта'}
@@ -81,14 +82,13 @@ export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
                 label={'Пароль'}
                 value={password}
                 onChangeText={setPassword}
-                iconName={'lock-closed'}
+                iconName={'lock'}
                 password={true}
                 // error={errors.password}
                 placeholder="Ваш пароль" />
             <View style={{ paddingTop: 20 }}>
                 <CustomButton
                     onPress={() => {
-                        console.log("wtf");
                         validate()
                     }}
                     text="Войти" />
@@ -102,3 +102,10 @@ export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
         </View>
     )
 }
+
+const style = StyleSheet.create({
+    container: {
+        paddingHorizontal: '20%',
+        paddingVertical: '15%'
+    }
+})

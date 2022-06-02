@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Text, Alert, Vibration, Keyboard } from 'react-native'
+import { View, Text, Alert, StyleSheet, Keyboard } from 'react-native'
 import { useState } from "react"
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -7,8 +7,7 @@ import { api } from '../constants/Api';
 import { CustomButton, CustomInput, ErrorView } from '../components/CustomElement';
 import { USER } from '../constants/Storage';
 import { RootTabScreenProps } from '../types';
-
-
+import base64 from 'react-native-base64';
 
 
 export default function Registration({ navigation }: RootTabScreenProps<'TabOne'>) {
@@ -64,7 +63,7 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
             })
             .then((data) => {
                 console.log(data)
-                AsyncStorage.setItem(USER, 'Basic ' + window.btoa(login + ":" + password))
+                AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
                 navigation.navigate('TabOne')
             })
             .catch((error) => {
@@ -74,13 +73,13 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
     }
 
     return (
-        <View>
+        <View style={style.container}>
             <ErrorView text={error.text} enable={error.enable} />
             <CustomInput
                 label={'Логин'}
                 value={login}
                 onChangeText={setLogin}
-                iconName={'people'}
+                iconName={'user'}
                 error={errors.login}
                 placeholder="Ваш логин" />
 
@@ -95,7 +94,7 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
                 label={'Пароль'}
                 value={password}
                 onChangeText={setPassword}
-                iconName={'lock-closed'}
+                iconName={'lock'}
                 password={true}
                 error={errors.password}
                 placeholder="Ваш пароль" />
@@ -103,7 +102,7 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
             <CustomInput
                 value={password2}
                 onChangeText={setPassword2}
-                iconName={'lock-closed'}
+                iconName={'lock'}
                 password={true}
                 error={errors.password2}
                 placeholder="Повторите пароль ещё раз" />
@@ -114,3 +113,10 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
         </View>
     );
 }
+
+const style = StyleSheet.create({
+    container: {
+        paddingHorizontal: '20%',
+        paddingVertical: '15%'
+    }
+})

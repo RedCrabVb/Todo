@@ -11,6 +11,7 @@ import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
+import { title } from '../constants/ScreenNames';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalLogin from '../screens/ModalLogin';
 import ModalRegistration from '../screens/ModalRegistration';
@@ -44,8 +45,8 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
-        <Stack.Screen name="RegistrationModal" component={ModalRegistration} />
-        <Stack.Screen name="LoginModal" component={ModalLogin} />
+        <Stack.Screen name="RegistrationModal" component={ModalRegistration} options={{ title: title.registration}}/>
+        <Stack.Screen name="LoginModal" component={ModalLogin}  options={{ title: title.logIn}} />
       </Stack.Group>
     </Stack.Navigator>
   );
