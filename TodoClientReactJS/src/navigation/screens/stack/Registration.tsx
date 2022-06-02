@@ -9,13 +9,14 @@ import { homeName, logInName, registrationName } from "../../../utils/ScreenName
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { registration } from "../../../utils/Api";
 import { ErrorView } from "../../../component/ErrorView";
+import { StackNavigator, NavigationScreenProp } from '@react-navigation/native-stack';
+
 
 type Props = {
     navigation: string;
-  };
+};
 
-
-export const Registration: React.FC<Props> = (props) => {
+const Registration: React.FC<Props> = (props) => {
 
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
@@ -28,7 +29,7 @@ export const Registration: React.FC<Props> = (props) => {
     const validate = async () => {
         let isValid = true
 
-        function check(check, text, field) {
+        function check(check: boolean, text: string, field: string) {
             if (check) {
                 handleError(text, field)
                 isValid = false
@@ -64,7 +65,7 @@ export const Registration: React.FC<Props> = (props) => {
         };
         fetch(registration, requestOptions)
             .then((response) => {
-                if (!response.ok) throw new Error(response.status);
+                if (!response.ok) throw new Error(response.status.toString());
                 else return response;
             })
             .then((data) => {
@@ -120,3 +121,5 @@ export const Registration: React.FC<Props> = (props) => {
     );
 }
 
+
+export default Registration

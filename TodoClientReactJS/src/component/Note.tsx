@@ -5,7 +5,7 @@ import { saveItem } from "../utils/SaveItem";
 import { saveNote } from "../utils/Api";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export const Note = ({ note, navigation, noteAll, setAllNote, disabled = false }) => {
+export const Note = ({ note = '', navigation, noteAll, setAllNote, disabled = false }) => {
     const [select, setSelect] = useState(note.pined)
 
     return (
