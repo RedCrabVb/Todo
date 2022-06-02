@@ -63,15 +63,15 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Home"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
+        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+          title: title.home,
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
@@ -90,11 +90,19 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Note"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: title.note,
+          tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Task"
+        component={TabTwoScreen}
+        options={{
+          title: title.task,
+          tabBarIcon: ({ color }) => <TabBarIcon name="tasks" color={color} />,
         }}
       />
     </BottomTab.Navigator>
