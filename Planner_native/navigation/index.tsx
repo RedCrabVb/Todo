@@ -17,10 +17,12 @@ import ModalLogin from '../screens/ModalLogin';
 import ModalRegistration from '../screens/ModalRegistration';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
+import TabOneScreen from '../screens/Home';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import NoteModal from '../screens/NoteModal';
+import NoteScreen from '../screens/NoteScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -47,6 +49,7 @@ function RootNavigator() {
         <Stack.Screen name="Modal" component={ModalScreen} />
         <Stack.Screen name="RegistrationModal" component={ModalRegistration} options={{ title: title.registration}}/>
         <Stack.Screen name="LoginModal" component={ModalLogin}  options={{ title: title.logIn}} />
+        <Stack.Screen name="NoteModal" component={NoteModal}  options={{ title: title.note}} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -91,7 +94,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Note"
-        component={TabTwoScreen}
+        component={NoteScreen}
         options={{
           title: title.note,
           tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note" color={color} />,
@@ -99,7 +102,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Task"
-        component={TabTwoScreen}
+        component={NoteScreen}
         options={{
           title: title.task,
           tabBarIcon: ({ color }) => <TabBarIcon name="tasks" color={color} />,

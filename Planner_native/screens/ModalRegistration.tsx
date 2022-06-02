@@ -10,7 +10,7 @@ import { RootTabScreenProps } from '../types';
 import base64 from 'react-native-base64';
 
 
-export default function Registration({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function Registration({ navigation }: RootTabScreenProps<'Home'>) {
 
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
@@ -64,7 +64,7 @@ export default function Registration({ navigation }: RootTabScreenProps<'TabOne'
             .then((data) => {
                 console.log(data)
                 AsyncStorage.setItem(USER, 'Basic ' + base64.encode(login + ":" + password))
-                navigation.navigate('TabOne')
+                navigation.navigate('Home')
             })
             .catch((error) => {
                 console.log(error + " in registration")

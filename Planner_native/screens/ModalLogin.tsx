@@ -8,7 +8,7 @@ import { CustomInput, CustomButton, ErrorView } from '../components/CustomElemen
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import base64 from 'react-native-base64'
 
-export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
+export default function LogIn({ navigation }: RootTabScreenProps<'Home'>) {
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = React.useState({ enable: false, text: '' })
@@ -55,8 +55,8 @@ export default function LogIn({navigation}: RootTabScreenProps<'TabOne'>) {
                 else return response;
             })
             .then((data) => {
-                localStorage.setItem(USER, loginAndPassword)
-                navigation.navigate('TabOne')
+                AsyncStorage.setItem(USER, loginAndPassword)
+                navigation.navigate('Home')
                 console.log("Yes, bay by")
             })
             .catch((error) => {

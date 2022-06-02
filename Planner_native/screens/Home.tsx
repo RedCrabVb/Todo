@@ -16,7 +16,7 @@ interface UserInfo {
   confirmedTg: boolean
 }
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>) {
   const [authorized, isAuthorized] = useState(false)
   const [versionText, setVersion] = useState('')
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined)
@@ -123,7 +123,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           AsyncStorage.clear().then(d => console.log(d))
           isAuthorized(false)
           checkUser()
-          navigation.navigate('TabOne');
+          navigation.navigate('Home');
         }} />
       </View>
     </View>

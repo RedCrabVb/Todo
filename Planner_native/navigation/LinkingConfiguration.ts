@@ -29,7 +29,7 @@ const linking: LinkingOptions<RootStackParamList> = {
             screens: {
               TaskScreen: 'task'
             }
-          }
+          },
         },
       },
       Modal: 'modal',

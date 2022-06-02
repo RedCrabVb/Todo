@@ -18,6 +18,8 @@ export type RootStackParamList = {
   Modal: undefined;
   RegistrationModal: undefined;
   LoginModal: undefined;
+  NoteModal: undefined;
+  TaskModal: undefined;
   NotFound: undefined;
 };
 
@@ -27,7 +29,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 >;
 
 export type RootTabParamList = {
-  TabOne: undefined;
+  Home: undefined;
   Note: undefined;
   Task: undefined;
 };
