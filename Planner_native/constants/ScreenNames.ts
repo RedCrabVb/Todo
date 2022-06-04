@@ -8,6 +8,7 @@ export const title = {
     creatorNote: "Создать заметку",
     editNote: "Редактировать заметку",
     createSmartTask: "Создать SMART задачу",
+    smartTask: "SMART задача",
     createTimerTracker: "Добавление записи",
     timerTracker: "Трекер времени",
     editTimerTracker: "Редактировать заметку об времени",

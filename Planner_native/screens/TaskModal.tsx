@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Text } from 'react-native';
+import { ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import { useState, useEffect } from "react";
 import { CustomInput, CustomButton, CustomInputTextArea } from "../components/CustomElement";
-import QuillEditor, { QuillToolbar } from 'react-native-cn-quill';
-import CryptoJS from "react-native-crypto-js";
-import { Note } from '../components/class/Note';
 import { deleteItem, saveItem } from '../utils/OperationItem';
-import Checkbox from 'expo-checkbox';
 import { StyleSheet } from "react-native";
 import { api } from '../constants/Api';
 import { SmartTask } from '../components/class/SmartTask';
+import { Text, View } from '../components/Themed';
 
 export default function TaskModal(props: any) {
     console.log({ props })
@@ -48,7 +45,6 @@ export default function TaskModal(props: any) {
                     value={relevant}
                     onChangeText={setRelevant}
                     placeholder="Ваш текст" />
-                {/* <CustomInputDate onChange={setTimeBound} value={timeBound}/> */}
                 <CustomInputTextArea
                     label={'T'}
                     value={timeBound}
@@ -56,7 +52,7 @@ export default function TaskModal(props: any) {
                     placeholder="Ваш текст" />
 
                 <View style={{ paddingTop: 20 }}>
-                    {trySaveTask && <Text>Попытка сохранить заметку</Text>}
+                    {trySaveTask && <Text>Попытка сохранить задачу</Text>}
                     <CustomButton onPress={() => {
                         if (!trySaveTask) {
                             setTrySaveNote(true)

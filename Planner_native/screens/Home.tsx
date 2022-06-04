@@ -26,16 +26,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
       if (data == null) {
         navigation.navigate('LoginModal')
       } else {
-
-
-
         isAuthorized(true)
         fetch(api.version)
           .then(d => d.json())
           .then(r => {
             setVersion(r)
+            loadProfil()
           })
-
       }
     });
   }
@@ -64,29 +61,33 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
     })
   }
 
+  function loadProfil() {
+    AsyncStorage.getItem(USER).then(data => {
+      const requestOptions = {
+        method: 'GET',
+        headers: new Headers(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': data != null ? data.toString() : ''
+          }
+        ),
+      }
+
+      fetch(api.userInfo, requestOptions)
+        .then(d => d.json())
+        .then(r => {
+          console.log(r)
+          setUserInfo(r)
+        })
+    })
+  }
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       if (!authorized) {
         checkUser()
       } else {
-        AsyncStorage.getItem(USER).then(data => {
-          const requestOptions = {
-            method: 'GET',
-            headers: new Headers(
-              {
-                'Content-Type': 'application/json',
-                'Authorization': data != null ? data.toString() : ''
-              }
-            ),
-          }
-
-          fetch(api.userInfo, requestOptions)
-            .then(d => d.json())
-            .then(r => {
-              console.log(r)
-              setUserInfo(r)
-            })
-        })
+        loadProfil()
       }
     });
     return unsubscribe;
