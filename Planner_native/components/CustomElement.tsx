@@ -59,6 +59,54 @@ export const CustomInput = ({
     )
 }
 
+export const CustomInputTextArea = ({
+    label = '',
+    error = undefined,
+    onFocus = () => { },
+    ...props
+}): JSX.Element => {
+    const [isFocused, setIsFocused] = useState(false)
+
+    return (<View>
+        <Text lightColor="rgba(0,0,0,0.8)"
+            darkColor="rgba(255,255,255,0.8)"
+            style={style.label}>{label}</Text>
+        <View
+            lightColor="rgba(170,215,,0.8)"
+            darkColor="rgba(255,255,255,0.8)"
+            style={[
+                style.inputContainer,
+                {
+                    borderColor: error
+                        ? 'red'
+                        : isFocused
+                            ? '#7978B5'
+                            : 'white',
+                    alignItems: 'center',
+                },
+            ]}>
+
+            <TextInput
+                autoCorrect={false}
+                onFocus={() => {
+                    onFocus();
+                    setIsFocused(true);
+                }}
+                onBlur={() => setIsFocused(false)}
+                multiline={true}
+                style={{ color: '#7978B5', flex: 1 }}
+                {...props}
+            />
+        </View>
+        {error && (
+            <Text style={{ marginTop: 7, color: 'red', fontSize: 12 }}>
+                {error}
+            </Text>
+        )}
+    </View>
+    )
+}
+
 export const CustomButton = ({ onPress = (v: any) => { }, text = '', bcolor = '#3949aredb', disabled = false }): JSX.Element => {
 
     return (

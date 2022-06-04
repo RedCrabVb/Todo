@@ -103,12 +103,11 @@ export function saveItem(item: any, changeID: (id: number) => void, api: string,
                     else return response.json()
                 })
                 .then((data) => {
+                    console.log({data})
                     changeID(data.id)
                     afterUpdate()
                 })
                 .catch((error) => { alert(error); afterUpdate() })
-        } else {
-            afterUpdate()
         }
     })
 

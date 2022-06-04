@@ -7,6 +7,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Note } from './components/class/Note';
+import { SmartTask } from './components/class/SmartTask';
 
 declare global {
   namespace ReactNavigation {
@@ -20,7 +21,7 @@ export type RootStackParamList = {
   RegistrationModal: undefined;
   LoginModal: undefined;
   NoteModal: {noteLoad: Note};
-  TaskModal: undefined;
+  TaskModal: {taskLoad: SmartTask};
   NotFound: undefined;
 };
 

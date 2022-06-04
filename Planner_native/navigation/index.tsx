@@ -23,6 +23,8 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import NoteModal from '../screens/NoteModal';
 import NoteScreen from '../screens/NoteScreen';
+import TaskModal from '../screens/TaskModal';
+import TaskScreen from '../screens/TaskScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -50,6 +52,7 @@ function RootNavigator() {
         <Stack.Screen name="RegistrationModal" component={ModalRegistration} options={{ title: title.registration}}/>
         <Stack.Screen name="LoginModal" component={ModalLogin}  options={{ title: title.logIn}} />
         <Stack.Screen name="NoteModal" component={NoteModal}  options={{ title: title.note}} />
+        <Stack.Screen name="TaskModal" component={TaskModal}  options={{ title: title.note}} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -102,7 +105,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Task"
-        component={NoteScreen}
+        component={TaskScreen}
         options={{
           title: title.task,
           tabBarIcon: ({ color }) => <TabBarIcon name="tasks" color={color} />,
