@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { useEffect, useState } from "react";
 import { api } from '../constants/Api';
-import { CustomButton, ErrorView } from "../components/CustomElement";
+import { CustomButtonSend, ErrorView } from "../components/CustomElement";
 import { getItem } from "../utils/OperationItem";
 import { NOTE } from '../constants/Storage';
 import { RootTabScreenProps } from '../types';
@@ -32,7 +32,7 @@ export default function NoteScreen({ navigation }: RootTabScreenProps<'Note'>) {
     return (
         <View>
             <ErrorView text={error.text} enable={error.enable} />
-            <CustomButton text="Создать заметку" onPress={() => navigation.navigate('NoteModal', {noteLoad: new Note()})} />
+            <CustomButtonSend text="Создать заметку" onPress={() => navigation.navigate('NoteModal', {noteLoad: new Note()})} />
             <ScrollView style={{ padding: '5%' }}>
                 
                 {

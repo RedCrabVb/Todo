@@ -107,7 +107,7 @@ export const CustomInputTextArea = ({
     )
 }
 
-export const CustomButton = ({ onPress = (v: any) => { }, text = '', bcolor = '#3949aredb', disabled = false }): JSX.Element => {
+const CustomButton = ({ onPress = (v: any) => { }, text = '', lightColor = "rgba(70, 189, 255, 0.8)", darkColor = "rgba(15, 86, 124,0.8)", disabled = false }): JSX.Element => {
 
     return (
         <TouchableOpacity
@@ -115,8 +115,8 @@ export const CustomButton = ({ onPress = (v: any) => { }, text = '', bcolor = '#
             onPress={onPress}
         >
             <View
-                lightColor="rgba(70, 189, 255, 0.8)"
-                darkColor="rgba(15, 86, 124,0.8)"
+                lightColor={lightColor}
+                darkColor={darkColor}
                 style={disabled ? style.containerDisabled : [style.container]}
             >
                 <Text style={style.text}>
@@ -127,6 +127,16 @@ export const CustomButton = ({ onPress = (v: any) => { }, text = '', bcolor = '#
 
         </TouchableOpacity>
     )
+}
+
+export const CustomButtonDelete = ({ onPress = (v: any) => { }, text = '', lightColor = "rgba(256, 68, 68, 0.8)", darkColor = "rgba(200, 0, 0,0.8)", disabled = false }): JSX.Element => {
+
+    return CustomButton({onPress, text, lightColor, darkColor, disabled})
+}
+
+export const CustomButtonSend = ({ onPress = (v: any) => { }, text = '', lightColor = "rgba(70, 189, 255, 0.8)", darkColor = "rgba(15, 86, 124,0.8)", disabled = false }): JSX.Element => {
+
+    return CustomButton({onPress, text, lightColor, darkColor, disabled})
 }
 
 export const ErrorView = ({ text = '', enable = false }): JSX.Element => {

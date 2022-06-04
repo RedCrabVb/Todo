@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { api } from '../constants/Api';
-import { CustomButton, CustomInput, ErrorView } from '../components/CustomElement';
+import { CustomButtonSend, CustomInput, ErrorView } from '../components/CustomElement';
 import { USER } from '../constants/Storage';
 import { RootTabScreenProps } from '../types';
 import base64 from 'react-native-base64';
@@ -108,7 +108,7 @@ export default function Registration({ navigation }: RootTabScreenProps<'Home'>)
                 placeholder="Повторите пароль ещё раз" />
 
             <View style={{ paddingTop: 20 }}>
-                <CustomButton onPress={validate} text="Регистрация"></CustomButton>
+                <CustomButtonSend onPress={validate} text="Регистрация"></CustomButtonSend>
             </View>
         </View>
     );

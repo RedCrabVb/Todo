@@ -1,5 +1,5 @@
 import { StyleSheet, Linking } from 'react-native';
-import { CustomInput, CustomButton, ErrorView } from '../components/CustomElement';
+import { CustomInput, CustomButtonSend, CustomButtonDelete, ErrorView } from '../components/CustomElement';
 
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -107,7 +107,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
 
           <Text>Оповещения в телеграмме {!userInfo.confirmedTg ? <Text>не</Text> : <></>} активированы</Text>
 
-          {userInfo.confirmedTg ? <CustomButton
+          {userInfo.confirmedTg ? <CustomButtonSend
             text="Отписка от бота"
             onPress={botDisable} /> : <></>}
         </> : <></>
@@ -119,7 +119,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
 
       <Text>Верисия API: ${versionText}</Text>
       <View >
-        <CustomButton text="Сбросить данные" bcolor='red' onPress={() => {
+        <CustomButtonDelete text="Сбросить данные" onPress={() => {
           console.log("clear data")
           AsyncStorage.clear().then(d => console.log(d))
           isAuthorized(false)

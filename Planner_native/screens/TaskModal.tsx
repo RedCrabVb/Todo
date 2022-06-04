@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import { useState, useEffect } from "react";
-import { CustomInput, CustomButton, CustomInputTextArea } from "../components/CustomElement";
+import { CustomInput, CustomButtonSend, CustomButtonDelete, CustomInputTextArea } from "../components/CustomElement";
 import { deleteItem, saveItem } from '../utils/OperationItem';
 import { StyleSheet } from "react-native";
 import { api } from '../constants/Api';
@@ -53,7 +53,7 @@ export default function TaskModal(props: any) {
 
                 <View style={{ paddingTop: 20 }}>
                     {trySaveTask && <Text>Попытка сохранить задачу</Text>}
-                    <CustomButton onPress={() => {
+                    <CustomButtonSend onPress={() => {
                         if (!trySaveTask) {
                             setTrySaveNote(true)
                             let newTimeBound = new Date(timeBound)
@@ -61,7 +61,7 @@ export default function TaskModal(props: any) {
                             saveItem(smtask, setId, api.saveSmartTask, () => { setTrySaveNote(false) })
                         }
                     }} text="Сохранить" />
-                    <CustomButton bcolor={'#d41b1b'} onPress={() => {
+                    <CustomButtonDelete onPress={() => {
                         deleteItem(id, api.smartTask, () => console.log("delete item"))
                     }} text="Удалить" />
                 </View>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, ScrollView, SafeAreaView, StatusBar, Text } from 'react-native';
 import { useState, useEffect } from "react";
-import { CustomInput, CustomButton } from "../components/CustomElement";
+import { CustomInput, CustomButtonSend, CustomButtonDelete } from "../components/CustomElement";
 import QuillEditor, { QuillToolbar } from 'react-native-cn-quill';
 import CryptoJS from "react-native-crypto-js";
 import { Note } from '../components/class/Note';
@@ -62,7 +62,7 @@ export default function NoteModal(props: any) {
                 onChangeText={setPasswordNote}
                 iconName={'lock'}
                 placeholder="пароль" />
-                <CustomButton onPress={() => {
+                <CustomButtonSend onPress={() => {
                     setShowEncryptedNote(true)
                     decryptNote()
                 }} text="Сохранить" />
@@ -93,7 +93,7 @@ export default function NoteModal(props: any) {
                             }
                             } />
                         {trySaveNote && <Text>Попытка сохранить заметку</Text>}
-                        <CustomButton onPress={() => {
+                        <CustomButtonSend onPress={() => {
                             console.log(body)
                             _editor.current?.getHtml()
                                 .then(bodyHtml => {
@@ -106,8 +106,8 @@ export default function NoteModal(props: any) {
                                     }
                                 })
                         }
-                        } text="Сохранить"></CustomButton>
-                        <CustomButton bcolor={'#d41b1b'} onPress={() => deleteItem(id, api.note, () => console.log("delete item"))} text="Удалить" />
+                        } text="Сохранить"></CustomButtonSend>
+                        <CustomButtonDelete onPress={() => deleteItem(id, api.note, () => console.log("delete item"))} text="Удалить" />
                     </View>
                 </ScrollView>
 

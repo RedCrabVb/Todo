@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { USER } from '../constants/Storage';
 import { api } from '../constants/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CustomInput, CustomButton, ErrorView } from '../components/CustomElement';
+import { CustomInput, CustomButtonSend, ErrorView, CustomButtonDelete } from '../components/CustomElement';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import base64 from 'react-native-base64'
 
@@ -87,15 +87,15 @@ export default function LogIn({ navigation }: RootTabScreenProps<'Home'>) {
                 // error={errors.password}
                 placeholder="Ваш пароль" />
             <View style={{ paddingTop: 20 }}>
-                <CustomButton
+                <CustomButtonSend
                     onPress={() => {
                         validate()
                     }}
                     text="Войти" />
-                <CustomButton
+                <CustomButtonSend
                     text="Регистрация"
-                    onPress={() => navigation.navigate('RegistrationModal')}></CustomButton>
-                <CustomButton
+                    onPress={() => navigation.navigate('RegistrationModal')}></CustomButtonSend>
+                <CustomButtonDelete
                     text="Востоновить пароль"
                     onPress={() => alert("Данный функционал не реализован")} />
             </View>
