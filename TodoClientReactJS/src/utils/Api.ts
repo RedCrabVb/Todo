@@ -1,4 +1,5 @@
-export const server = "http://10.0.2.2:8080/"
+// export const server = "http://10.0.2.2:8080/"
+export const server = "http://servermvp.ru:49379/"
 
 export const registration = `${server}registration`
 export const authentication = `${server}hello`

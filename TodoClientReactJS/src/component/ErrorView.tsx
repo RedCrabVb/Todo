@@ -2,7 +2,7 @@ import React from 'react'
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import {editNoteName} from "../utils/ScreenNames";
 
-export const ErrorView = ({text, enable = false}) => {
+export const ErrorView = ({text = '', enable = false}) => {
 
     if (enable) {
         console.log("ErrorView: is " + enable)
