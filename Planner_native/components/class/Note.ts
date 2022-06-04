@@ -3,7 +3,7 @@ export class Note {
     head: string
     body: string
     pined: boolean
-    encrypted: Boolean
+    encrypted: boolean
     lastEdit: Date
 
     constructor(head = '', body = '', pined = false, encrypted = false, lastEdit = new Date(), id = -1) {

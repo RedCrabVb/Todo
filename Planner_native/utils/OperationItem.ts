@@ -33,10 +33,10 @@ export function getItem<E extends Item>(
                 console.log(data)
                 setItem(data)
                 AsyncStorage.setItem(local, JSON.stringify(data))
-    
+
             }).catch(error => {
                 console.log({ error })
-    
+
                 if (error.message === 'Network request failed') {
                     AsyncStorage.getItem(NOTE).then(dataNote => {
                         if (dataNote == null) {
@@ -57,10 +57,10 @@ export function getItem<E extends Item>(
 
 }
 
-export function deleteItem(id: number, api: string, afterDelete = () => { }) {
+export function deleteItem(id: number, api: string, afterDelete: () => void) {
     console.log(`ip = ${id} api = ${api}`)
     AsyncStorage.getItem(USER).then(data => {
-        if (id != -1) {
+        if (id != -1 && data != null) {
             const requestOptions = {
                 method: 'DELETE',
                 headers: new Headers(
@@ -84,29 +84,33 @@ export function deleteItem(id: number, api: string, afterDelete = () => { }) {
 }
 
 
-export function saveItem(item: any, changeID: (id: number) => void, api: string, afterUpdate = () => { }) {
+export function saveItem(item: any, changeID: (id: number) => void, api: string, afterUpdate: () => void = () => {}) {
     AsyncStorage.getItem(USER).then(data => {
-        const requestOptions = {
-            method: 'POST',
-            headers: new Headers(
-                {
-                    'Content-Type': 'application/json',
-                    'Authorization': data.toString()
-                }
-            ),
-            body: JSON.stringify(item).toString()
+        if (data != null) {
+            const requestOptions = {
+                method: 'POST',
+                headers: new Headers(
+                    {
+                        'Content-Type': 'application/json',
+                        'Authorization': data.toString()
+                    }
+                ),
+                body: JSON.stringify(item).toString()
+            }
+            fetch(api, requestOptions)
+                .then((response) => {
+                    if (!response.ok) throw new Error(response.status.toString())
+                    else return response.json()
+                })
+                .then((data) => {
+                    changeID(data.id)
+                    afterUpdate()
+                })
+                .catch((error) => { alert(error); afterUpdate() })
+        } else {
+            afterUpdate()
         }
-        fetch(api, requestOptions)
-            .then((response) => {
-                if (!response.ok) throw new Error(response.status.toString())
-                else return response.json()
-            })
-            .then((data) => {
-                changeID(data.id)
-                afterUpdate()
-            })
-            .catch((error) => { alert(error) })
     })
 
-    
+
 }
