@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, SafeAreaView, StatusBar } from 'react-native';
+import { ScrollView, SafeAreaView, StatusBar, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from "react";
 import { CustomInput, CustomButtonSend, CustomButtonDelete, CustomInputTextArea } from "../components/CustomElement";
 import { deleteItem, saveItem } from '../utils/OperationItem';
@@ -52,7 +52,7 @@ export default function TaskModal(props: any) {
                     placeholder="Ваш текст" />
 
                 <View style={{ paddingTop: 20 }}>
-                    {trySaveTask && <Text>Попытка сохранить задачу</Text>}
+                    {trySaveTask && <ActivityIndicator size="large" color="#ce1c1c" />}
                     <CustomButtonSend onPress={() => {
                         if (!trySaveTask) {
                             setTrySaveNote(true)
@@ -62,7 +62,7 @@ export default function TaskModal(props: any) {
                         }
                     }} text="Сохранить" />
                     <CustomButtonDelete onPress={() => {
-                        deleteItem(id, api.smartTask, () => console.log("delete item"))
+                        deleteItem(id, api.smartTask, () => props.navigation.navigate('Task'))
                     }} text="Удалить" />
                 </View>
             </ScrollView>

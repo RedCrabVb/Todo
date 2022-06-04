@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView, SafeAreaView, StatusBar, Text } from 'react-native';
+import { View, ScrollView, SafeAreaView, StatusBar, Text, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from "react";
 import { CustomInput, CustomButtonSend, CustomButtonDelete } from "../components/CustomElement";
 import QuillEditor, { QuillToolbar } from 'react-native-cn-quill';
@@ -92,7 +92,7 @@ export default function NoteModal(props: any) {
                                 setEncrypted(isChecked)
                             }
                             } />
-                        {trySaveNote && <Text>Попытка сохранить заметку</Text>}
+                        {trySaveNote && <ActivityIndicator size="large" color="#ce1c1c" />}
                         <CustomButtonSend onPress={() => {
                             console.log(body)
                             _editor.current?.getHtml()
@@ -107,7 +107,7 @@ export default function NoteModal(props: any) {
                                 })
                         }
                         } text="Сохранить"></CustomButtonSend>
-                        <CustomButtonDelete onPress={() => deleteItem(id, api.note, () => console.log("delete item"))} text="Удалить" />
+                        <CustomButtonDelete onPress={() => deleteItem(id, api.note, () => props.navigation.navigate('Note'))} text="Удалить" />
                     </View>
                 </ScrollView>
 

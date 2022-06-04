@@ -34,17 +34,17 @@ export default function NoteScreen({ navigation }: RootTabScreenProps<'Note'>) {
             <ErrorView text={error.text} enable={error.enable} />
             <CustomButtonSend text="Создать заметку" onPress={() => navigation.navigate('NoteModal', {noteLoad: new Note()})} />
             <ScrollView style={{ padding: '5%' }}>
-                
-                {
-                    noteAll && noteAll.filter(t => t.pined == false).map(note => <NoteComponent note={note} key={note.id} items={noteAll} setItems={setNoteAll} disabled={false} loadNote={loadNote}/>)
-                }
                 {
                     noteAll && noteAll.filter(t => t.pined == true).length != 0 &&
-                    <View>
+                    <View style={{paddingBottom: '7%'}}>
                         <Text>Закрепленные заметки {noteAll.filter(t => t.pined == true).length}</Text>
                         {noteAll.filter(t => t.pined == true).map(note => <NoteComponent note={note} key={note.id} items={noteAll} setItems={setNoteAll} disabled={false} loadNote={loadNote} />)}
                     </View>
                 }
+                {
+                    noteAll && noteAll.filter(t => t.pined == false).map(note => <NoteComponent note={note} key={note.id} items={noteAll} setItems={setNoteAll} disabled={false} loadNote={loadNote}/>)
+                }
+
             </ScrollView>
         </View>
     );

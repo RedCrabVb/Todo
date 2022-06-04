@@ -1,7 +1,7 @@
-import { StyleSheet, Linking } from 'react-native';
+import { StyleSheet, Linking, ActivityIndicator } from 'react-native';
 import { CustomInput, CustomButtonSend, CustomButtonDelete, ErrorView } from '../components/CustomElement';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -39,8 +39,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
 
   function botDisable() {
     AsyncStorage.getItem(USER).then(data => {
-
-      console.log(JSON.stringify(userInfo))
 
       const requestOptions = {
         method: 'POST',
@@ -110,7 +108,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'Home'>)
           {userInfo.confirmedTg ? <CustomButtonSend
             text="Отписка от бота"
             onPress={botDisable} /> : <></>}
-        </> : <></>
+        </> : <ActivityIndicator size="large" color="#ce1c1c" />
       }
       <Text style={{ color: 'blue' }}
         onPress={() => Linking.openURL('https://t.me/note_30_05_bot')}>

@@ -30,16 +30,16 @@ export default function TaskScreen({ navigation }: RootTabScreenProps<'Note'>) {
     return (
         <View>
             <ErrorView text={error.text} enable={error.enable} />
-            <CustomButtonSend text="Создать заметку" onPress={() => navigation.navigate('TaskModal', {taskLoad: new SmartTask()})} />
+            <CustomButtonSend text="Создать задачу" onPress={() => navigation.navigate('TaskModal', {taskLoad: new SmartTask()})} />
             <ScrollView style={{ padding: '5%' }}>
-                
+
                 {
                     taskAll && taskAll.filter(t => t.completed == false).map(task => <TaskComponent task={task} key={task.id} items={taskAll} setItems={setTaskAll} disabled={false} loadNote={loadNote}/>)
                 }
                 {
                     taskAll && taskAll.filter(t => t.completed == true).length != 0 &&
                     <View>
-                        <Text>Закрепленные заметки {taskAll.filter(t => t.completed == true).length}</Text>
+                        <Text>Завершенные задачи {taskAll.filter(t => t.completed == true).length}</Text>
                         {taskAll.filter(t => t.completed == true).map(task => <TaskComponent task={task} key={task.id} items={taskAll} setItems={setTaskAll} disabled={false} loadNote={loadNote} />)}
                     </View>
                 }
